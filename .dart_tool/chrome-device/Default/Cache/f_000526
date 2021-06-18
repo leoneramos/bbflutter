@@ -1,0 +1,2302 @@
+define(['dart_sdk', 'packages/package_info/package_info.dart', 'packages/path_provider/path_provider.dart', 'packages/parse_server_sdk/src/network/parse_dio_client.dart', 'packages/connectivity_platform_interface/src/enums.dart', 'packages/connectivity/connectivity.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/path/src/path_set.dart', 'packages/sembast/src/sembast_codec.dart', 'packages/shared_preferences/shared_preferences.dart', 'packages/flutter/src/painting/basic_types.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/material/progress_indicator.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/flutter/src/widgets/animated_list.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/animation/curves.dart', 'packages/flutter/src/widgets/scroll_view.dart', 'packages/flutter/src/rendering/sliver_grid.dart', 'packages/flutter/src/foundation/key.dart', 'packages/flutter/src/widgets/animated_size.dart'], (function load__packages__parse_server_sdk_flutter__parse_server_sdk_dart(dart_sdk, packages__package_info__package_info$46dart, packages__path_provider__path_provider$46dart, packages__parse_server_sdk__src__network__parse_dio_client$46dart, packages__connectivity_platform_interface__src__enums$46dart, packages__connectivity__connectivity$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__path__src__path_set$46dart, packages__sembast__src__sembast_codec$46dart, packages__shared_preferences__shared_preferences$46dart, packages__flutter__src__painting__basic_types$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__material__progress_indicator$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__flutter__src__widgets__animated_list$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__animation__curves$46dart, packages__flutter__src__widgets__scroll_view$46dart, packages__flutter__src__rendering__sliver_grid$46dart, packages__flutter__src__foundation__key$46dart, packages__flutter__src__widgets__animated_size$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const ui = dart_sdk.ui;
+  const io = dart_sdk.io;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const package_info = packages__package_info__package_info$46dart.package_info;
+  const path_provider = packages__path_provider__path_provider$46dart.path_provider;
+  const parse_server_sdk = packages__parse_server_sdk__src__network__parse_dio_client$46dart.parse_server_sdk;
+  const enums = packages__connectivity_platform_interface__src__enums$46dart.src__enums;
+  const connectivity = packages__connectivity__connectivity$46dart.connectivity;
+  const binding = packages__flutter__src__widgets__widget_span$46dart.src__widgets__binding;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const scroll_physics = packages__flutter__src__widgets__widget_span$46dart.src__widgets__scroll_physics;
+  const scroll_controller = packages__flutter__src__widgets__widget_span$46dart.src__widgets__scroll_controller;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const transitions = packages__flutter__src__widgets__widget_span$46dart.src__widgets__transitions;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const path = packages__path__src__path_set$46dart.path;
+  const database = packages__sembast__src__sembast_codec$46dart.src__api__v2__database;
+  const store_ref = packages__sembast__src__sembast_codec$46dart.src__api__store_ref;
+  const shared_preferences = packages__shared_preferences__shared_preferences$46dart.shared_preferences;
+  const basic_types = packages__flutter__src__painting__basic_types$46dart.src__painting__basic_types;
+  const list_tile = packages__flutter__src__material__icon_button$46dart.src__material__list_tile;
+  const progress_indicator = packages__flutter__src__material__progress_indicator$46dart.src__material__progress_indicator;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const animated_list = packages__flutter__src__widgets__animated_list$46dart.src__widgets__animated_list;
+  const tween = packages__flutter__src__animation__listener_helpers$46dart.src__animation__tween;
+  const animations = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animations;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const curves = packages__flutter__src__animation__curves$46dart.src__animation__curves;
+  const scroll_view = packages__flutter__src__widgets__scroll_view$46dart.src__widgets__scroll_view;
+  const sliver_grid = packages__flutter__src__rendering__sliver_grid$46dart.src__rendering__sliver_grid;
+  const key = packages__flutter__src__foundation__key$46dart.src__foundation__key;
+  const animated_size = packages__flutter__src__widgets__animated_size$46dart.src__widgets__animated_size;
+  var parse_server_sdk$ = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(false);
+  var T$ = {
+    StreamControllerOfvoid: () => (T$.StreamControllerOfvoid = dart.constFn(async.StreamController$(dart.void)))(),
+    ParseL: () => (T$.ParseL = dart.constFn(dart.legacy(parse_server_sdk$.Parse)))(),
+    FutureOrOfParseL: () => (T$.FutureOrOfParseL = dart.constFn(async.FutureOr$(T$.ParseL())))(),
+    FutureOrLOfParseL: () => (T$.FutureOrLOfParseL = dart.constFn(dart.legacy(T$.FutureOrOfParseL())))(),
+    ParseConnectivityResultL: () => (T$.ParseConnectivityResultL = dart.constFn(dart.legacy(parse_server_sdk.ParseConnectivityResult)))(),
+    ConnectivityResultL: () => (T$.ConnectivityResultL = dart.constFn(dart.legacy(enums.ConnectivityResult)))(),
+    ConnectivityResultLToParseConnectivityResultL: () => (T$.ConnectivityResultLToParseConnectivityResultL = dart.constFn(dart.fnType(T$.ParseConnectivityResultL(), [T$.ConnectivityResultL()])))(),
+    CoreStoreSembastImpL: () => (T$.CoreStoreSembastImpL = dart.constFn(dart.legacy(parse_server_sdk.CoreStoreSembastImp)))(),
+    CoreStoreL: () => (T$.CoreStoreL = dart.constFn(dart.legacy(parse_server_sdk.CoreStore)))(),
+    DatabaseL: () => (T$.DatabaseL = dart.constFn(dart.legacy(database.Database)))(),
+    StringL: () => (T$.StringL = dart.constFn(dart.legacy(core.String)))(),
+    StoreRefOfStringL$dynamic: () => (T$.StoreRefOfStringL$dynamic = dart.constFn(store_ref.StoreRef$(T$.StringL(), dart.dynamic)))(),
+    StoreRefLOfStringL$dynamic: () => (T$.StoreRefLOfStringL$dynamic = dart.constFn(dart.legacy(T$.StoreRefOfStringL$dynamic())))(),
+    boolL: () => (T$.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    FutureOfboolL: () => (T$.FutureOfboolL = dart.constFn(async.Future$(T$.boolL())))(),
+    doubleL: () => (T$.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    intL: () => (T$.intL = dart.constFn(dart.legacy(core.int)))(),
+    ListOfStringL: () => (T$.ListOfStringL = dart.constFn(core.List$(T$.StringL())))(),
+    ListLOfStringL: () => (T$.ListLOfStringL = dart.constFn(dart.legacy(T$.ListOfStringL())))(),
+    _LocationL: () => (T$._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    AnimatedListStateL: () => (T$.AnimatedListStateL = dart.constFn(dart.legacy(animated_list.AnimatedListState)))(),
+    GlobalKeyOfAnimatedListStateL: () => (T$.GlobalKeyOfAnimatedListStateL = dart.constFn(framework.GlobalKey$(T$.AnimatedListStateL())))(),
+    VoidToNull: () => (T$.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    ParseObjectL: () => (T$.ParseObjectL = dart.constFn(dart.legacy(parse_server_sdk.ParseObject)))(),
+    ParseLiveListEventOfParseObjectL: () => (T$.ParseLiveListEventOfParseObjectL = dart.constFn(parse_server_sdk.ParseLiveListEvent$(T$.ParseObjectL())))(),
+    ParseLiveListEventLOfParseObjectL: () => (T$.ParseLiveListEventLOfParseObjectL = dart.constFn(dart.legacy(T$.ParseLiveListEventOfParseObjectL())))(),
+    ParseLiveListEventLOfParseObjectLToNull: () => (T$.ParseLiveListEventLOfParseObjectLToNull = dart.constFn(dart.fnType(core.Null, [T$.ParseLiveListEventLOfParseObjectL()])))(),
+    TweenOfdoubleL: () => (T$.TweenOfdoubleL = dart.constFn(tween.Tween$(T$.doubleL())))(),
+    ValueKeyOfStringL: () => (T$.ValueKeyOfStringL = dart.constFn(key.ValueKey$(T$.StringL())))(),
+    WidgetL: () => (T$.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    BuildContextL: () => (T$.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL$1: () => (T$.BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL$1 = dart.constFn(dart.gFnType(T => {
+      var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+      var ParseLiveListElementSnapshotOfTL = () => (ParseLiveListElementSnapshotOfTL = dart.constFn(parse_server_sdk.ParseLiveListElementSnapshot$(TL())))();
+      var ParseLiveListElementSnapshotLOfTL = () => (ParseLiveListElementSnapshotLOfTL = dart.constFn(dart.legacy(ParseLiveListElementSnapshotOfTL())))();
+      return [T$.WidgetL(), [T$.BuildContextL(), ParseLiveListElementSnapshotLOfTL()]];
+    }, T => {
+      var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+      var ParseLiveListElementSnapshotOfTL = () => (ParseLiveListElementSnapshotOfTL = dart.constFn(parse_server_sdk.ParseLiveListElementSnapshot$(TL())))();
+      var ParseLiveListElementSnapshotLOfTL = () => (ParseLiveListElementSnapshotLOfTL = dart.constFn(dart.legacy(ParseLiveListElementSnapshotOfTL())))();
+      return [T$.ParseObjectL()];
+    })))(),
+    ParseLiveListAddEventOfParseObjectL: () => (T$.ParseLiveListAddEventOfParseObjectL = dart.constFn(parse_server_sdk.ParseLiveListAddEvent$(T$.ParseObjectL())))(),
+    ParseLiveListAddEventLOfParseObjectL: () => (T$.ParseLiveListAddEventLOfParseObjectL = dart.constFn(dart.legacy(T$.ParseLiveListAddEventOfParseObjectL())))(),
+    ParseLiveListDeleteEventOfParseObjectL: () => (T$.ParseLiveListDeleteEventOfParseObjectL = dart.constFn(parse_server_sdk.ParseLiveListDeleteEvent$(T$.ParseObjectL())))(),
+    ParseLiveListDeleteEventLOfParseObjectL: () => (T$.ParseLiveListDeleteEventLOfParseObjectL = dart.constFn(dart.legacy(T$.ParseLiveListDeleteEventOfParseObjectL())))(),
+    AnimationOfdoubleL: () => (T$.AnimationOfdoubleL = dart.constFn(animation.Animation$(T$.doubleL())))(),
+    AnimationLOfdoubleL: () => (T$.AnimationLOfdoubleL = dart.constFn(dart.legacy(T$.AnimationOfdoubleL())))(),
+    ParseErrorL: () => (T$.ParseErrorL = dart.constFn(dart.legacy(parse_server_sdk.ParseError)))(),
+    ObjectL: () => (T$.ObjectL = dart.constFn(dart.legacy(core.Object)))(),
+    ObjectLToNull: () => (T$.ObjectLToNull = dart.constFn(dart.fnType(core.Null, [T$.ObjectL()])))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T$);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: enums.ConnectivityResult.prototype,
+        [_name]: "ConnectivityResult.wifi",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: enums.ConnectivityResult.prototype,
+        [_name]: "ConnectivityResult.mobile",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: enums.ConnectivityResult.prototype,
+        [_name]: "ConnectivityResult.none",
+        index: 2
+      });
+    },
+    get C3() {
+      return C[3] = dart.const(new _js_helper.PrivateSymbol.new('_database', _database));
+    },
+    get C4() {
+      return C[4] = dart.const(new _js_helper.PrivateSymbol.new('_store', _store$));
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 300000
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: basic_types.Axis.prototype,
+        [_name$]: "Axis.vertical",
+        index: 1
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 26,
+        [_Location_line]: 73,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.constList([C[10] || CT.C10], T$._LocationL());
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[9] || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 73,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[8] || CT.C8,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: null,
+        [Text_textSpan]: null,
+        [Text_data]: "something went wrong!"
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 31,
+        [_Location_line]: 77,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[13] || CT.C13], T$._LocationL());
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[12] || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 76,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 76,
+        [_Location_file]: null
+      });
+    },
+    get C15() {
+      return C[15] = dart.constList([C[16] || CT.C16], T$._LocationL());
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[15] || CT.C15,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 75,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 9,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.constList([C[20] || CT.C20], T$._LocationL());
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[19] || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 81,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C23() {
+      return C[23] = dart.constList([], T$._LocationL());
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 82,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: progress_indicator._ActivityIndicatorType.prototype,
+        [_name$0]: "_ActivityIndicatorType.material",
+        index: 0
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: progress_indicator.CircularProgressIndicator.prototype,
+        [Widget__location]: C[22] || CT.C22,
+        [Widget_key]: null,
+        [ProgressIndicator_semanticsValue]: null,
+        [ProgressIndicator_semanticsLabel]: null,
+        [ProgressIndicator_valueColor]: null,
+        [ProgressIndicator_backgroundColor]: null,
+        [ProgressIndicator_value]: null,
+        [CircularProgressIndicator_strokeWidth]: 4,
+        [CircularProgressIndicator__indicatorType]: C[24] || CT.C24
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: list_tile.ListTile.prototype,
+        [Widget__location]: C[18] || CT.C18,
+        [Widget_key]: null,
+        [ListTile_minLeadingWidth]: null,
+        [ListTile_minVerticalPadding]: null,
+        [ListTile_horizontalTitleGap]: null,
+        [ListTile_enableFeedback]: null,
+        [ListTile_selectedTileColor]: null,
+        [ListTile_tileColor]: null,
+        [ListTile_autofocus]: false,
+        [ListTile_focusNode]: null,
+        [ListTile_hoverColor]: null,
+        [ListTile_focusColor]: null,
+        [ListTile_selected]: false,
+        [ListTile_mouseCursor]: null,
+        [ListTile_onLongPress]: null,
+        [ListTile_onTap]: null,
+        [ListTile_enabled]: true,
+        [ListTile_contentPadding]: null,
+        [ListTile_shape]: null,
+        [ListTile_visualDensity]: null,
+        [ListTile_dense]: null,
+        [ListTile_isThreeLine]: false,
+        [ListTile_trailing]: null,
+        [ListTile_subtitle]: null,
+        [ListTile_title]: null,
+        [ListTile_leading]: C[21] || CT.C21
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 40,
+        [_Location_line]: 136,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 43,
+        [_Location_line]: 138,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: curves._DecelerateCurve.prototype
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: curves.Interval.prototype,
+        [Interval_curve]: C[28] || CT.C28,
+        [Interval_end]: 0.5,
+        [Interval_begin]: 0
+      });
+    },
+    get C29() {
+      return C[29] = dart.fn(parse_server_sdk$.ParseLiveGridWidget.defaultChildBuilder, T$.BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL$1());
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "key",
+        [_Location_column]: 13,
+        [_Location_line]: 177,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stream",
+        [_Location_column]: 13,
+        [_Location_line]: 179,
+        [_Location_file]: null
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "loadedData",
+        [_Location_column]: 13,
+        [_Location_line]: 180,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "preLoadedData",
+        [_Location_column]: 13,
+        [_Location_line]: 181,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "sizeFactor",
+        [_Location_column]: 13,
+        [_Location_line]: 182,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "duration",
+        [_Location_column]: 13,
+        [_Location_line]: 183,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "childBuilder",
+        [_Location_column]: 13,
+        [_Location_line]: 184,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.constList([C[32] || CT.C32, C[33] || CT.C33, C[34] || CT.C34, C[35] || CT.C35, C[36] || CT.C36, C[37] || CT.C37, C[38] || CT.C38], T$._LocationL());
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[31] || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 176,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "itemCount",
+        [_Location_column]: 9,
+        [_Location_line]: 166,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "gridDelegate",
+        [_Location_column]: 9,
+        [_Location_line]: 167,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "itemBuilder",
+        [_Location_column]: 9,
+        [_Location_line]: 172,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.constList([C[41] || CT.C41, C[42] || CT.C42, C[43] || CT.C43], T$._LocationL());
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[40] || CT.C40,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 165,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_grid.dart"
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 26,
+        [_Location_line]: 64,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.constList([C[47] || CT.C47], T$._LocationL());
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[46] || CT.C46,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 64,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[45] || CT.C45,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: null,
+        [Text_textSpan]: null,
+        [Text_data]: "something went wrong!"
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 31,
+        [_Location_line]: 68,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.constList([C[50] || CT.C50], T$._LocationL());
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[49] || CT.C49,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 67,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 67,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.constList([C[53] || CT.C53], T$._LocationL());
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[52] || CT.C52,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 66,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 9,
+        [_Location_line]: 73,
+        [_Location_file]: null
+      });
+    },
+    get C56() {
+      return C[56] = dart.constList([C[57] || CT.C57], T$._LocationL());
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[56] || CT.C56,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 72,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 73,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: progress_indicator.CircularProgressIndicator.prototype,
+        [Widget__location]: C[59] || CT.C59,
+        [Widget_key]: null,
+        [ProgressIndicator_semanticsValue]: null,
+        [ProgressIndicator_semanticsLabel]: null,
+        [ProgressIndicator_valueColor]: null,
+        [ProgressIndicator_backgroundColor]: null,
+        [ProgressIndicator_value]: null,
+        [CircularProgressIndicator_strokeWidth]: 4,
+        [CircularProgressIndicator__indicatorType]: C[24] || CT.C24
+      });
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: list_tile.ListTile.prototype,
+        [Widget__location]: C[55] || CT.C55,
+        [Widget_key]: null,
+        [ListTile_minLeadingWidth]: null,
+        [ListTile_minVerticalPadding]: null,
+        [ListTile_horizontalTitleGap]: null,
+        [ListTile_enableFeedback]: null,
+        [ListTile_selectedTileColor]: null,
+        [ListTile_tileColor]: null,
+        [ListTile_autofocus]: false,
+        [ListTile_focusNode]: null,
+        [ListTile_hoverColor]: null,
+        [ListTile_focusColor]: null,
+        [ListTile_selected]: false,
+        [ListTile_mouseCursor]: null,
+        [ListTile_onLongPress]: null,
+        [ListTile_onTap]: null,
+        [ListTile_enabled]: true,
+        [ListTile_contentPadding]: null,
+        [ListTile_shape]: null,
+        [ListTile_visualDensity]: null,
+        [ListTile_dense]: null,
+        [ListTile_isThreeLine]: false,
+        [ListTile_trailing]: null,
+        [ListTile_subtitle]: null,
+        [ListTile_title]: null,
+        [ListTile_leading]: C[58] || CT.C58
+      });
+    },
+    get C60() {
+      return C[60] = dart.fn(parse_server_sdk$.ParseLiveListWidget.defaultChildBuilder, T$.BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL$1());
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "key",
+        [_Location_column]: 23,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "childBuilder",
+        [_Location_column]: 23,
+        [_Location_line]: 121,
+        [_Location_file]: null
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "sizeFactor",
+        [_Location_column]: 23,
+        [_Location_line]: 123,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "duration",
+        [_Location_column]: 23,
+        [_Location_line]: 124,
+        [_Location_file]: null
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "loadedData",
+        [_Location_column]: 23,
+        [_Location_line]: 125,
+        [_Location_file]: null
+      });
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "preLoadedData",
+        [_Location_column]: 23,
+        [_Location_line]: 126,
+        [_Location_file]: null
+      });
+    },
+    get C62() {
+      return C[62] = dart.constList([C[63] || CT.C63, C[64] || CT.C64, C[65] || CT.C65, C[66] || CT.C66, C[67] || CT.C67, C[68] || CT.C68], T$._LocationL());
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[62] || CT.C62,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 117,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C69() {
+      return C[69] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 40,
+        [_Location_line]: 154,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 43,
+        [_Location_line]: 156,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "key",
+        [_Location_column]: 13,
+        [_Location_line]: 181,
+        [_Location_file]: null
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stream",
+        [_Location_column]: 13,
+        [_Location_line]: 183,
+        [_Location_file]: null
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "loadedData",
+        [_Location_column]: 13,
+        [_Location_line]: 184,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "preLoadedData",
+        [_Location_column]: 13,
+        [_Location_line]: 185,
+        [_Location_file]: null
+      });
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "sizeFactor",
+        [_Location_column]: 13,
+        [_Location_line]: 186,
+        [_Location_file]: null
+      });
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "duration",
+        [_Location_column]: 13,
+        [_Location_line]: 187,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "childBuilder",
+        [_Location_column]: 13,
+        [_Location_line]: 188,
+        [_Location_file]: null
+      });
+    },
+    get C72() {
+      return C[72] = dart.constList([C[73] || CT.C73, C[74] || CT.C74, C[75] || CT.C75, C[76] || CT.C76, C[77] || CT.C77, C[78] || CT.C78, C[79] || CT.C79], T$._LocationL());
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 180,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "key",
+        [_Location_column]: 9,
+        [_Location_line]: 169,
+        [_Location_file]: null
+      });
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "physics",
+        [_Location_column]: 9,
+        [_Location_line]: 170,
+        [_Location_file]: null
+      });
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "controller",
+        [_Location_column]: 9,
+        [_Location_line]: 171,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "scrollDirection",
+        [_Location_column]: 9,
+        [_Location_line]: 172,
+        [_Location_file]: null
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 9,
+        [_Location_line]: 173,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "primary",
+        [_Location_column]: 9,
+        [_Location_line]: 174,
+        [_Location_file]: null
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "reverse",
+        [_Location_column]: 9,
+        [_Location_line]: 175,
+        [_Location_file]: null
+      });
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "shrinkWrap",
+        [_Location_column]: 9,
+        [_Location_line]: 176,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "initialItemCount",
+        [_Location_column]: 9,
+        [_Location_line]: 177,
+        [_Location_file]: null
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "itemBuilder",
+        [_Location_column]: 9,
+        [_Location_line]: 178,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.constList([C[82] || CT.C82, C[83] || CT.C83, C[84] || CT.C84, C[85] || CT.C85, C[86] || CT.C86, C[87] || CT.C87, C[88] || CT.C88, C[89] || CT.C89, C[90] || CT.C90, C[91] || CT.C91], T$._LocationL());
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[81] || CT.C81,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 168,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "duration",
+        [_Location_column]: 9,
+        [_Location_line]: 287,
+        [_Location_file]: null
+      });
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "vsync",
+        [_Location_column]: 9,
+        [_Location_line]: 288,
+        [_Location_file]: null
+      });
+    },
+    get C96() {
+      return C[96] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 289,
+        [_Location_file]: null
+      });
+    },
+    get C93() {
+      return C[93] = dart.constList([C[94] || CT.C94, C[95] || CT.C95, C[96] || CT.C96], T$._LocationL());
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[93] || CT.C93,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 286,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "sizeFactor",
+        [_Location_column]: 7,
+        [_Location_line]: 285,
+        [_Location_file]: null
+      });
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 286,
+        [_Location_file]: null
+      });
+    },
+    get C98() {
+      return C[98] = dart.constList([C[99] || CT.C99, C[100] || CT.C100], T$._LocationL());
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[98] || CT.C98,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 284,
+        [_Location_file]: "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/parse_server_sdk_flutter-2.1.0/lib/src/utils/parse_live_list.dart"
+      });
+    }
+  }, false);
+  var C = Array(101).fill(void 0);
+  var I = ["package:parse_server_sdk_flutter/parse_server_sdk.dart"];
+  var _appResumedStreamController = dart.privateName(parse_server_sdk$, "_appResumedStreamController");
+  var _name = dart.privateName(enums, "_name");
+  const initialize = Symbol("initialize");
+  const Parse_WidgetsBindingObserver$36 = class Parse_WidgetsBindingObserver extends parse_server_sdk.Parse {};
+  (Parse_WidgetsBindingObserver$36.new = function() {
+    Parse_WidgetsBindingObserver$36.__proto__.new.call(this);
+  }).prototype = Parse_WidgetsBindingObserver$36.prototype;
+  dart.applyMixin(Parse_WidgetsBindingObserver$36, binding.WidgetsBindingObserver);
+  parse_server_sdk$.Parse = class Parse extends Parse_WidgetsBindingObserver$36 {
+    initialize(appId, serverUrl, opts) {
+      let debug = opts && 'debug' in opts ? opts.debug : false;
+      let appName = opts && 'appName' in opts ? opts.appName : null;
+      let appVersion = opts && 'appVersion' in opts ? opts.appVersion : null;
+      let appPackageName = opts && 'appPackageName' in opts ? opts.appPackageName : null;
+      let locale = opts && 'locale' in opts ? opts.locale : null;
+      let liveQueryUrl = opts && 'liveQueryUrl' in opts ? opts.liveQueryUrl : null;
+      let clientKey = opts && 'clientKey' in opts ? opts.clientKey : null;
+      let masterKey = opts && 'masterKey' in opts ? opts.masterKey : null;
+      let sessionId = opts && 'sessionId' in opts ? opts.sessionId : null;
+      let autoSendSessionId = opts && 'autoSendSessionId' in opts ? opts.autoSendSessionId : true;
+      let securityContext = opts && 'securityContext' in opts ? opts.securityContext : null;
+      let coreStore = opts && 'coreStore' in opts ? opts.coreStore : null;
+      let registeredSubClassMap = opts && 'registeredSubClassMap' in opts ? opts.registeredSubClassMap : null;
+      let parseUserConstructor = opts && 'parseUserConstructor' in opts ? opts.parseUserConstructor : null;
+      let parseFileConstructor = opts && 'parseFileConstructor' in opts ? opts.parseFileConstructor : null;
+      let liveListRetryIntervals = opts && 'liveListRetryIntervals' in opts ? opts.liveListRetryIntervals : null;
+      let connectivityProvider = opts && 'connectivityProvider' in opts ? opts.connectivityProvider : null;
+      let fileDirectory = opts && 'fileDirectory' in opts ? opts.fileDirectory : null;
+      let appResumedStream = opts && 'appResumedStream' in opts ? opts.appResumedStream : null;
+      let clientCreator = opts && 'clientCreator' in opts ? opts.clientCreator : null;
+      return async.async(T$.ParseL(), (function* initialize$() {
+        let t0, t0$, t0$0, t0$1, t0$2;
+        if (!true && (appName == null || appVersion == null || appPackageName == null)) {
+          let packageInfo = (yield package_info.PackageInfo.fromPlatform());
+          appName == null ? appName = packageInfo.appName : null;
+          appVersion == null ? appVersion = packageInfo.version : null;
+          appPackageName == null ? appPackageName = packageInfo.packageName : null;
+        }
+        return T$.FutureOrLOfParseL().as(yield this[initialize](appId, serverUrl, {debug: debug, appName: appName, appVersion: appVersion, appPackageName: appPackageName, locale: dart.dtest((t0 = locale, t0 == null ? true : t0)) ? dart.toString(ui.window.locale) : io.Platform.localeName, liveQueryUrl: liveQueryUrl, clientKey: clientKey, masterKey: masterKey, sessionId: sessionId, autoSendSessionId: autoSendSessionId, securityContext: securityContext, coreStore: (t0$ = coreStore, t0$ == null ? (yield parse_server_sdk$.CoreStoreSharedPrefsImp.getInstance({password: masterKey})) : t0$), registeredSubClassMap: registeredSubClassMap, parseUserConstructor: parseUserConstructor, parseFileConstructor: parseFileConstructor, liveListRetryIntervals: liveListRetryIntervals, connectivityProvider: (t0$0 = connectivityProvider, t0$0 == null ? this : t0$0), fileDirectory: (t0$1 = fileDirectory, t0$1 == null ? !true ? (yield path_provider.getTemporaryDirectory()).path : null : t0$1), appResumedStream: (t0$2 = appResumedStream, t0$2 == null ? this[_appResumedStreamController].stream : t0$2), clientCreator: clientCreator}));
+      }).bind(this));
+    }
+    checkConnectivity() {
+      return async.async(T$.ParseConnectivityResultL(), function* checkConnectivity() {
+        if (!true) {
+          switch (yield connectivity.Connectivity.new().checkConnectivity()) {
+            case C[0] || CT.C0:
+            {
+              return parse_server_sdk.ParseConnectivityResult.wifi;
+            }
+            case C[1] || CT.C1:
+            {
+              return parse_server_sdk.ParseConnectivityResult.mobile;
+            }
+            case C[2] || CT.C2:
+            {
+              return parse_server_sdk.ParseConnectivityResult.none;
+            }
+          }
+        }
+        return parse_server_sdk.ParseConnectivityResult.wifi;
+      });
+    }
+    get connectivityStream() {
+      return connectivity.Connectivity.new().onConnectivityChanged.map(T$.ParseConnectivityResultL(), dart.fn(event => {
+        switch (event) {
+          case C[0] || CT.C0:
+          {
+            return parse_server_sdk.ParseConnectivityResult.wifi;
+          }
+          case C[1] || CT.C1:
+          {
+            return parse_server_sdk.ParseConnectivityResult.mobile;
+          }
+          default:
+          {
+            return parse_server_sdk.ParseConnectivityResult.none;
+          }
+        }
+      }, T$.ConnectivityResultLToParseConnectivityResultL()));
+    }
+    didChangeAppLifecycleState(state) {
+      this[_appResumedStreamController].sink.add(null);
+    }
+    [initialize](appId, serverUrl, opts) {
+      return super.initialize(appId, serverUrl, opts);
+    }
+  };
+  (parse_server_sdk$.Parse.new = function() {
+    this[_appResumedStreamController] = T$.StreamControllerOfvoid().new();
+    parse_server_sdk$.Parse.__proto__.new.call(this);
+    ;
+  }).prototype = parse_server_sdk$.Parse.prototype;
+  dart.addTypeTests(parse_server_sdk$.Parse);
+  dart.addTypeCaches(parse_server_sdk$.Parse);
+  parse_server_sdk$.Parse[dart.implements] = () => [parse_server_sdk.ParseConnectivityProvider];
+  dart.setMethodSignature(parse_server_sdk$.Parse, () => ({
+    __proto__: dart.getMethods(parse_server_sdk$.Parse.__proto__),
+    initialize: dart.fnType(dart.legacy(async.Future$(dart.legacy(parse_server_sdk$.Parse))), [dart.legacy(core.String), dart.legacy(core.String)], {appName: dart.legacy(core.String), appPackageName: dart.legacy(core.String), appResumedStream: dart.legacy(async.Stream$(dart.void)), appVersion: dart.legacy(core.String), autoSendSessionId: dart.legacy(core.bool), clientCreator: dart.legacy(dart.fnType(dart.legacy(parse_server_sdk.ParseClient), [], {securityContext: dart.legacy(io.SecurityContext), sendSessionId: dart.legacy(core.bool)}, {})), clientKey: dart.legacy(core.String), connectivityProvider: dart.legacy(parse_server_sdk.ParseConnectivityProvider), coreStore: dart.legacy(parse_server_sdk.CoreStore), debug: dart.legacy(core.bool), fileDirectory: dart.legacy(core.String), liveListRetryIntervals: dart.legacy(core.List$(dart.legacy(core.int))), liveQueryUrl: dart.legacy(core.String), locale: dart.legacy(core.String), masterKey: dart.legacy(core.String), parseFileConstructor: dart.legacy(dart.fnType(dart.legacy(parse_server_sdk.ParseFileBase), [], {name: dart.legacy(core.String), url: dart.legacy(core.String)}, {})), parseUserConstructor: dart.legacy(dart.fnType(dart.legacy(parse_server_sdk.ParseUser), [dart.legacy(core.String), dart.legacy(core.String), dart.legacy(core.String)], {client: dart.legacy(parse_server_sdk.ParseClient), debug: dart.legacy(core.bool), sessionToken: dart.legacy(core.String)}, {})), registeredSubClassMap: dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(dart.fnType(dart.legacy(parse_server_sdk.ParseObject), [])))), securityContext: dart.legacy(io.SecurityContext), sessionId: dart.legacy(core.String)}, {}),
+    checkConnectivity: dart.fnType(dart.legacy(async.Future$(dart.legacy(parse_server_sdk.ParseConnectivityResult))), [])
+  }));
+  dart.setGetterSignature(parse_server_sdk$.Parse, () => ({
+    __proto__: dart.getGetters(parse_server_sdk$.Parse.__proto__),
+    connectivityStream: dart.legacy(async.Stream$(dart.legacy(parse_server_sdk.ParseConnectivityResult)))
+  }));
+  dart.setLibraryUri(parse_server_sdk$.Parse, I[0]);
+  dart.setFieldSignature(parse_server_sdk$.Parse, () => ({
+    __proto__: dart.getFields(parse_server_sdk$.Parse.__proto__),
+    [_appResumedStreamController]: dart.finalFieldType(dart.legacy(async.StreamController$(dart.void)))
+  }));
+  var _database = dart.privateName(parse_server_sdk$, "_database");
+  var _database$ = dart.privateName(parse_server_sdk, "_database");
+  var _store$ = dart.privateName(parse_server_sdk$, "_store");
+  var _store = dart.privateName(parse_server_sdk, "_store");
+  parse_server_sdk$.CoreStoreSembastImp = class CoreStoreSembastImp extends core.Object {
+    static getInstance(opts) {
+      let factory = opts && 'factory' in opts ? opts.factory : null;
+      let password = opts && 'password' in opts ? opts.password : "flutter_sdk";
+      return async.async(T$.CoreStoreL(), function* getInstance() {
+        if (parse_server_sdk$.CoreStoreSembastImp._sembastImp == null) {
+          let dbDirectory = "";
+          if (!true && (dart.test(io.Platform.isIOS) || dart.test(io.Platform.isAndroid) || dart.test(io.Platform.isMacOS))) dbDirectory = (yield path_provider.getApplicationDocumentsDirectory()).path;
+          let dbPath = path.join(dart.str(dbDirectory) + "/parse", "parse.db");
+          parse_server_sdk$.CoreStoreSembastImp._sembastImp == null ? parse_server_sdk$.CoreStoreSembastImp._sembastImp = T$.CoreStoreSembastImpL().as(yield parse_server_sdk.CoreStoreSembastImp.getInstance(dbPath, {factory: factory, password: password})) : null;
+        }
+        return new parse_server_sdk$.CoreStoreSembastImp.__();
+      });
+    }
+    clear() {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.clear();
+    }
+    containsKey(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.containsKey(key);
+    }
+    get(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.get(key);
+    }
+    getBool(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.getBool(key);
+    }
+    getDouble(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.getDouble(key);
+    }
+    getInt(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.getInt(key);
+    }
+    getString(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.getString(key);
+    }
+    getStringList(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.getStringList(key);
+    }
+    remove(key) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.remove(key);
+    }
+    setBool(key, value) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.setBool(key, value);
+    }
+    setDouble(key, value) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.setDouble(key, value);
+    }
+    setInt(key, value) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.setInt(key, value);
+    }
+    setString(key, value) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.setString(key, value);
+    }
+    setStringList(key, values) {
+      return parse_server_sdk$.CoreStoreSembastImp._sembastImp.setStringList(key, values);
+    }
+    get [_database$]() {
+      return T$.DatabaseL().as(this.noSuchMethod(new core._Invocation.getter(C[3] || CT.C3)));
+    }
+    get [_store]() {
+      return T$.StoreRefLOfStringL$dynamic().as(this.noSuchMethod(new core._Invocation.getter(C[4] || CT.C4)));
+    }
+  };
+  (parse_server_sdk$.CoreStoreSembastImp.__ = function() {
+    ;
+  }).prototype = parse_server_sdk$.CoreStoreSembastImp.prototype;
+  dart.addTypeTests(parse_server_sdk$.CoreStoreSembastImp);
+  dart.addTypeCaches(parse_server_sdk$.CoreStoreSembastImp);
+  parse_server_sdk$.CoreStoreSembastImp[dart.implements] = () => [parse_server_sdk.CoreStoreSembastImp];
+  dart.setMethodSignature(parse_server_sdk$.CoreStoreSembastImp, () => ({
+    __proto__: dart.getMethods(parse_server_sdk$.CoreStoreSembastImp.__proto__),
+    clear: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), []),
+    containsKey: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.String)]),
+    get: dart.fnType(dart.legacy(async.Future), [dart.legacy(core.String)]),
+    getBool: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.String)]),
+    getDouble: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.double))), [dart.legacy(core.String)]),
+    getInt: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.int))), [dart.legacy(core.String)]),
+    getString: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.String))), [dart.legacy(core.String)]),
+    getStringList: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List$(dart.legacy(core.String))))), [dart.legacy(core.String)]),
+    remove: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String)]),
+    setBool: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.bool)]),
+    setDouble: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.double)]),
+    setInt: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.int)]),
+    setString: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.String)]),
+    setStringList: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.List$(dart.legacy(core.String)))])
+  }));
+  dart.setGetterSignature(parse_server_sdk$.CoreStoreSembastImp, () => ({
+    __proto__: dart.getGetters(parse_server_sdk$.CoreStoreSembastImp.__proto__),
+    [_database$]: dart.legacy(database.Database),
+    [_store]: dart.legacy(store_ref.StoreRef$(dart.legacy(core.String), dart.dynamic))
+  }));
+  dart.setLibraryUri(parse_server_sdk$.CoreStoreSembastImp, I[0]);
+  dart.defineLazy(parse_server_sdk$.CoreStoreSembastImp, {
+    /*parse_server_sdk$.CoreStoreSembastImp._sembastImp*/get _sembastImp() {
+      return null;
+    },
+    set _sembastImp(_) {}
+  }, true);
+  parse_server_sdk$.CoreStoreSharedPrefsImp = class CoreStoreSharedPrefsImp extends core.Object {
+    static getInstance(opts) {
+      let store = opts && 'store' in opts ? opts.store : null;
+      let password = opts && 'password' in opts ? opts.password : "flutter_sdk";
+      return async.async(T$.CoreStoreL(), function* getInstance() {
+        if (parse_server_sdk$.CoreStoreSharedPrefsImp._instance == null) {
+          store == null ? store = (yield shared_preferences.SharedPreferences.getInstance()) : null;
+          parse_server_sdk$.CoreStoreSharedPrefsImp._instance = new parse_server_sdk$.CoreStoreSharedPrefsImp._internal(store);
+        }
+        return parse_server_sdk$.CoreStoreSharedPrefsImp._instance;
+      });
+    }
+    clear() {
+      return this[_store$].clear();
+    }
+    containsKey(key) {
+      return async.async(T$.boolL(), (function* containsKey() {
+        return T$.FutureOfboolL().value(this[_store$].containsKey(key));
+      }).bind(this));
+    }
+    get(key) {
+      return async.async(dart.dynamic, (function* get() {
+        return yield this[_store$].get(key);
+      }).bind(this));
+    }
+    getBool(key) {
+      return async.async(T$.boolL(), (function* getBool() {
+        let storedItem = T$.boolL().as(yield this[_store$].get(key));
+        return storedItem;
+      }).bind(this));
+    }
+    getDouble(key) {
+      return async.async(T$.doubleL(), (function* getDouble() {
+        let storedItem = T$.doubleL().as(yield this[_store$].get(key));
+        return storedItem;
+      }).bind(this));
+    }
+    getInt(key) {
+      return async.async(T$.intL(), (function* getInt() {
+        let storedItem = T$.intL().as(yield this[_store$].get(key));
+        return storedItem;
+      }).bind(this));
+    }
+    getString(key) {
+      return async.async(T$.StringL(), (function* getString() {
+        let storedItem = T$.StringL().as(yield this[_store$].get(key));
+        return storedItem;
+      }).bind(this));
+    }
+    getStringList(key) {
+      return async.async(T$.ListLOfStringL(), (function* getStringList() {
+        let storedItem = T$.ListLOfStringL().as(yield this[_store$].get(key));
+        return storedItem;
+      }).bind(this));
+    }
+    remove(key) {
+      return async.async(dart.void, (function* remove() {
+        return yield this[_store$].remove(key);
+      }).bind(this));
+    }
+    setBool(key, value) {
+      return this[_store$].setBool(key, value);
+    }
+    setDouble(key, value) {
+      return this[_store$].setDouble(key, value);
+    }
+    setInt(key, value) {
+      return this[_store$].setInt(key, value);
+    }
+    setString(key, value) {
+      return this[_store$].setString(key, value);
+    }
+    setStringList(key, values) {
+      return this[_store$].setStringList(key, values);
+    }
+  };
+  (parse_server_sdk$.CoreStoreSharedPrefsImp._internal = function(_store) {
+    this[_store$] = _store;
+    ;
+  }).prototype = parse_server_sdk$.CoreStoreSharedPrefsImp.prototype;
+  dart.addTypeTests(parse_server_sdk$.CoreStoreSharedPrefsImp);
+  dart.addTypeCaches(parse_server_sdk$.CoreStoreSharedPrefsImp);
+  parse_server_sdk$.CoreStoreSharedPrefsImp[dart.implements] = () => [parse_server_sdk.CoreStore];
+  dart.setMethodSignature(parse_server_sdk$.CoreStoreSharedPrefsImp, () => ({
+    __proto__: dart.getMethods(parse_server_sdk$.CoreStoreSharedPrefsImp.__proto__),
+    clear: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), []),
+    containsKey: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.String)]),
+    get: dart.fnType(dart.legacy(async.Future), [dart.legacy(core.String)]),
+    getBool: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.String)]),
+    getDouble: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.double))), [dart.legacy(core.String)]),
+    getInt: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.int))), [dart.legacy(core.String)]),
+    getString: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.String))), [dart.legacy(core.String)]),
+    getStringList: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List$(dart.legacy(core.String))))), [dart.legacy(core.String)]),
+    remove: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String)]),
+    setBool: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.bool)]),
+    setDouble: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.double)]),
+    setInt: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.int)]),
+    setString: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.String)]),
+    setStringList: dart.fnType(dart.legacy(async.Future$(dart.void)), [dart.legacy(core.String), dart.legacy(core.List$(dart.legacy(core.String)))])
+  }));
+  dart.setLibraryUri(parse_server_sdk$.CoreStoreSharedPrefsImp, I[0]);
+  dart.setFieldSignature(parse_server_sdk$.CoreStoreSharedPrefsImp, () => ({
+    __proto__: dart.getFields(parse_server_sdk$.CoreStoreSharedPrefsImp.__proto__),
+    [_store$]: dart.finalFieldType(dart.legacy(shared_preferences.SharedPreferences))
+  }));
+  dart.defineLazy(parse_server_sdk$.CoreStoreSharedPrefsImp, {
+    /*parse_server_sdk$.CoreStoreSharedPrefsImp._instance*/get _instance() {
+      return null;
+    },
+    set _instance(_) {}
+  }, true);
+  var query$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.query");
+  var gridLoadingElement$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.gridLoadingElement");
+  var queryEmptyElement$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.queryEmptyElement");
+  var duration$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.duration");
+  var scrollPhysics$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.scrollPhysics");
+  var scrollController$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.scrollController");
+  var scrollDirection$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.scrollDirection");
+  var padding$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.padding");
+  var primary$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.primary");
+  var reverse$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.reverse");
+  var shrinkWrap$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.shrinkWrap");
+  var childBuilder$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.childBuilder");
+  var removedItemBuilder$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.removedItemBuilder");
+  var listenOnAllSubItems$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.listenOnAllSubItems");
+  var listeningIncludes$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.listeningIncludes");
+  var lazyLoading$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.lazyLoading");
+  var preloadedColumns$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.preloadedColumns");
+  var animationController$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.animationController");
+  var crossAxisCount$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.crossAxisCount");
+  var crossAxisSpacing$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.crossAxisSpacing");
+  var mainAxisSpacing$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.mainAxisSpacing");
+  var childAspectRatio$ = dart.privateName(parse_server_sdk$, "ParseLiveGridWidget.childAspectRatio");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var _name$ = dart.privateName(basic_types, "_name");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var Widget__location = dart.privateName(framework, "Widget._location");
+  var Widget_key = dart.privateName(framework, "Widget.key");
+  var Text_textHeightBehavior = dart.privateName(text, "Text.textHeightBehavior");
+  var Text_textWidthBasis = dart.privateName(text, "Text.textWidthBasis");
+  var Text_semanticsLabel = dart.privateName(text, "Text.semanticsLabel");
+  var Text_maxLines = dart.privateName(text, "Text.maxLines");
+  var Text_textScaleFactor = dart.privateName(text, "Text.textScaleFactor");
+  var Text_overflow = dart.privateName(text, "Text.overflow");
+  var Text_softWrap = dart.privateName(text, "Text.softWrap");
+  var Text_locale = dart.privateName(text, "Text.locale");
+  var Text_textDirection = dart.privateName(text, "Text.textDirection");
+  var Text_textAlign = dart.privateName(text, "Text.textAlign");
+  var Text_strutStyle = dart.privateName(text, "Text.strutStyle");
+  var Text_style = dart.privateName(text, "Text.style");
+  var Text_textSpan = dart.privateName(text, "Text.textSpan");
+  var Text_data = dart.privateName(text, "Text.data");
+  var ListTile_minLeadingWidth = dart.privateName(list_tile, "ListTile.minLeadingWidth");
+  var ListTile_minVerticalPadding = dart.privateName(list_tile, "ListTile.minVerticalPadding");
+  var ListTile_horizontalTitleGap = dart.privateName(list_tile, "ListTile.horizontalTitleGap");
+  var ListTile_enableFeedback = dart.privateName(list_tile, "ListTile.enableFeedback");
+  var ListTile_selectedTileColor = dart.privateName(list_tile, "ListTile.selectedTileColor");
+  var ListTile_tileColor = dart.privateName(list_tile, "ListTile.tileColor");
+  var ListTile_autofocus = dart.privateName(list_tile, "ListTile.autofocus");
+  var ListTile_focusNode = dart.privateName(list_tile, "ListTile.focusNode");
+  var ListTile_hoverColor = dart.privateName(list_tile, "ListTile.hoverColor");
+  var ListTile_focusColor = dart.privateName(list_tile, "ListTile.focusColor");
+  var ListTile_selected = dart.privateName(list_tile, "ListTile.selected");
+  var ListTile_mouseCursor = dart.privateName(list_tile, "ListTile.mouseCursor");
+  var ListTile_onLongPress = dart.privateName(list_tile, "ListTile.onLongPress");
+  var ListTile_onTap = dart.privateName(list_tile, "ListTile.onTap");
+  var ListTile_enabled = dart.privateName(list_tile, "ListTile.enabled");
+  var ListTile_contentPadding = dart.privateName(list_tile, "ListTile.contentPadding");
+  var ListTile_shape = dart.privateName(list_tile, "ListTile.shape");
+  var ListTile_visualDensity = dart.privateName(list_tile, "ListTile.visualDensity");
+  var ListTile_dense = dart.privateName(list_tile, "ListTile.dense");
+  var ListTile_isThreeLine = dart.privateName(list_tile, "ListTile.isThreeLine");
+  var ListTile_trailing = dart.privateName(list_tile, "ListTile.trailing");
+  var ListTile_subtitle = dart.privateName(list_tile, "ListTile.subtitle");
+  var ListTile_title = dart.privateName(list_tile, "ListTile.title");
+  var ProgressIndicator_semanticsValue = dart.privateName(progress_indicator, "ProgressIndicator.semanticsValue");
+  var ProgressIndicator_semanticsLabel = dart.privateName(progress_indicator, "ProgressIndicator.semanticsLabel");
+  var ProgressIndicator_valueColor = dart.privateName(progress_indicator, "ProgressIndicator.valueColor");
+  var ProgressIndicator_backgroundColor = dart.privateName(progress_indicator, "ProgressIndicator.backgroundColor");
+  var ProgressIndicator_value = dart.privateName(progress_indicator, "ProgressIndicator.value");
+  var CircularProgressIndicator_strokeWidth = dart.privateName(progress_indicator, "CircularProgressIndicator.strokeWidth");
+  var _name$0 = dart.privateName(progress_indicator, "_name");
+  var CircularProgressIndicator__indicatorType = dart.privateName(progress_indicator, "CircularProgressIndicator._indicatorType");
+  var ListTile_leading = dart.privateName(list_tile, "ListTile.leading");
+  const _is_ParseLiveGridWidget_default = Symbol('_is_ParseLiveGridWidget_default');
+  parse_server_sdk$.ParseLiveGridWidget$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var _ParseLiveGridWidgetStateOfTL = () => (_ParseLiveGridWidgetStateOfTL = dart.constFn(parse_server_sdk$._ParseLiveGridWidgetState$(TL())))();
+    class ParseLiveGridWidget extends framework.StatefulWidget {
+      get query() {
+        return this[query$];
+      }
+      set query(value) {
+        super.query = value;
+      }
+      get gridLoadingElement() {
+        return this[gridLoadingElement$];
+      }
+      set gridLoadingElement(value) {
+        super.gridLoadingElement = value;
+      }
+      get queryEmptyElement() {
+        return this[queryEmptyElement$];
+      }
+      set queryEmptyElement(value) {
+        super.queryEmptyElement = value;
+      }
+      get duration() {
+        return this[duration$];
+      }
+      set duration(value) {
+        super.duration = value;
+      }
+      get scrollPhysics() {
+        return this[scrollPhysics$];
+      }
+      set scrollPhysics(value) {
+        super.scrollPhysics = value;
+      }
+      get scrollController() {
+        return this[scrollController$];
+      }
+      set scrollController(value) {
+        super.scrollController = value;
+      }
+      get scrollDirection() {
+        return this[scrollDirection$];
+      }
+      set scrollDirection(value) {
+        super.scrollDirection = value;
+      }
+      get padding() {
+        return this[padding$];
+      }
+      set padding(value) {
+        super.padding = value;
+      }
+      get primary() {
+        return this[primary$];
+      }
+      set primary(value) {
+        super.primary = value;
+      }
+      get reverse() {
+        return this[reverse$];
+      }
+      set reverse(value) {
+        super.reverse = value;
+      }
+      get shrinkWrap() {
+        return this[shrinkWrap$];
+      }
+      set shrinkWrap(value) {
+        super.shrinkWrap = value;
+      }
+      get childBuilder() {
+        return this[childBuilder$];
+      }
+      set childBuilder(value) {
+        super.childBuilder = value;
+      }
+      get removedItemBuilder() {
+        return this[removedItemBuilder$];
+      }
+      set removedItemBuilder(value) {
+        super.removedItemBuilder = value;
+      }
+      get listenOnAllSubItems() {
+        return this[listenOnAllSubItems$];
+      }
+      set listenOnAllSubItems(value) {
+        super.listenOnAllSubItems = value;
+      }
+      get listeningIncludes() {
+        return this[listeningIncludes$];
+      }
+      set listeningIncludes(value) {
+        super.listeningIncludes = value;
+      }
+      get lazyLoading() {
+        return this[lazyLoading$];
+      }
+      set lazyLoading(value) {
+        super.lazyLoading = value;
+      }
+      get preloadedColumns() {
+        return this[preloadedColumns$];
+      }
+      set preloadedColumns(value) {
+        super.preloadedColumns = value;
+      }
+      get animationController() {
+        return this[animationController$];
+      }
+      set animationController(value) {
+        super.animationController = value;
+      }
+      get crossAxisCount() {
+        return this[crossAxisCount$];
+      }
+      set crossAxisCount(value) {
+        super.crossAxisCount = value;
+      }
+      get crossAxisSpacing() {
+        return this[crossAxisSpacing$];
+      }
+      set crossAxisSpacing(value) {
+        super.crossAxisSpacing = value;
+      }
+      get mainAxisSpacing() {
+        return this[mainAxisSpacing$];
+      }
+      set mainAxisSpacing(value) {
+        super.mainAxisSpacing = value;
+      }
+      get childAspectRatio() {
+        return this[childAspectRatio$];
+      }
+      set childAspectRatio(value) {
+        super.childAspectRatio = value;
+      }
+      createState() {
+        return new (_ParseLiveGridWidgetStateOfTL()).new({query: this.query, removedItemBuilder: this.removedItemBuilder, listenOnAllSubItems: this.listenOnAllSubItems, listeningIncludes: this.listeningIncludes, lazyLoading: this.lazyLoading, preloadedColumns: this.preloadedColumns});
+      }
+      static defaultChildBuilder(T, context, snapshot) {
+        let child = null;
+        if (dart.test(snapshot.failed)) {
+          child = C[7] || CT.C7;
+        } else if (dart.test(snapshot.hasData)) {
+          child = new list_tile.ListTile.new({title: new text.Text.new(snapshot.loadedData.get(T$.StringL(), "objectId"), {$creationLocationd_0dea112b090073317d4: C[11] || CT.C11}), $creationLocationd_0dea112b090073317d4: C[14] || CT.C14});
+        } else {
+          child = C[17] || CT.C17;
+        }
+        return child;
+      }
+    }
+    (ParseLiveGridWidget.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let query = opts && 'query' in opts ? opts.query : null;
+      let gridLoadingElement = opts && 'gridLoadingElement' in opts ? opts.gridLoadingElement : null;
+      let queryEmptyElement = opts && 'queryEmptyElement' in opts ? opts.queryEmptyElement : null;
+      let duration = opts && 'duration' in opts ? opts.duration : C[5] || CT.C5;
+      let scrollPhysics = opts && 'scrollPhysics' in opts ? opts.scrollPhysics : null;
+      let scrollController = opts && 'scrollController' in opts ? opts.scrollController : null;
+      let scrollDirection = opts && 'scrollDirection' in opts ? opts.scrollDirection : C[6] || CT.C6;
+      let padding = opts && 'padding' in opts ? opts.padding : null;
+      let primary = opts && 'primary' in opts ? opts.primary : null;
+      let reverse = opts && 'reverse' in opts ? opts.reverse : false;
+      let childBuilder = opts && 'childBuilder' in opts ? opts.childBuilder : null;
+      let shrinkWrap = opts && 'shrinkWrap' in opts ? opts.shrinkWrap : false;
+      let removedItemBuilder = opts && 'removedItemBuilder' in opts ? opts.removedItemBuilder : null;
+      let listenOnAllSubItems = opts && 'listenOnAllSubItems' in opts ? opts.listenOnAllSubItems : null;
+      let listeningIncludes = opts && 'listeningIncludes' in opts ? opts.listeningIncludes : null;
+      let lazyLoading = opts && 'lazyLoading' in opts ? opts.lazyLoading : true;
+      let preloadedColumns = opts && 'preloadedColumns' in opts ? opts.preloadedColumns : null;
+      let animationController = opts && 'animationController' in opts ? opts.animationController : null;
+      let crossAxisCount = opts && 'crossAxisCount' in opts ? opts.crossAxisCount : 3;
+      let crossAxisSpacing = opts && 'crossAxisSpacing' in opts ? opts.crossAxisSpacing : 5;
+      let mainAxisSpacing = opts && 'mainAxisSpacing' in opts ? opts.mainAxisSpacing : 5;
+      let childAspectRatio = opts && 'childAspectRatio' in opts ? opts.childAspectRatio : 0.8;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[query$] = query;
+      this[gridLoadingElement$] = gridLoadingElement;
+      this[queryEmptyElement$] = queryEmptyElement;
+      this[duration$] = duration;
+      this[scrollPhysics$] = scrollPhysics;
+      this[scrollController$] = scrollController;
+      this[scrollDirection$] = scrollDirection;
+      this[padding$] = padding;
+      this[primary$] = primary;
+      this[reverse$] = reverse;
+      this[childBuilder$] = childBuilder;
+      this[shrinkWrap$] = shrinkWrap;
+      this[removedItemBuilder$] = removedItemBuilder;
+      this[listenOnAllSubItems$] = listenOnAllSubItems;
+      this[listeningIncludes$] = listeningIncludes;
+      this[lazyLoading$] = lazyLoading;
+      this[preloadedColumns$] = preloadedColumns;
+      this[animationController$] = animationController;
+      this[crossAxisCount$] = crossAxisCount;
+      this[crossAxisSpacing$] = crossAxisSpacing;
+      this[mainAxisSpacing$] = mainAxisSpacing;
+      this[childAspectRatio$] = childAspectRatio;
+      ParseLiveGridWidget.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = ParseLiveGridWidget.prototype;
+    dart.addTypeTests(ParseLiveGridWidget);
+    ParseLiveGridWidget.prototype[_is_ParseLiveGridWidget_default] = true;
+    dart.addTypeCaches(ParseLiveGridWidget);
+    dart.setMethodSignature(ParseLiveGridWidget, () => ({
+      __proto__: dart.getMethods(ParseLiveGridWidget.__proto__),
+      createState: dart.fnType(dart.legacy(parse_server_sdk$._ParseLiveGridWidgetState$(dart.legacy(T))), [])
+    }));
+    dart.setLibraryUri(ParseLiveGridWidget, I[0]);
+    dart.setFieldSignature(ParseLiveGridWidget, () => ({
+      __proto__: dart.getFields(ParseLiveGridWidget.__proto__),
+      query: dart.finalFieldType(dart.legacy(parse_server_sdk.QueryBuilder$(dart.legacy(T)))),
+      gridLoadingElement: dart.finalFieldType(dart.legacy(framework.Widget)),
+      queryEmptyElement: dart.finalFieldType(dart.legacy(framework.Widget)),
+      duration: dart.finalFieldType(dart.legacy(core.Duration)),
+      scrollPhysics: dart.finalFieldType(dart.legacy(scroll_physics.ScrollPhysics)),
+      scrollController: dart.finalFieldType(dart.legacy(scroll_controller.ScrollController)),
+      scrollDirection: dart.finalFieldType(dart.legacy(basic_types.Axis)),
+      padding: dart.finalFieldType(dart.legacy(edge_insets.EdgeInsetsGeometry)),
+      primary: dart.finalFieldType(dart.legacy(core.bool)),
+      reverse: dart.finalFieldType(dart.legacy(core.bool)),
+      shrinkWrap: dart.finalFieldType(dart.legacy(core.bool)),
+      childBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      removedItemBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      listenOnAllSubItems: dart.finalFieldType(dart.legacy(core.bool)),
+      listeningIncludes: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String)))),
+      lazyLoading: dart.finalFieldType(dart.legacy(core.bool)),
+      preloadedColumns: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String)))),
+      animationController: dart.finalFieldType(dart.legacy(animation_controller.AnimationController)),
+      crossAxisCount: dart.finalFieldType(dart.legacy(core.int)),
+      crossAxisSpacing: dart.finalFieldType(dart.legacy(core.double)),
+      mainAxisSpacing: dart.finalFieldType(dart.legacy(core.double)),
+      childAspectRatio: dart.finalFieldType(dart.legacy(core.double))
+    }));
+    return ParseLiveGridWidget;
+  });
+  parse_server_sdk$.ParseLiveGridWidget = parse_server_sdk$.ParseLiveGridWidget$();
+  dart.addTypeTests(parse_server_sdk$.ParseLiveGridWidget, _is_ParseLiveGridWidget_default);
+  var _liveGrid = dart.privateName(parse_server_sdk$, "_liveGrid");
+  var _animatedListKey = dart.privateName(parse_server_sdk$, "_animatedListKey");
+  var Interval_curve = dart.privateName(curves, "Interval.curve");
+  var Interval_end = dart.privateName(curves, "Interval.end");
+  var Interval_begin = dart.privateName(curves, "Interval.begin");
+  const _is__ParseLiveGridWidgetState_default = Symbol('_is__ParseLiveGridWidgetState_default');
+  parse_server_sdk$._ParseLiveGridWidgetState$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var ParseLiveListOfTL = () => (ParseLiveListOfTL = dart.constFn(parse_server_sdk.ParseLiveList$(TL())))();
+    var ParseLiveListLOfTL = () => (ParseLiveListLOfTL = dart.constFn(dart.legacy(ParseLiveListOfTL())))();
+    var ParseLiveListLOfTLToNull = () => (ParseLiveListLOfTLToNull = dart.constFn(dart.fnType(core.Null, [ParseLiveListLOfTL()])))();
+    var ParseLiveListElementWidgetOfTL = () => (ParseLiveListElementWidgetOfTL = dart.constFn(parse_server_sdk$.ParseLiveListElementWidget$(TL())))();
+    var StreamOfTL = () => (StreamOfTL = dart.constFn(async.Stream$(TL())))();
+    var StreamLOfTL = () => (StreamLOfTL = dart.constFn(dart.legacy(StreamOfTL())))();
+    var VoidToStreamLOfTL = () => (VoidToStreamLOfTL = dart.constFn(dart.fnType(StreamLOfTL(), [])))();
+    var VoidToTL = () => (VoidToTL = dart.constFn(dart.fnType(TL(), [])))();
+    var ParseLiveListElementSnapshotOfTL = () => (ParseLiveListElementSnapshotOfTL = dart.constFn(parse_server_sdk.ParseLiveListElementSnapshot$(TL())))();
+    var ParseLiveListElementSnapshotLOfTL = () => (ParseLiveListElementSnapshotLOfTL = dart.constFn(dart.legacy(ParseLiveListElementSnapshotOfTL())))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = dart.constFn(dart.fnType(T$.WidgetL(), [T$.BuildContextL(), ParseLiveListElementSnapshotLOfTL()])))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = dart.constFn(dart.legacy(BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL())))();
+    var ParseLiveListElementWidgetLOfTL = () => (ParseLiveListElementWidgetLOfTL = dart.constFn(dart.legacy(ParseLiveListElementWidgetOfTL())))();
+    var BuildContextLAndintLToParseLiveListElementWidgetLOfTL = () => (BuildContextLAndintLToParseLiveListElementWidgetLOfTL = dart.constFn(dart.fnType(ParseLiveListElementWidgetLOfTL(), [T$.BuildContextL(), T$.intL()])))();
+    class _ParseLiveGridWidgetState extends framework.State$(dart.legacy(parse_server_sdk$.ParseLiveGridWidget$(dart.legacy(T)))) {
+      build(context) {
+        let t0, t0$;
+        return this[_liveGrid] == null ? (t0 = this.widget.gridLoadingElement, t0 == null ? new container.Container.new({$creationLocationd_0dea112b090073317d4: C[25] || CT.C25}) : t0) : dart.test(this.noData) ? (t0$ = this.widget.queryEmptyElement, t0$ == null ? new container.Container.new({$creationLocationd_0dea112b090073317d4: C[26] || CT.C26}) : t0$) : this.buildAnimatedGrid();
+      }
+      setState(fn) {
+        if (dart.test(this.mounted)) {
+          super.setState(fn);
+        }
+      }
+      buildAnimatedGrid() {
+        let t0;
+        let controller = null;
+        let boxAnimation = null;
+        boxAnimation = new (T$.TweenOfdoubleL()).new({begin: 0.0, end: 1.0}).animate(new animations.CurvedAnimation.new({parent: this.widget.animationController, curve: C[27] || CT.C27}));
+        return new scroll_view.GridView.builder({itemCount: (t0 = this[_liveGrid], t0 == null ? null : t0.size), gridDelegate: new sliver_grid.SliverGridDelegateWithFixedCrossAxisCount.new({crossAxisCount: this.widget.crossAxisCount, crossAxisSpacing: this.widget.crossAxisSpacing, mainAxisSpacing: this.widget.mainAxisSpacing, childAspectRatio: this.widget.childAspectRatio}), itemBuilder: dart.fn((context, index) => {
+            let t0, t0$, t0$0;
+            return new (ParseLiveListElementWidgetOfTL()).new({key: new (T$.ValueKeyOfStringL()).new((t0$ = (t0 = this[_liveGrid], t0 == null ? null : t0.getIdentifier(index)), t0$ == null ? "_NotFound" : t0$)), stream: dart.fn(() => {
+                let t0;
+                t0 = this[_liveGrid];
+                return t0 == null ? null : t0.getAt(index);
+              }, VoidToStreamLOfTL()), loadedData: dart.fn(() => {
+                let t0;
+                t0 = this[_liveGrid];
+                return t0 == null ? null : t0.getLoadedAt(index);
+              }, VoidToTL()), preLoadedData: dart.fn(() => {
+                let t0;
+                t0 = this[_liveGrid];
+                return t0 == null ? null : t0.getPreLoadedAt(index);
+              }, VoidToTL()), sizeFactor: boxAnimation, duration: this.widget.duration, childBuilder: (t0$0 = BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL().as(this.widget.childBuilder), t0$0 == null ? dart.gbind(C[29] || CT.C29, TL()) : t0$0), $creationLocationd_0dea112b090073317d4: C[30] || CT.C30});
+          }, BuildContextLAndintLToParseLiveListElementWidgetLOfTL()), $creationLocationd_0dea112b090073317d4: C[39] || CT.C39});
+      }
+      dispose() {
+        let t0;
+        t0 = this[_liveGrid];
+        t0 == null ? null : t0.dispose();
+        this[_liveGrid] = null;
+        super.dispose();
+      }
+    }
+    (_ParseLiveGridWidgetState.new = function(opts) {
+      let query = opts && 'query' in opts ? opts.query : null;
+      let removedItemBuilder = opts && 'removedItemBuilder' in opts ? opts.removedItemBuilder : null;
+      let listenOnAllSubItems = opts && 'listenOnAllSubItems' in opts ? opts.listenOnAllSubItems : null;
+      let listeningIncludes = opts && 'listeningIncludes' in opts ? opts.listeningIncludes : null;
+      let lazyLoading = opts && 'lazyLoading' in opts ? opts.lazyLoading : true;
+      let preloadedColumns = opts && 'preloadedColumns' in opts ? opts.preloadedColumns : null;
+      this[_liveGrid] = null;
+      this[_animatedListKey] = T$.GlobalKeyOfAnimatedListStateL().new();
+      this.noData = false;
+      this.query = query;
+      this.removedItemBuilder = removedItemBuilder;
+      _ParseLiveGridWidgetState.__proto__.new.call(this);
+      parse_server_sdk.ParseLiveList.create(TL(), this.query, {listenOnAllSubItems: listenOnAllSubItems, listeningIncludes: listeningIncludes, lazyLoading: lazyLoading, preloadedColumns: preloadedColumns}).then(core.Null, dart.fn(value => {
+        if (dart.notNull(value.size) > 0) {
+          this.setState(dart.fn(() => {
+            this.noData = false;
+          }, T$.VoidToNull()));
+        } else {
+          this.setState(dart.fn(() => {
+            this.noData = true;
+          }, T$.VoidToNull()));
+        }
+        this.setState(dart.fn(() => {
+          this[_liveGrid] = value;
+          this[_liveGrid].stream.listen(dart.fn(event => {
+            if (dart.test(this.mounted)) {
+              this.setState(dart.fn(() => {
+              }, T$.VoidToNull()));
+            }
+          }, T$.ParseLiveListEventLOfParseObjectLToNull()));
+        }, T$.VoidToNull()));
+      }, ParseLiveListLOfTLToNull()));
+    }).prototype = _ParseLiveGridWidgetState.prototype;
+    dart.addTypeTests(_ParseLiveGridWidgetState);
+    _ParseLiveGridWidgetState.prototype[_is__ParseLiveGridWidgetState_default] = true;
+    dart.addTypeCaches(_ParseLiveGridWidgetState);
+    dart.setMethodSignature(_ParseLiveGridWidgetState, () => ({
+      __proto__: dart.getMethods(_ParseLiveGridWidgetState.__proto__),
+      build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)]),
+      setState: dart.fnType(dart.void, [dart.legacy(dart.fnType(dart.void, []))]),
+      buildAnimatedGrid: dart.fnType(dart.legacy(framework.Widget), [])
+    }));
+    dart.setLibraryUri(_ParseLiveGridWidgetState, I[0]);
+    dart.setFieldSignature(_ParseLiveGridWidgetState, () => ({
+      __proto__: dart.getFields(_ParseLiveGridWidgetState.__proto__),
+      query: dart.finalFieldType(dart.legacy(parse_server_sdk.QueryBuilder$(dart.legacy(T)))),
+      [_liveGrid]: dart.fieldType(dart.legacy(parse_server_sdk.ParseLiveList$(dart.legacy(T)))),
+      [_animatedListKey]: dart.finalFieldType(dart.legacy(framework.GlobalKey$(dart.legacy(animated_list.AnimatedListState)))),
+      removedItemBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      noData: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return _ParseLiveGridWidgetState;
+  });
+  parse_server_sdk$._ParseLiveGridWidgetState = parse_server_sdk$._ParseLiveGridWidgetState$();
+  dart.addTypeTests(parse_server_sdk$._ParseLiveGridWidgetState, _is__ParseLiveGridWidgetState_default);
+  var query$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.query");
+  var listLoadingElement$ = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.listLoadingElement");
+  var queryEmptyElement$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.queryEmptyElement");
+  var duration$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.duration");
+  var scrollPhysics$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.scrollPhysics");
+  var scrollController$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.scrollController");
+  var scrollDirection$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.scrollDirection");
+  var padding$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.padding");
+  var primary$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.primary");
+  var reverse$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.reverse");
+  var shrinkWrap$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.shrinkWrap");
+  var childBuilder$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.childBuilder");
+  var removedItemBuilder$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.removedItemBuilder");
+  var listenOnAllSubItems$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.listenOnAllSubItems");
+  var listeningIncludes$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.listeningIncludes");
+  var lazyLoading$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.lazyLoading");
+  var preloadedColumns$0 = dart.privateName(parse_server_sdk$, "ParseLiveListWidget.preloadedColumns");
+  const _is_ParseLiveListWidget_default = Symbol('_is_ParseLiveListWidget_default');
+  parse_server_sdk$.ParseLiveListWidget$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var _ParseLiveListWidgetStateOfTL = () => (_ParseLiveListWidgetStateOfTL = dart.constFn(parse_server_sdk$._ParseLiveListWidgetState$(TL())))();
+    class ParseLiveListWidget extends framework.StatefulWidget {
+      get query() {
+        return this[query$0];
+      }
+      set query(value) {
+        super.query = value;
+      }
+      get listLoadingElement() {
+        return this[listLoadingElement$];
+      }
+      set listLoadingElement(value) {
+        super.listLoadingElement = value;
+      }
+      get queryEmptyElement() {
+        return this[queryEmptyElement$0];
+      }
+      set queryEmptyElement(value) {
+        super.queryEmptyElement = value;
+      }
+      get duration() {
+        return this[duration$0];
+      }
+      set duration(value) {
+        super.duration = value;
+      }
+      get scrollPhysics() {
+        return this[scrollPhysics$0];
+      }
+      set scrollPhysics(value) {
+        super.scrollPhysics = value;
+      }
+      get scrollController() {
+        return this[scrollController$0];
+      }
+      set scrollController(value) {
+        super.scrollController = value;
+      }
+      get scrollDirection() {
+        return this[scrollDirection$0];
+      }
+      set scrollDirection(value) {
+        super.scrollDirection = value;
+      }
+      get padding() {
+        return this[padding$0];
+      }
+      set padding(value) {
+        super.padding = value;
+      }
+      get primary() {
+        return this[primary$0];
+      }
+      set primary(value) {
+        super.primary = value;
+      }
+      get reverse() {
+        return this[reverse$0];
+      }
+      set reverse(value) {
+        super.reverse = value;
+      }
+      get shrinkWrap() {
+        return this[shrinkWrap$0];
+      }
+      set shrinkWrap(value) {
+        super.shrinkWrap = value;
+      }
+      get childBuilder() {
+        return this[childBuilder$0];
+      }
+      set childBuilder(value) {
+        super.childBuilder = value;
+      }
+      get removedItemBuilder() {
+        return this[removedItemBuilder$0];
+      }
+      set removedItemBuilder(value) {
+        super.removedItemBuilder = value;
+      }
+      get listenOnAllSubItems() {
+        return this[listenOnAllSubItems$0];
+      }
+      set listenOnAllSubItems(value) {
+        super.listenOnAllSubItems = value;
+      }
+      get listeningIncludes() {
+        return this[listeningIncludes$0];
+      }
+      set listeningIncludes(value) {
+        super.listeningIncludes = value;
+      }
+      get lazyLoading() {
+        return this[lazyLoading$0];
+      }
+      set lazyLoading(value) {
+        super.lazyLoading = value;
+      }
+      get preloadedColumns() {
+        return this[preloadedColumns$0];
+      }
+      set preloadedColumns(value) {
+        super.preloadedColumns = value;
+      }
+      createState() {
+        return new (_ParseLiveListWidgetStateOfTL()).new({query: this.query, removedItemBuilder: this.removedItemBuilder, listenOnAllSubItems: this.listenOnAllSubItems, listeningIncludes: this.listeningIncludes, lazyLoading: this.lazyLoading, preloadedColumns: this.preloadedColumns});
+      }
+      static defaultChildBuilder(T, context, snapshot) {
+        let child = null;
+        if (dart.test(snapshot.failed)) {
+          child = C[44] || CT.C44;
+        } else if (dart.test(snapshot.hasData)) {
+          child = new list_tile.ListTile.new({title: new text.Text.new(snapshot.loadedData.get(T$.StringL(), "objectId"), {$creationLocationd_0dea112b090073317d4: C[48] || CT.C48}), $creationLocationd_0dea112b090073317d4: C[51] || CT.C51});
+        } else {
+          child = C[54] || CT.C54;
+        }
+        return child;
+      }
+    }
+    (ParseLiveListWidget.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let query = opts && 'query' in opts ? opts.query : null;
+      let listLoadingElement = opts && 'listLoadingElement' in opts ? opts.listLoadingElement : null;
+      let queryEmptyElement = opts && 'queryEmptyElement' in opts ? opts.queryEmptyElement : null;
+      let duration = opts && 'duration' in opts ? opts.duration : C[5] || CT.C5;
+      let scrollPhysics = opts && 'scrollPhysics' in opts ? opts.scrollPhysics : null;
+      let scrollController = opts && 'scrollController' in opts ? opts.scrollController : null;
+      let scrollDirection = opts && 'scrollDirection' in opts ? opts.scrollDirection : C[6] || CT.C6;
+      let padding = opts && 'padding' in opts ? opts.padding : null;
+      let primary = opts && 'primary' in opts ? opts.primary : null;
+      let reverse = opts && 'reverse' in opts ? opts.reverse : false;
+      let childBuilder = opts && 'childBuilder' in opts ? opts.childBuilder : null;
+      let shrinkWrap = opts && 'shrinkWrap' in opts ? opts.shrinkWrap : false;
+      let removedItemBuilder = opts && 'removedItemBuilder' in opts ? opts.removedItemBuilder : null;
+      let listenOnAllSubItems = opts && 'listenOnAllSubItems' in opts ? opts.listenOnAllSubItems : null;
+      let listeningIncludes = opts && 'listeningIncludes' in opts ? opts.listeningIncludes : null;
+      let lazyLoading = opts && 'lazyLoading' in opts ? opts.lazyLoading : true;
+      let preloadedColumns = opts && 'preloadedColumns' in opts ? opts.preloadedColumns : null;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[query$0] = query;
+      this[listLoadingElement$] = listLoadingElement;
+      this[queryEmptyElement$0] = queryEmptyElement;
+      this[duration$0] = duration;
+      this[scrollPhysics$0] = scrollPhysics;
+      this[scrollController$0] = scrollController;
+      this[scrollDirection$0] = scrollDirection;
+      this[padding$0] = padding;
+      this[primary$0] = primary;
+      this[reverse$0] = reverse;
+      this[childBuilder$0] = childBuilder;
+      this[shrinkWrap$0] = shrinkWrap;
+      this[removedItemBuilder$0] = removedItemBuilder;
+      this[listenOnAllSubItems$0] = listenOnAllSubItems;
+      this[listeningIncludes$0] = listeningIncludes;
+      this[lazyLoading$0] = lazyLoading;
+      this[preloadedColumns$0] = preloadedColumns;
+      ParseLiveListWidget.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = ParseLiveListWidget.prototype;
+    dart.addTypeTests(ParseLiveListWidget);
+    ParseLiveListWidget.prototype[_is_ParseLiveListWidget_default] = true;
+    dart.addTypeCaches(ParseLiveListWidget);
+    dart.setMethodSignature(ParseLiveListWidget, () => ({
+      __proto__: dart.getMethods(ParseLiveListWidget.__proto__),
+      createState: dart.fnType(dart.legacy(parse_server_sdk$._ParseLiveListWidgetState$(dart.legacy(T))), [])
+    }));
+    dart.setLibraryUri(ParseLiveListWidget, I[0]);
+    dart.setFieldSignature(ParseLiveListWidget, () => ({
+      __proto__: dart.getFields(ParseLiveListWidget.__proto__),
+      query: dart.finalFieldType(dart.legacy(parse_server_sdk.QueryBuilder$(dart.legacy(T)))),
+      listLoadingElement: dart.finalFieldType(dart.legacy(framework.Widget)),
+      queryEmptyElement: dart.finalFieldType(dart.legacy(framework.Widget)),
+      duration: dart.finalFieldType(dart.legacy(core.Duration)),
+      scrollPhysics: dart.finalFieldType(dart.legacy(scroll_physics.ScrollPhysics)),
+      scrollController: dart.finalFieldType(dart.legacy(scroll_controller.ScrollController)),
+      scrollDirection: dart.finalFieldType(dart.legacy(basic_types.Axis)),
+      padding: dart.finalFieldType(dart.legacy(edge_insets.EdgeInsetsGeometry)),
+      primary: dart.finalFieldType(dart.legacy(core.bool)),
+      reverse: dart.finalFieldType(dart.legacy(core.bool)),
+      shrinkWrap: dart.finalFieldType(dart.legacy(core.bool)),
+      childBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      removedItemBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      listenOnAllSubItems: dart.finalFieldType(dart.legacy(core.bool)),
+      listeningIncludes: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String)))),
+      lazyLoading: dart.finalFieldType(dart.legacy(core.bool)),
+      preloadedColumns: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String))))
+    }));
+    return ParseLiveListWidget;
+  });
+  parse_server_sdk$.ParseLiveListWidget = parse_server_sdk$.ParseLiveListWidget$();
+  dart.addTypeTests(parse_server_sdk$.ParseLiveListWidget, _is_ParseLiveListWidget_default);
+  var _liveList = dart.privateName(parse_server_sdk$, "_liveList");
+  const _is__ParseLiveListWidgetState_default = Symbol('_is__ParseLiveListWidgetState_default');
+  parse_server_sdk$._ParseLiveListWidgetState$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var ParseLiveListElementWidgetOfTL = () => (ParseLiveListElementWidgetOfTL = dart.constFn(parse_server_sdk$.ParseLiveListElementWidget$(TL())))();
+    var ParseLiveListElementSnapshotOfTL = () => (ParseLiveListElementSnapshotOfTL = dart.constFn(parse_server_sdk.ParseLiveListElementSnapshot$(TL())))();
+    var ParseLiveListElementSnapshotLOfTL = () => (ParseLiveListElementSnapshotLOfTL = dart.constFn(dart.legacy(ParseLiveListElementSnapshotOfTL())))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = dart.constFn(dart.fnType(T$.WidgetL(), [T$.BuildContextL(), ParseLiveListElementSnapshotLOfTL()])))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = dart.constFn(dart.legacy(BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL())))();
+    var VoidToTL = () => (VoidToTL = dart.constFn(dart.fnType(TL(), [])))();
+    var ParseLiveListElementWidgetLOfTL = () => (ParseLiveListElementWidgetLOfTL = dart.constFn(dart.legacy(ParseLiveListElementWidgetOfTL())))();
+    var BuildContextLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL = () => (BuildContextLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL = dart.constFn(dart.fnType(ParseLiveListElementWidgetLOfTL(), [T$.BuildContextL(), T$.AnimationLOfdoubleL()])))();
+    var ParseLiveListOfTL = () => (ParseLiveListOfTL = dart.constFn(parse_server_sdk.ParseLiveList$(TL())))();
+    var ParseLiveListLOfTL = () => (ParseLiveListLOfTL = dart.constFn(dart.legacy(ParseLiveListOfTL())))();
+    var ParseLiveListLOfTLToNull = () => (ParseLiveListLOfTLToNull = dart.constFn(dart.fnType(core.Null, [ParseLiveListLOfTL()])))();
+    var StreamOfTL = () => (StreamOfTL = dart.constFn(async.Stream$(TL())))();
+    var StreamLOfTL = () => (StreamLOfTL = dart.constFn(dart.legacy(StreamOfTL())))();
+    var VoidToStreamLOfTL = () => (VoidToStreamLOfTL = dart.constFn(dart.fnType(StreamLOfTL(), [])))();
+    var BuildContextLAndintLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL = () => (BuildContextLAndintLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL = dart.constFn(dart.fnType(ParseLiveListElementWidgetLOfTL(), [T$.BuildContextL(), T$.intL(), T$.AnimationLOfdoubleL()])))();
+    class _ParseLiveListWidgetState extends framework.State$(dart.legacy(parse_server_sdk$.ParseLiveListWidget$(dart.legacy(T)))) {
+      build(context) {
+        let t0, t0$;
+        return this[_liveList] == null ? (t0 = this.widget.listLoadingElement, t0 == null ? new container.Container.new({$creationLocationd_0dea112b090073317d4: C[69] || CT.C69}) : t0) : dart.test(this.noData) ? (t0$ = this.widget.queryEmptyElement, t0$ == null ? new container.Container.new({$creationLocationd_0dea112b090073317d4: C[70] || CT.C70}) : t0$) : this.buildAnimatedList();
+      }
+      setState(fn) {
+        if (dart.test(this.mounted)) {
+          super.setState(fn);
+        }
+      }
+      buildAnimatedList() {
+        let t0;
+        return new animated_list.AnimatedList.new({key: this[_animatedListKey], physics: this.widget.scrollPhysics, controller: this.widget.scrollController, scrollDirection: this.widget.scrollDirection, padding: this.widget.padding, primary: this.widget.primary, reverse: this.widget.reverse, shrinkWrap: this.widget.shrinkWrap, initialItemCount: (t0 = this[_liveList], t0 == null ? null : t0.size), itemBuilder: dart.fn((context, index, animation) => {
+            let t0, t0$, t0$0;
+            return new (ParseLiveListElementWidgetOfTL()).new({key: new (T$.ValueKeyOfStringL()).new((t0$ = (t0 = this[_liveList], t0 == null ? null : t0.getIdentifier(index)), t0$ == null ? "_NotFound" : t0$)), stream: dart.fn(() => {
+                let t0;
+                t0 = this[_liveList];
+                return t0 == null ? null : t0.getAt(index);
+              }, VoidToStreamLOfTL()), loadedData: dart.fn(() => {
+                let t0;
+                t0 = this[_liveList];
+                return t0 == null ? null : t0.getLoadedAt(index);
+              }, VoidToTL()), preLoadedData: dart.fn(() => {
+                let t0;
+                t0 = this[_liveList];
+                return t0 == null ? null : t0.getPreLoadedAt(index);
+              }, VoidToTL()), sizeFactor: animation, duration: this.widget.duration, childBuilder: (t0$0 = BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL().as(this.widget.childBuilder), t0$0 == null ? dart.gbind(C[60] || CT.C60, TL()) : t0$0), $creationLocationd_0dea112b090073317d4: C[71] || CT.C71});
+          }, BuildContextLAndintLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL()), $creationLocationd_0dea112b090073317d4: C[80] || CT.C80});
+      }
+      dispose() {
+        let t0;
+        t0 = this[_liveList];
+        t0 == null ? null : t0.dispose();
+        this[_liveList] = null;
+        super.dispose();
+      }
+    }
+    (_ParseLiveListWidgetState.new = function(opts) {
+      let query = opts && 'query' in opts ? opts.query : null;
+      let removedItemBuilder = opts && 'removedItemBuilder' in opts ? opts.removedItemBuilder : null;
+      let listenOnAllSubItems = opts && 'listenOnAllSubItems' in opts ? opts.listenOnAllSubItems : null;
+      let listeningIncludes = opts && 'listeningIncludes' in opts ? opts.listeningIncludes : null;
+      let lazyLoading = opts && 'lazyLoading' in opts ? opts.lazyLoading : true;
+      let preloadedColumns = opts && 'preloadedColumns' in opts ? opts.preloadedColumns : null;
+      this[_liveList] = null;
+      this[_animatedListKey] = T$.GlobalKeyOfAnimatedListStateL().new();
+      this.noData = false;
+      this.query = query;
+      this.removedItemBuilder = removedItemBuilder;
+      _ParseLiveListWidgetState.__proto__.new.call(this);
+      parse_server_sdk.ParseLiveList.create(TL(), this.query, {listenOnAllSubItems: listenOnAllSubItems, listeningIncludes: listeningIncludes, lazyLoading: lazyLoading, preloadedColumns: preloadedColumns}).then(core.Null, dart.fn(value => {
+        if (dart.notNull(value.size) > 0) {
+          this.setState(dart.fn(() => {
+            this.noData = false;
+          }, T$.VoidToNull()));
+        } else {
+          this.setState(dart.fn(() => {
+            this.noData = true;
+          }, T$.VoidToNull()));
+        }
+        this.setState(dart.fn(() => {
+          this[_liveList] = value;
+          this[_liveList].stream.listen(dart.fn(event => {
+            if (T$.ParseLiveListAddEventLOfParseObjectL().is(event)) {
+              if (this[_animatedListKey].currentState != null) this[_animatedListKey].currentState.insertItem(event.index, {duration: this.widget.duration});
+            } else if (T$.ParseLiveListDeleteEventLOfParseObjectL().is(event)) {
+              this[_animatedListKey].currentState.removeItem(event.index, dart.fn((context, animation) => {
+                let t0, t0$;
+                return new (ParseLiveListElementWidgetOfTL()).new({key: new (T$.ValueKeyOfStringL()).new((t0 = event.object, t0 == null ? null : t0.get(T$.StringL(), "objectId", {defaultValue: "removingItem"}))), childBuilder: (t0$ = BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL().as(this.widget.childBuilder), t0$ == null ? dart.gbind(C[60] || CT.C60, TL()) : t0$), sizeFactor: animation, duration: this.widget.duration, loadedData: dart.fn(() => TL().as(event.object), VoidToTL()), preLoadedData: dart.fn(() => TL().as(event.object), VoidToTL()), $creationLocationd_0dea112b090073317d4: C[61] || CT.C61});
+              }, BuildContextLAndAnimationLOfdoubleLToParseLiveListElementWidgetLOfTL()), {duration: this.widget.duration});
+              if (dart.notNull(value.size) > 0) {
+                this.setState(dart.fn(() => {
+                  this.noData = false;
+                }, T$.VoidToNull()));
+              } else {
+                this.setState(dart.fn(() => {
+                  this.noData = true;
+                }, T$.VoidToNull()));
+              }
+            }
+          }, T$.ParseLiveListEventLOfParseObjectLToNull()));
+        }, T$.VoidToNull()));
+      }, ParseLiveListLOfTLToNull()));
+    }).prototype = _ParseLiveListWidgetState.prototype;
+    dart.addTypeTests(_ParseLiveListWidgetState);
+    _ParseLiveListWidgetState.prototype[_is__ParseLiveListWidgetState_default] = true;
+    dart.addTypeCaches(_ParseLiveListWidgetState);
+    dart.setMethodSignature(_ParseLiveListWidgetState, () => ({
+      __proto__: dart.getMethods(_ParseLiveListWidgetState.__proto__),
+      build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)]),
+      setState: dart.fnType(dart.void, [dart.legacy(dart.fnType(dart.void, []))]),
+      buildAnimatedList: dart.fnType(dart.legacy(framework.Widget), [])
+    }));
+    dart.setLibraryUri(_ParseLiveListWidgetState, I[0]);
+    dart.setFieldSignature(_ParseLiveListWidgetState, () => ({
+      __proto__: dart.getFields(_ParseLiveListWidgetState.__proto__),
+      query: dart.finalFieldType(dart.legacy(parse_server_sdk.QueryBuilder$(dart.legacy(T)))),
+      [_liveList]: dart.fieldType(dart.legacy(parse_server_sdk.ParseLiveList$(dart.legacy(T)))),
+      [_animatedListKey]: dart.finalFieldType(dart.legacy(framework.GlobalKey$(dart.legacy(animated_list.AnimatedListState)))),
+      removedItemBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))]))),
+      noData: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return _ParseLiveListWidgetState;
+  });
+  parse_server_sdk$._ParseLiveListWidgetState = parse_server_sdk$._ParseLiveListWidgetState$();
+  dart.addTypeTests(parse_server_sdk$._ParseLiveListWidgetState, _is__ParseLiveListWidgetState_default);
+  var stream$ = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.stream");
+  var loadedData$ = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.loadedData");
+  var preLoadedData$ = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.preLoadedData");
+  var sizeFactor$ = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.sizeFactor");
+  var duration$1 = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.duration");
+  var childBuilder$1 = dart.privateName(parse_server_sdk$, "ParseLiveListElementWidget.childBuilder");
+  const _is_ParseLiveListElementWidget_default = Symbol('_is_ParseLiveListElementWidget_default');
+  parse_server_sdk$.ParseLiveListElementWidget$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var _ParseLiveListElementWidgetStateOfTL = () => (_ParseLiveListElementWidgetStateOfTL = dart.constFn(parse_server_sdk$._ParseLiveListElementWidgetState$(TL())))();
+    class ParseLiveListElementWidget extends framework.StatefulWidget {
+      get stream() {
+        return this[stream$];
+      }
+      set stream(value) {
+        super.stream = value;
+      }
+      get loadedData() {
+        return this[loadedData$];
+      }
+      set loadedData(value) {
+        super.loadedData = value;
+      }
+      get preLoadedData() {
+        return this[preLoadedData$];
+      }
+      set preLoadedData(value) {
+        super.preLoadedData = value;
+      }
+      get sizeFactor() {
+        return this[sizeFactor$];
+      }
+      set sizeFactor(value) {
+        super.sizeFactor = value;
+      }
+      get duration() {
+        return this[duration$1];
+      }
+      set duration(value) {
+        super.duration = value;
+      }
+      get childBuilder() {
+        return this[childBuilder$1];
+      }
+      set childBuilder(value) {
+        super.childBuilder = value;
+      }
+      createState() {
+        return new (_ParseLiveListElementWidgetStateOfTL()).new(this.loadedData, this.preLoadedData, this.stream);
+      }
+    }
+    (ParseLiveListElementWidget.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let stream = opts && 'stream' in opts ? opts.stream : null;
+      let loadedData = opts && 'loadedData' in opts ? opts.loadedData : null;
+      let preLoadedData = opts && 'preLoadedData' in opts ? opts.preLoadedData : null;
+      let sizeFactor = opts && 'sizeFactor' in opts ? opts.sizeFactor : null;
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let childBuilder = opts && 'childBuilder' in opts ? opts.childBuilder : null;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[stream$] = stream;
+      this[loadedData$] = loadedData;
+      this[preLoadedData$] = preLoadedData;
+      this[sizeFactor$] = sizeFactor;
+      this[duration$1] = duration;
+      this[childBuilder$1] = childBuilder;
+      ParseLiveListElementWidget.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = ParseLiveListElementWidget.prototype;
+    dart.addTypeTests(ParseLiveListElementWidget);
+    ParseLiveListElementWidget.prototype[_is_ParseLiveListElementWidget_default] = true;
+    dart.addTypeCaches(ParseLiveListElementWidget);
+    dart.setMethodSignature(ParseLiveListElementWidget, () => ({
+      __proto__: dart.getMethods(ParseLiveListElementWidget.__proto__),
+      createState: dart.fnType(dart.legacy(parse_server_sdk$._ParseLiveListElementWidgetState$(dart.legacy(T))), [])
+    }));
+    dart.setLibraryUri(ParseLiveListElementWidget, I[0]);
+    dart.setFieldSignature(ParseLiveListElementWidget, () => ({
+      __proto__: dart.getFields(ParseLiveListElementWidget.__proto__),
+      stream: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(async.Stream$(dart.legacy(T))), []))),
+      loadedData: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(T), []))),
+      preLoadedData: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(T), []))),
+      sizeFactor: dart.finalFieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+      duration: dart.finalFieldType(dart.legacy(core.Duration)),
+      childBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext), dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))])))
+    }));
+    return ParseLiveListElementWidget;
+  });
+  parse_server_sdk$.ParseLiveListElementWidget = parse_server_sdk$.ParseLiveListElementWidget$();
+  dart.addTypeTests(parse_server_sdk$.ParseLiveListElementWidget, _is_ParseLiveListElementWidget_default);
+  var _snapshot = dart.privateName(parse_server_sdk$, "_snapshot");
+  var _streamSubscription = dart.privateName(parse_server_sdk$, "_streamSubscription");
+  const _is__ParseLiveListElementWidgetState_default = Symbol('_is__ParseLiveListElementWidgetState_default');
+  parse_server_sdk$._ParseLiveListElementWidgetState$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var ParseLiveListElementSnapshotOfTL = () => (ParseLiveListElementSnapshotOfTL = dart.constFn(parse_server_sdk.ParseLiveListElementSnapshot$(TL())))();
+    var TLToNull = () => (TLToNull = dart.constFn(dart.fnType(core.Null, [TL()])))();
+    var ParseLiveListElementSnapshotLOfTL = () => (ParseLiveListElementSnapshotLOfTL = dart.constFn(dart.legacy(ParseLiveListElementSnapshotOfTL())))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL = dart.constFn(dart.fnType(T$.WidgetL(), [T$.BuildContextL(), ParseLiveListElementSnapshotLOfTL()])))();
+    var BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = () => (BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL = dart.constFn(dart.legacy(BuildContextLAndParseLiveListElementSnapshotLOfTLToWidgetL())))();
+    const State_SingleTickerProviderStateMixin$36 = class State_SingleTickerProviderStateMixin extends framework.State$(dart.legacy(parse_server_sdk$.ParseLiveListElementWidget$(dart.legacy(T)))) {};
+    (State_SingleTickerProviderStateMixin$36.new = function() {
+      ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(parse_server_sdk$.ParseLiveListElementWidget$(dart.legacy(T))))[dart.mixinNew].call(this);
+      State_SingleTickerProviderStateMixin$36.__proto__.new.call(this);
+    }).prototype = State_SingleTickerProviderStateMixin$36.prototype;
+    dart.applyMixin(State_SingleTickerProviderStateMixin$36, ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(parse_server_sdk$.ParseLiveListElementWidget$(dart.legacy(T)))));
+    class _ParseLiveListElementWidgetState extends State_SingleTickerProviderStateMixin$36 {
+      setState(fn) {
+        if (dart.test(this.mounted)) {
+          super.setState(fn);
+        }
+      }
+      dispose() {
+        let t0;
+        t0 = this[_streamSubscription];
+        t0 == null ? null : t0.cancel();
+        this[_streamSubscription] = null;
+        super.dispose();
+      }
+      build(context) {
+        let t2, t1, t0;
+        let result = new transitions.SizeTransition.new({sizeFactor: this.widget.sizeFactor, child: new animated_size.AnimatedSize.new({duration: this.widget.duration, vsync: this, child: (t0 = this.widget, t1 = context, t2 = this[_snapshot], BuildContextLAndParseLiveListElementSnapshotLOfTLToLWidgetL().as(t0.childBuilder)(t1, t2)), $creationLocationd_0dea112b090073317d4: C[92] || CT.C92}), $creationLocationd_0dea112b090073317d4: C[97] || CT.C97});
+        return result;
+      }
+    }
+    (_ParseLiveListElementWidgetState.new = function(loadedDataGetter, preLoadedDataGetter, stream) {
+      this[_snapshot] = null;
+      this[_streamSubscription] = null;
+      _ParseLiveListElementWidgetState.__proto__.new.call(this);
+      this[_snapshot] = new (ParseLiveListElementSnapshotOfTL()).new({loadedData: loadedDataGetter(), preLoadedData: preLoadedDataGetter()});
+      if (stream != null) {
+        this[_streamSubscription] = stream().listen(dart.fn(data => {
+          if (this.widget != null) {
+            this.setState(dart.fn(() => {
+              this[_snapshot] = new (ParseLiveListElementSnapshotOfTL()).new({loadedData: data, preLoadedData: data});
+            }, T$.VoidToNull()));
+          } else {
+            this[_snapshot] = new (ParseLiveListElementSnapshotOfTL()).new({loadedData: data, preLoadedData: data});
+          }
+        }, TLToNull()), {onError: dart.fn(error => {
+            if (T$.ParseErrorL().is(error)) {
+              if (this.widget != null) {
+                this.setState(dart.fn(() => {
+                  this[_snapshot] = new (ParseLiveListElementSnapshotOfTL()).new({error: error});
+                }, T$.VoidToNull()));
+              } else {
+                this[_snapshot] = new (ParseLiveListElementSnapshotOfTL()).new({error: error});
+              }
+            }
+          }, T$.ObjectLToNull()), cancelOnError: false});
+      }
+    }).prototype = _ParseLiveListElementWidgetState.prototype;
+    dart.addTypeTests(_ParseLiveListElementWidgetState);
+    _ParseLiveListElementWidgetState.prototype[_is__ParseLiveListElementWidgetState_default] = true;
+    dart.addTypeCaches(_ParseLiveListElementWidgetState);
+    dart.setMethodSignature(_ParseLiveListElementWidgetState, () => ({
+      __proto__: dart.getMethods(_ParseLiveListElementWidgetState.__proto__),
+      setState: dart.fnType(dart.void, [dart.legacy(dart.fnType(dart.void, []))]),
+      build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+    }));
+    dart.setLibraryUri(_ParseLiveListElementWidgetState, I[0]);
+    dart.setFieldSignature(_ParseLiveListElementWidgetState, () => ({
+      __proto__: dart.getFields(_ParseLiveListElementWidgetState.__proto__),
+      [_snapshot]: dart.fieldType(dart.legacy(parse_server_sdk.ParseLiveListElementSnapshot$(dart.legacy(T)))),
+      [_streamSubscription]: dart.fieldType(dart.legacy(async.StreamSubscription$(dart.legacy(T))))
+    }));
+    return _ParseLiveListElementWidgetState;
+  });
+  parse_server_sdk$._ParseLiveListElementWidgetState = parse_server_sdk$._ParseLiveListElementWidgetState$();
+  dart.addTypeTests(parse_server_sdk$._ParseLiveListElementWidgetState, _is__ParseLiveListElementWidgetState_default);
+  dart.trackLibraries("packages/parse_server_sdk_flutter/parse_server_sdk.dart", {
+    "package:parse_server_sdk_flutter/parse_server_sdk.dart": parse_server_sdk$
+  }, {
+    "package:parse_server_sdk_flutter/parse_server_sdk.dart": ["src/storage/core_store_sp_impl.dart", "src/utils/parse_live_grid.dart", "src/utils/parse_live_list.dart"]
+  }, '{"version":3,"sourceRoot":"","sources":["parse_server_sdk.dart","src/storage/core_store_sp_impl.dart","src/utils/parse_live_grid.dart","src/utils/parse_live_list.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../packages/parse_server_sdk_flutter/parse_server_sdk.dart.lib.js"}');
+  // Exports:
+  return {
+    parse_server_sdk: parse_server_sdk$
+  };
+}));
+
+//# sourceMappingURL=parse_server_sdk.dart.lib.js.map

@@ -1,0 +1,365 @@
+define(['dart_sdk', 'packages/sembast/src/api/log_level.dart', 'packages/path/src/path_set.dart', 'packages/sembast/src/file_system.dart', 'packages/sembast/src/sembast_codec.dart'], (function load__packages__sembast__src__sembast_fs_dart(dart_sdk, packages__sembast__src__api__log_level$46dart, packages__path__src__path_set$46dart, packages__sembast__src__file_system$46dart, packages__sembast__src__sembast_codec$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const convert = dart_sdk.convert;
+  const _internal = dart_sdk._internal;
+  const _native_typed_data = dart_sdk._native_typed_data;
+  const typed_data = dart_sdk.typed_data;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const log_level = packages__sembast__src__api__log_level$46dart.src__api__log_level;
+  const path = packages__path__src__path_set$46dart.path;
+  const file_system = packages__sembast__src__file_system$46dart.src__file_system;
+  const storage = packages__sembast__src__sembast_codec$46dart.src__storage;
+  const database_impl = packages__sembast__src__sembast_codec$46dart.src__database_impl;
+  const database_factory_mixin = packages__sembast__src__sembast_codec$46dart.src__database_factory_mixin;
+  const factory = packages__sembast__src__sembast_codec$46dart.src__api__v2__factory;
+  var sembast_fs = Object.create(dart.library);
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $length = dartx.length;
+  var $setAll = dartx.setAll;
+  var $_get = dartx._get;
+  var $sublist = dartx.sublist;
+  var $forEach = dartx.forEach;
+  var $toString = dartx.toString;
+  var $_set = dartx._set;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    StreamControllerOfString: () => (T.StreamControllerOfString = dart.constFn(async.StreamController$(core.String)))(),
+    VoidToStreamControllerOfString: () => (T.VoidToStreamControllerOfString = dart.constFn(dart.fnType(T.StreamControllerOfString(), [])))(),
+    StreamControllerOfStringTodynamic: () => (T.StreamControllerOfStringTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T.StreamControllerOfString()])))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    Uint8ListTovoid: () => (T.Uint8ListTovoid = dart.constFn(dart.fnType(dart.void, [typed_data.Uint8List])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    StringTovoid: () => (T.StringTovoid = dart.constFn(dart.fnType(dart.void, [core.String])))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    IdentityMapOfString$ObjectN: () => (T.IdentityMapOfString$ObjectN = dart.constFn(_js_helper.IdentityMap$(core.String, T.ObjectN())))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: convert.LineSplitter.prototype
+      });
+    }
+  }, false);
+  var C = [void 0];
+  var I = [
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/sembast-3.0.2/lib/src/sembast_fs.dart",
+    "package:sembast/src/sembast_fs.dart"
+  ];
+  var fs$ = dart.privateName(sembast_fs, "FsDatabaseStorage.fs");
+  var file = dart.privateName(sembast_fs, "FsDatabaseStorage.file");
+  var isTmp = dart.privateName(sembast_fs, "FsDatabaseStorage.isTmp");
+  var logV = dart.privateName(sembast_fs, "FsDatabaseStorage.logV");
+  sembast_fs.FsDatabaseStorage = class FsDatabaseStorage extends storage.DatabaseStorage {
+    get fs() {
+      return this[fs$];
+    }
+    set fs(value) {
+      super.fs = value;
+    }
+    get file() {
+      return this[file];
+    }
+    set file(value) {
+      super.file = value;
+    }
+    get isTmp() {
+      return this[isTmp];
+    }
+    set isTmp(value) {
+      this[isTmp] = value;
+    }
+    get logV() {
+      return this[logV];
+    }
+    set logV(value) {
+      super.logV = value;
+    }
+    get supported() {
+      return true;
+    }
+    get path() {
+      return this.file.path;
+    }
+    delete() {
+      return async.async(dart.dynamic, (function* $delete() {
+        if (dart.test(yield this.file.exists())) {
+          try {
+            yield this.file.delete({recursive: true});
+          } catch (e) {
+            let _ = dart.getThrown(e);
+            if (core.Object.is(_)) {
+            } else
+              throw e;
+          }
+        }
+      }).bind(this));
+    }
+    find() {
+      return this.fs.isFile(this.path);
+    }
+    findOrCreate() {
+      return async.async(dart.dynamic, (function* findOrCreate() {
+        if (!dart.test(yield this.fs.isFile(this.path))) {
+          let done = null;
+          if (dart.test(this.isTmp)) {
+            done = false;
+          } else {
+            done = (yield this.tmpRecover());
+          }
+          if (!dart.test(done)) {
+            try {
+              yield this.file.create({recursive: true});
+            } catch (e$) {
+              let e = dart.getThrown(e$);
+              if (core.Object.is(e)) {
+                if (!dart.test(yield this.fs.isFile(this.path))) {
+                  dart.rethrow(e$);
+                }
+              } else
+                throw e$;
+            }
+          } else {
+          }
+        }
+      }).bind(this));
+    }
+    get tmpPath() {
+      return path.join(path.dirname(this.path), "~" + dart.str(path.basename(this.path)));
+    }
+    get tmpStorage() {
+      let t2;
+      t2 = new sembast_fs.FsDatabaseStorage.new(this.fs, this.tmpPath);
+      return (() => {
+        t2.isTmp = true;
+        return t2;
+      })();
+    }
+    tmpRecover() {
+      return async.async(core.bool, (function* tmpRecover() {
+        let isFile = (yield this.fs.isFile(this.tmpPath));
+        if (dart.test(this.logV)) {
+          core.print("Recovering from " + dart.str(this.tmpPath));
+        }
+        if (dart.test(isFile)) {
+          try {
+            yield this.file.delete();
+          } catch (e$) {
+            let e = dart.getThrown(e$);
+            if (core.Object.is(e)) {
+              if (dart.test(this.logV)) {
+                core.print("fail to delete " + dart.str(e));
+              }
+            } else
+              throw e$;
+          }
+          yield this.fs.file(this.tmpPath).rename(this.file.path);
+          return true;
+        } else {
+          return false;
+        }
+      }).bind(this));
+    }
+    readLines() {
+      return convert.utf8.decoder.bind(this.file.openRead()).transform(core.String, C[0] || CT.C0);
+    }
+    readSafeLines() {
+      let subscription = null;
+      let currentLine = null;
+      let ctlr = null;
+      let ctlr$35isSet = false;
+      function ctlr$35get() {
+        return ctlr$35isSet ? ctlr : dart.throw(new _internal.LateError.localNI("ctlr"));
+      }
+      dart.fn(ctlr$35get, T.VoidToStreamControllerOfString());
+      function ctlr$35set(t6) {
+        if (t6 == null) dart.nullFailed(I[0], 124, 35, "null");
+        ctlr$35isSet = true;
+        return ctlr = t6;
+      }
+      dart.fn(ctlr$35set, T.StreamControllerOfStringTodynamic());
+      ctlr$35set(T.StreamControllerOfString().new({onListen: dart.fn(() => {
+          function addCurrentLine() {
+            let t8, t8$;
+            if (dart.test((t8$ = (t8 = currentLine, t8 == null ? null : t8[$isNotEmpty]), t8$ == null ? false : t8$))) {
+              try {
+                ctlr$35get().add(convert.utf8.decode(dart.nullCheck(currentLine)));
+              } catch (e) {
+                let _ = dart.getThrown(e);
+                if (core.Object.is(_)) {
+                } else
+                  throw e;
+              }
+            }
+            currentLine = null;
+          }
+          dart.fn(addCurrentLine, T.VoidTovoid());
+          function addToCurrentLine(data) {
+            if (data == null) dart.nullFailed(I[0], 137, 39, "data");
+            if (currentLine == null) {
+              currentLine = data;
+            } else {
+              let newCurrentLine = _native_typed_data.NativeUint8List.new(dart.notNull(dart.nullCheck(currentLine)[$length]) + dart.notNull(data[$length]));
+              newCurrentLine[$setAll](0, dart.nullCheck(currentLine));
+              newCurrentLine[$setAll](dart.nullCheck(currentLine)[$length], data);
+              currentLine = newCurrentLine;
+            }
+          }
+          dart.fn(addToCurrentLine, T.Uint8ListTovoid());
+          subscription = this.file.openRead().listen(dart.fn(data => {
+            if (data == null) dart.nullFailed(I[0], 148, 46, "data");
+            let start = 0;
+            for (let i = 0; i < dart.notNull(data[$length]); i = i + 1) {
+              let byte = data[$_get](i);
+              if (byte === 10 || byte === 13) {
+                addToCurrentLine(data[$sublist](start, i));
+                addCurrentLine();
+                start = i + 1;
+              }
+            }
+            if (dart.notNull(data[$length]) > start) {
+              addToCurrentLine(data[$sublist](start, data[$length]));
+            }
+          }, T.Uint8ListTovoid()), {onDone: dart.fn(() => {
+              if (currentLine != null) {
+                addCurrentLine();
+              }
+              ctlr$35get().close();
+            }, T.VoidTovoid())});
+        }, T.VoidTovoid()), onCancel: dart.fn(() => {
+          let t9;
+          t9 = subscription;
+          t9 == null ? null : t9.cancel();
+        }, T.VoidToNull())}));
+      return ctlr$35get().stream;
+    }
+    appendLines(lines) {
+      if (lines == null) dart.nullFailed(I[0], 180, 35, "lines");
+      let sink = this.file.openWrite({mode: file_system.FileMode.append});
+      lines[$forEach](dart.fn(line => {
+        if (line == null) dart.nullFailed(I[0], 184, 27, "line");
+        sink.writeln(line);
+      }, T.StringTovoid()));
+      return sink.close();
+    }
+    toString() {
+      let map = new (T.IdentityMapOfString$ObjectN()).from(["file", dart.toString(this.file), "fs", dart.toString(this.fs)]);
+      if (this.isTmp === true) {
+        map[$_set]("tmp", true);
+      }
+      return map[$toString]();
+    }
+  };
+  (sembast_fs.FsDatabaseStorage.new = function(fs, path) {
+    if (fs == null) dart.nullFailed(I[0], 32, 26, "fs");
+    if (path == null) dart.nullFailed(I[0], 32, 37, "path");
+    this[isTmp] = false;
+    this[logV] = log_level.databaseStorageLogLevel == log_level.SembastLogLevel.verbose;
+    this[fs$] = fs;
+    this[file] = fs.file(path);
+    ;
+  }).prototype = sembast_fs.FsDatabaseStorage.prototype;
+  dart.addTypeTests(sembast_fs.FsDatabaseStorage);
+  dart.addTypeCaches(sembast_fs.FsDatabaseStorage);
+  dart.setMethodSignature(sembast_fs.FsDatabaseStorage, () => ({
+    __proto__: dart.getMethods(sembast_fs.FsDatabaseStorage.__proto__),
+    delete: dart.fnType(async.Future, []),
+    find: dart.fnType(async.Future$(core.bool), []),
+    findOrCreate: dart.fnType(async.Future, []),
+    tmpRecover: dart.fnType(async.Future$(core.bool), []),
+    readLines: dart.fnType(async.Stream$(core.String), []),
+    readSafeLines: dart.fnType(async.Stream$(core.String), []),
+    appendLines: dart.fnType(async.Future, [core.List$(core.String)])
+  }));
+  dart.setGetterSignature(sembast_fs.FsDatabaseStorage, () => ({
+    __proto__: dart.getGetters(sembast_fs.FsDatabaseStorage.__proto__),
+    supported: core.bool,
+    path: core.String,
+    tmpPath: core.String,
+    tmpStorage: storage.DatabaseStorage
+  }));
+  dart.setLibraryUri(sembast_fs.FsDatabaseStorage, I[1]);
+  dart.setFieldSignature(sembast_fs.FsDatabaseStorage, () => ({
+    __proto__: dart.getFields(sembast_fs.FsDatabaseStorage.__proto__),
+    fs: dart.finalFieldType(file_system.FileSystem),
+    file: dart.finalFieldType(file_system.File),
+    isTmp: dart.fieldType(core.bool),
+    logV: dart.finalFieldType(core.bool)
+  }));
+  dart.defineExtensionMethods(sembast_fs.FsDatabaseStorage, ['toString']);
+  var fs$0 = dart.privateName(sembast_fs, "DatabaseFactoryFs.fs");
+  const SembastDatabaseFactory_DatabaseFactoryMixin$36 = class SembastDatabaseFactory_DatabaseFactoryMixin extends database_factory_mixin.SembastDatabaseFactory {};
+  (SembastDatabaseFactory_DatabaseFactoryMixin$36.new = function() {
+    database_factory_mixin.DatabaseFactoryMixin[dart.mixinNew].call(this);
+  }).prototype = SembastDatabaseFactory_DatabaseFactoryMixin$36.prototype;
+  dart.applyMixin(SembastDatabaseFactory_DatabaseFactoryMixin$36, database_factory_mixin.DatabaseFactoryMixin);
+  sembast_fs.DatabaseFactoryFs = class DatabaseFactoryFs extends SembastDatabaseFactory_DatabaseFactoryMixin$36 {
+    get fs() {
+      return this[fs$0];
+    }
+    set fs(value) {
+      super.fs = value;
+    }
+    newDatabase(openHelper) {
+      if (openHelper == null) dart.nullFailed(I[0], 212, 50, "openHelper");
+      return new database_impl.SembastDatabase.new(openHelper, new sembast_fs.FsDatabaseStorage.new(this.fs, openHelper.path));
+    }
+    doDeleteDatabase(path) {
+      if (path == null) dart.nullFailed(I[0], 216, 34, "path");
+      return async.async(dart.dynamic, (function* doDeleteDatabase() {
+        return new sembast_fs.FsDatabaseStorage.new(this.fs, path).delete();
+      }).bind(this));
+    }
+    get hasStorage() {
+      return true;
+    }
+  };
+  (sembast_fs.DatabaseFactoryFs.new = function(fs) {
+    if (fs == null) dart.nullFailed(I[0], 209, 26, "fs");
+    this[fs$0] = fs;
+    sembast_fs.DatabaseFactoryFs.__proto__.new.call(this);
+    ;
+  }).prototype = sembast_fs.DatabaseFactoryFs.prototype;
+  dart.addTypeTests(sembast_fs.DatabaseFactoryFs);
+  dart.addTypeCaches(sembast_fs.DatabaseFactoryFs);
+  sembast_fs.DatabaseFactoryFs[dart.implements] = () => [factory.DatabaseFactory];
+  dart.setMethodSignature(sembast_fs.DatabaseFactoryFs, () => ({
+    __proto__: dart.getMethods(sembast_fs.DatabaseFactoryFs.__proto__),
+    newDatabase: dart.fnType(database_impl.SembastDatabase, [database_factory_mixin.DatabaseOpenHelper]),
+    doDeleteDatabase: dart.fnType(async.Future, [core.String])
+  }));
+  dart.setGetterSignature(sembast_fs.DatabaseFactoryFs, () => ({
+    __proto__: dart.getGetters(sembast_fs.DatabaseFactoryFs.__proto__),
+    hasStorage: core.bool
+  }));
+  dart.setLibraryUri(sembast_fs.DatabaseFactoryFs, I[1]);
+  dart.setFieldSignature(sembast_fs.DatabaseFactoryFs, () => ({
+    __proto__: dart.getFields(sembast_fs.DatabaseFactoryFs.__proto__),
+    fs: dart.finalFieldType(file_system.FileSystem)
+  }));
+  dart.trackLibraries("packages/sembast/src/sembast_fs.dart", {
+    "package:sembast/src/sembast_fs.dart": sembast_fs
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["sembast_fs.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../packages/sembast/src/sembast_fs.dart.lib.js"}');
+  // Exports:
+  return {
+    src__sembast_fs: sembast_fs
+  };
+}));
+
+//# sourceMappingURL=sembast_fs.dart.lib.js.map

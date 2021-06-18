@@ -1,0 +1,348 @@
+define(['dart_sdk', 'packages/sembast/src/sembast_codec.dart', 'packages/idb_shim/src/common/common_key_range.dart'], (function load__packages__idb_shim__src__sembast__sembast_filter_dart(dart_sdk, packages__sembast__src__sembast_codec$46dart, packages__idb_shim__src__common__common_key_range$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const math = dart_sdk.math;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const filter = packages__sembast__src__sembast_codec$46dart.src__api__filter;
+  const record_snapshot = packages__sembast__src__sembast_codec$46dart.src__api__record_snapshot;
+  const idb = packages__idb_shim__src__common__common_key_range$46dart.idb;
+  var sembast_filter = Object.create(dart.library);
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $contains = dartx.contains;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    ComparableL: () => (T.ComparableL = dart.constFn(dart.legacy(core.Comparable)))(),
+    ListL: () => (T.ListL = dart.constFn(dart.legacy(core.List)))(),
+    numL: () => (T.numL = dart.constFn(dart.legacy(core.num)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    RecordSnapshotL: () => (T.RecordSnapshotL = dart.constFn(dart.legacy(record_snapshot.RecordSnapshot)))(),
+    RecordSnapshotLToboolL: () => (T.RecordSnapshotLToboolL = dart.constFn(dart.fnType(T.boolL(), [T.RecordSnapshotL()])))(),
+    intLTodynamic: () => (T.intLTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T.intL()])))(),
+    FilterL: () => (T.FilterL = dart.constFn(dart.legacy(filter.Filter)))(),
+    JSArrayOfFilterL: () => (T.JSArrayOfFilterL = dart.constFn(_interceptors.JSArray$(T.FilterL())))(),
+    ListOfFilterL: () => (T.ListOfFilterL = dart.constFn(core.List$(T.FilterL())))(),
+    intLToFilterL: () => (T.intLToFilterL = dart.constFn(dart.fnType(T.FilterL(), [T.intL()])))(),
+    KeyRangeL: () => (T.KeyRangeL = dart.constFn(dart.legacy(idb.KeyRange)))(),
+    StringLAnddynamicToFilterL: () => (T.StringLAnddynamicToFilterL = dart.constFn(dart.fnType(T.FilterL(), [T.StringL(), dart.dynamic])))(),
+    StringLToFilterL: () => (T.StringLToFilterL = dart.constFn(dart.fnType(T.FilterL(), [T.StringL()])))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.fn(sembast_filter._singleFieldKeyEqualsFilter, T.StringLAnddynamicToFilterL());
+    },
+    get C1() {
+      return C[1] = dart.fn(sembast_filter._singleFieldKeyNotNullFilter, T.StringLToFilterL());
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = ["file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-1.12.2+3/lib/src/sembast/sembast_filter.dart"];
+  sembast_filter.keyCursorFilter = function keyCursorFilter(keyPath, key, range, multiEntry) {
+    if (range != null) {
+      return sembast_filter.keyRangeFilter(keyPath, range, multiEntry);
+    } else {
+      return sembast_filter.keyFilter(keyPath, key, multiEntry);
+    }
+  };
+  sembast_filter.compareValue = function compareValue(value1, value2) {
+    try {
+      if (T.ComparableL().is(value1) && T.ComparableL().is(value2)) {
+        return core.Comparable.compare(value1, value2);
+      } else if (T.ListL().is(value1) && T.ListL().is(value2)) {
+        let list1 = value1;
+        let list2 = value2;
+        for (let i = 0; i < math.min(T.numL(), value1[$length], value2[$length]); i = i + 1) {
+          let cmp = sembast_filter.compareValue(list1[$_get](i), list2[$_get](i));
+          if (cmp === 0) {
+            continue;
+          }
+          return cmp;
+        }
+        return sembast_filter.compareValue(list1[$length], list2[$length]);
+      }
+    } catch (e) {
+      let _ = dart.getThrown(e);
+    }
+    return null;
+  };
+  sembast_filter.lowerCompareSingleValue = function lowerCompareSingleValue(lower, value) {
+    if (value == null) {
+      return 1;
+    }
+    return sembast_filter.compareValue(lower, value);
+  };
+  sembast_filter.lowerCompareValue = function lowerCompareValue(lower, value, multiEntry) {
+    let bestCmp = null;
+    if (dart.test(multiEntry) && T.ListL().is(value)) {
+      for (let item of value) {
+        let cmp = sembast_filter.lowerCompareSingleValue(lower, item);
+        if (dart.notNull(cmp) < 0) {
+          return cmp;
+        } else if (cmp === 0) {
+          bestCmp = 0;
+        }
+      }
+    }
+    let singleCmp = sembast_filter.lowerCompareSingleValue(lower, value);
+    if (singleCmp != null) {
+      if (bestCmp != null) {
+        return math.min(T.intL(), singleCmp, bestCmp);
+      }
+      return singleCmp;
+    }
+    return bestCmp;
+  };
+  sembast_filter.lowerMatchesSingleValue = function lowerMatchesSingleValue(lower, lowerOpen, value) {
+    if (value != null) {
+      let cmp = sembast_filter.lowerCompareSingleValue(lower, value);
+      if (dart.notNull(cmp) < 0) {
+        return true;
+      } else if (!dart.test(lowerOpen)) {
+        return cmp === 0;
+      }
+    }
+    return false;
+  };
+  sembast_filter.upperCompareSingleValue = function upperCompareSingleValue(upper, value) {
+    if (value == null) {
+      return -1;
+    }
+    return sembast_filter.compareValue(upper, value);
+  };
+  sembast_filter.upperCompareValue = function upperCompareValue(lower, value, multiEntry) {
+    let bestCmp = null;
+    if (dart.test(multiEntry) && T.ListL().is(value)) {
+      for (let item of value) {
+        let cmp = sembast_filter.upperCompareSingleValue(lower, item);
+        if (dart.notNull(cmp) > 0) {
+          return cmp;
+        } else if (cmp === 0) {
+          bestCmp = 0;
+        }
+      }
+    }
+    let singleCmp = sembast_filter.upperCompareSingleValue(lower, value);
+    if (singleCmp != null) {
+      if (bestCmp != null) {
+        return math.max(T.intL(), singleCmp, bestCmp);
+      }
+      return singleCmp;
+    }
+    return bestCmp;
+  };
+  sembast_filter.upperMatchesSingleValue = function upperMatchesSingleValue(upper, upperOpen, value) {
+    if (value != null) {
+      let cmp = sembast_filter.upperCompareSingleValue(upper, value);
+      if (dart.notNull(cmp) > 0) {
+        return true;
+      } else if (!dart.test(upperOpen)) {
+        return cmp === 0;
+      }
+    }
+    return false;
+  };
+  sembast_filter.lowerMatchesValue = function lowerMatchesValue(lower, lowerOpen, value, multiEntry) {
+    if (dart.test(multiEntry) && T.ListL().is(value)) {
+      for (let item of value) {
+        if (dart.test(sembast_filter.lowerMatchesSingleValue(lower, lowerOpen, item))) {
+          return true;
+        }
+      }
+    }
+    return sembast_filter.lowerMatchesSingleValue(lower, lowerOpen, value);
+  };
+  sembast_filter.upperMatchesValue = function upperMatchesValue(upper, upperOpen, value, multiEntry) {
+    if (dart.test(multiEntry) && T.ListL().is(value)) {
+      for (let item of value) {
+        if (dart.test(sembast_filter.upperMatchesSingleValue(upper, upperOpen, item))) {
+          return true;
+        }
+      }
+    }
+    return sembast_filter.upperMatchesSingleValue(upper, upperOpen, value);
+  };
+  sembast_filter.keyRangeFilter = function keyRangeFilter(keyPath, range, multiEntry) {
+    if (T.StringL().is(keyPath)) {
+      return filter.Filter.custom(dart.fn(snapshot => {
+        let value = snapshot._get(keyPath);
+        if (range.lower != null) {
+          if (!dart.test(sembast_filter.lowerMatchesValue(range.lower, range.lowerOpen, value, multiEntry))) {
+            return false;
+          }
+        }
+        if (range.upper != null) {
+          if (!dart.test(sembast_filter.upperMatchesValue(range.upper, range.upperOpen, value, multiEntry))) {
+            return false;
+          }
+        }
+        return true;
+      }, T.RecordSnapshotLToboolL()));
+    } else if (T.ListL().is(keyPath)) {
+      let keyPathList = keyPath;
+      let lowerList = T.ListL().as(range.lower);
+      let upperList = T.ListL().as(range.upper);
+      if (lowerList != null) {
+        if (!(lowerList[$length] == keyPathList[$length])) dart.assertFailed("keyPath and lower bound length must match", I[0], 181, 14, "lowerList.length == keyPathList.length");
+      }
+      if (upperList != null) {
+        if (!(upperList[$length] == keyPathList[$length])) dart.assertFailed("keyPath and upper bound length must match", I[0], 185, 14, "upperList.length == keyPathList.length");
+      }
+      return filter.Filter.custom(dart.fn(snapshot => {
+        let values = core.List.generate(keyPathList[$length], dart.fn(i => snapshot._get(T.StringL().as(keyPathList[$_get](i))), T.intLTodynamic()));
+        for (let value of values) {
+          if (value == null) {
+            return false;
+          }
+        }
+        let lowerOpen = range.lowerOpen;
+        if (lowerList != null) {
+          let cmp = null;
+          for (let i = 0; i < dart.notNull(keyPathList[$length]); i = i + 1) {
+            let value = values[$_get](i);
+            let lower = lowerList[$_get](i);
+            if (lower == null) {
+              continue;
+            } else {
+              cmp = sembast_filter.lowerCompareValue(lower, value, multiEntry);
+              if (dart.notNull(cmp) > 0) {
+                return false;
+              } else if (dart.notNull(cmp) < 0) {
+                break;
+              }
+            }
+          }
+          if (cmp === 0 && dart.test(lowerOpen)) {
+            return false;
+          }
+        }
+        let upperOpen = range.upperOpen;
+        if (upperList != null) {
+          let cmp = null;
+          for (let i = 0; i < dart.notNull(keyPathList[$length]); i = i + 1) {
+            let value = values[$_get](i);
+            let upper = upperList[$_get](i);
+            if (upper == null) {
+              continue;
+            } else {
+              cmp = sembast_filter.upperCompareValue(upper, value, multiEntry);
+              if (dart.notNull(cmp) < 0) {
+                return false;
+              } else if (dart.notNull(cmp) > 0) {
+                break;
+              }
+            }
+          }
+          if (cmp === 0 && dart.test(upperOpen)) {
+            return false;
+          }
+        }
+        return true;
+      }, T.RecordSnapshotLToboolL()));
+    } else {
+      dart.throw("keyPath " + dart.str(keyPath) + " not supported");
+    }
+  };
+  sembast_filter._singleFieldKeyNotNullFilter = function _singleFieldKeyNotNullFilter(keyPath) {
+    return filter.Filter.notEquals(keyPath, null);
+  };
+  sembast_filter._singleFieldKeyEqualsFilter = function _singleFieldKeyEqualsFilter(keyPath, key) {
+    return filter.Filter.equals(keyPath, key);
+  };
+  sembast_filter._debugSingleFieldNotNullFilter = function _debugSingleFieldNotNullFilter(keyPath) {
+    return filter.Filter.and(T.JSArrayOfFilterL().of([filter.Filter.notEquals(keyPath, true), filter.Filter.notEquals(keyPath, false), sembast_filter._singleFieldKeyNotNullFilter(keyPath)]));
+  };
+  sembast_filter._debugSingleFieldKeyEqualsFilter = function _debugSingleFieldKeyEqualsFilter(keyPath, key) {
+    return filter.Filter.equals(keyPath, key);
+  };
+  sembast_filter.keyFilter = function keyFilter(keyPath, key, multiEntry) {
+    if (T.StringL().is(keyPath)) {
+      if (dart.test(multiEntry)) {
+        return filter.Filter.custom(dart.fn(snapshot => {
+          let value = snapshot._get(keyPath);
+          if (T.ListL().is(value)) {
+            if (key == null) {
+              return value[$isNotEmpty];
+            } else {
+              return value[$contains](key);
+            }
+          } else {
+            if (key == null) {
+              return value != null;
+            } else {
+              return dart.equals(value, key);
+            }
+          }
+        }, T.RecordSnapshotLToboolL()));
+      } else {
+        if (key == null) {
+          return sembast_filter.singleFieldKeyNotNullFilter(keyPath);
+        }
+        return sembast_filter.singleFieldKeyEqualsFilter(keyPath, key);
+      }
+    } else if (T.ListL().is(keyPath)) {
+      let keyList = keyPath;
+      if (key == null) {
+        return filter.Filter.and(T.ListOfFilterL().generate(keyList[$length], dart.fn(i => sembast_filter.keyFilter(keyList[$_get](i), null, multiEntry), T.intLToFilterL())));
+      } else {
+        if (T.ListL().is(key)) {
+          let valueList = key;
+          return filter.Filter.and(T.ListOfFilterL().generate(keyList[$length], dart.fn(i => sembast_filter.keyFilter(keyList[$_get](i), valueList[$_get](i), multiEntry), T.intLToFilterL())));
+        } else {
+          return filter.Filter.custom(dart.fn(record => false, T.RecordSnapshotLToboolL()));
+        }
+      }
+    }
+    dart.throw("keyPath " + dart.str(keyPath) + " not supported");
+  };
+  sembast_filter.keyOrRangeFilter = function keyOrRangeFilter(keyPath, keyOrRange, multiEntry) {
+    if (T.KeyRangeL().is(keyOrRange)) {
+      return sembast_filter.keyRangeFilter(keyPath, keyOrRange, multiEntry);
+    } else {
+      return sembast_filter.keyFilter(keyPath, keyOrRange, multiEntry);
+    }
+  };
+  sembast_filter.keyNotNullFilter = function keyNotNullFilter(keyPath) {
+    if (T.StringL().is(keyPath)) {
+      return filter.Filter.notEquals(keyPath, null);
+    } else if (T.ListL().is(keyPath)) {
+      let keyList = keyPath;
+      return filter.Filter.and(T.ListOfFilterL().generate(keyList[$length], dart.fn(i => filter.Filter.notEquals(T.StringL().as(keyList[$_get](i)), null), T.intLToFilterL())));
+    }
+    dart.throw("keyPath " + dart.str(keyPath) + " not supported");
+  };
+  dart.defineLazy(sembast_filter, {
+    /*sembast_filter.singleFieldKeyEqualsFilter*/get singleFieldKeyEqualsFilter() {
+      return C[0] || CT.C0;
+    },
+    /*sembast_filter.singleFieldKeyNotNullFilter*/get singleFieldKeyNotNullFilter() {
+      return C[1] || CT.C1;
+    }
+  }, true);
+  dart.trackLibraries("packages/idb_shim/src/sembast/sembast_filter.dart", {
+    "package:idb_shim/src/sembast/sembast_filter.dart": sembast_filter
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["sembast_filter.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../packages/idb_shim/src/sembast/sembast_filter.dart.lib.js"}');
+  // Exports:
+  return {
+    src__sembast__sembast_filter: sembast_filter
+  };
+}));
+
+//# sourceMappingURL=sembast_filter.dart.lib.js.map

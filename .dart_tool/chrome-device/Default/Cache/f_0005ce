@@ -1,0 +1,335 @@
+define(['dart_sdk', 'packages/sembast/src/cooperator.dart'], (function load__packages__sembast__src__sort_dart(dart_sdk, packages__sembast__src__cooperator$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const cooperator = packages__sembast__src__cooperator$46dart.src__cooperator;
+  var sort = Object.create(dart.library);
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $truncate = dartx.truncate;
+  dart._checkModuleNullSafetyMode(false);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = [
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/sembast-2.4.10+4/lib/src/sort.dart",
+    "package:sembast/src/sort.dart"
+  ];
+  var cooperator$ = dart.privateName(sort, "Sort.cooperator");
+  var _doSort = dart.privateName(sort, "_doSort");
+  var _insertionSort = dart.privateName(sort, "_insertionSort");
+  var _dualPivotQuicksort = dart.privateName(sort, "_dualPivotQuicksort");
+  sort.Sort = class Sort extends core.Object {
+    get cooperator() {
+      return this[cooperator$];
+    }
+    set cooperator(value) {
+      super.cooperator = value;
+    }
+    sort(E, a, compare) {
+      return this[_doSort](dart.legacy(E), a, 0, dart.notNull(a[$length]) - 1, compare);
+    }
+    [_doSort](E, a, left, right, compare) {
+      return async.async(dart.dynamic, (function* _doSort() {
+        if (dart.notNull(right) - dart.notNull(left) <= 32) {
+          return this[_insertionSort](dart.legacy(E), a, left, right, compare);
+        } else {
+          return this[_dualPivotQuicksort](dart.legacy(E), a, left, right, compare);
+        }
+      }).bind(this));
+    }
+    [_insertionSort](E, a, left, right, compare) {
+      return async.async(dart.dynamic, (function* _insertionSort() {
+        for (let i = dart.notNull(left) + 1; i <= dart.notNull(right); i = i + 1) {
+          let el = a[$_get](i);
+          let j = i;
+          while (j > dart.notNull(left) && dart.notNull(compare(a[$_get](j - 1), el)) > 0) {
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            a[$_set](j, a[$_get](j - 1));
+            j = j - 1;
+          }
+          a[$_set](j, el);
+        }
+      }).bind(this));
+    }
+    [_dualPivotQuicksort](E, a, left, right, compare) {
+      return async.async(dart.dynamic, (function* _dualPivotQuicksort() {
+        let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5, t0$6;
+        if (!(dart.notNull(right) - dart.notNull(left) > 32)) dart.assertFailed(null, I[0], 70, 12, "right - left > _INSERTION_SORT_THRESHOLD");
+        let sixth = ((dart.notNull(right) - dart.notNull(left) + 1) / 6)[$truncate]();
+        let index1 = dart.notNull(left) + sixth;
+        let index5 = dart.notNull(right) - sixth;
+        let index3 = ((dart.notNull(left) + dart.notNull(right)) / 2)[$truncate]();
+        let index2 = index3 - sixth;
+        let index4 = index3 + sixth;
+        let el1 = a[$_get](index1);
+        let el2 = a[$_get](index2);
+        let el3 = a[$_get](index3);
+        let el4 = a[$_get](index4);
+        let el5 = a[$_get](index5);
+        if (dart.notNull(compare(el1, el2)) > 0) {
+          let t = el1;
+          el1 = el2;
+          el2 = t;
+        }
+        if (dart.notNull(compare(el4, el5)) > 0) {
+          let t = el4;
+          el4 = el5;
+          el5 = t;
+        }
+        if (dart.notNull(compare(el1, el3)) > 0) {
+          let t = el1;
+          el1 = el3;
+          el3 = t;
+        }
+        if (dart.notNull(compare(el2, el3)) > 0) {
+          let t = el2;
+          el2 = el3;
+          el3 = t;
+        }
+        if (dart.notNull(compare(el1, el4)) > 0) {
+          let t = el1;
+          el1 = el4;
+          el4 = t;
+        }
+        if (dart.notNull(compare(el3, el4)) > 0) {
+          let t = el3;
+          el3 = el4;
+          el4 = t;
+        }
+        if (dart.notNull(compare(el2, el5)) > 0) {
+          let t = el2;
+          el2 = el5;
+          el5 = t;
+        }
+        if (dart.notNull(compare(el2, el3)) > 0) {
+          let t = el2;
+          el2 = el3;
+          el3 = t;
+        }
+        if (dart.notNull(compare(el4, el5)) > 0) {
+          let t = el4;
+          el4 = el5;
+          el5 = t;
+        }
+        let pivot1 = el2;
+        let pivot2 = el4;
+        a[$_set](index1, el1);
+        a[$_set](index3, el3);
+        a[$_set](index5, el5);
+        a[$_set](index2, a[$_get](left));
+        a[$_set](index4, a[$_get](right));
+        let less = dart.notNull(left) + 1;
+        let great = dart.notNull(right) - 1;
+        let pivots_are_equal = compare(pivot1, pivot2) === 0;
+        if (pivots_are_equal) {
+          let pivot = pivot1;
+          for (let k = less; k <= great; k = k + 1) {
+            let ak = a[$_get](k);
+            let comp = compare(ak, pivot);
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            if (comp === 0) continue;
+            if (dart.notNull(comp) < 0) {
+              if (k !== less) {
+                a[$_set](k, a[$_get](less));
+                a[$_set](less, ak);
+              }
+              less = less + 1;
+            } else {
+              while (true) {
+                comp = compare(a[$_get](great), pivot);
+                if (dart.test(this.cooperator.needCooperate)) {
+                  yield this.cooperator.cooperate();
+                }
+                if (dart.notNull(comp) > 0) {
+                  great = great - 1;
+                  continue;
+                } else if (dart.notNull(comp) < 0) {
+                  a[$_set](k, a[$_get](less));
+                  a[$_set]((t0 = less, less = t0 + 1, t0), a[$_get](great));
+                  a[$_set]((t0$ = great, great = t0$ - 1, t0$), ak);
+                  break;
+                } else {
+                  a[$_set](k, a[$_get](great));
+                  a[$_set]((t0$0 = great, great = t0$0 - 1, t0$0), ak);
+                  break;
+                }
+              }
+            }
+          }
+        } else {
+          for (let k = less; k <= great; k = k + 1) {
+            let ak = a[$_get](k);
+            let comp_pivot1 = compare(ak, pivot1);
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            if (dart.notNull(comp_pivot1) < 0) {
+              if (k !== less) {
+                a[$_set](k, a[$_get](less));
+                a[$_set](less, ak);
+              }
+              less = less + 1;
+            } else {
+              let comp_pivot2 = compare(ak, pivot2);
+              if (dart.test(this.cooperator.needCooperate)) {
+                yield this.cooperator.cooperate();
+              }
+              if (dart.notNull(comp_pivot2) > 0) {
+                while (true) {
+                  let comp = compare(a[$_get](great), pivot2);
+                  if (dart.test(this.cooperator.needCooperate)) {
+                    yield this.cooperator.cooperate();
+                  }
+                  if (dart.notNull(comp) > 0) {
+                    great = great - 1;
+                    if (great < k) break;
+                    continue;
+                  } else {
+                    comp = compare(a[$_get](great), pivot1);
+                    if (dart.test(this.cooperator.needCooperate)) {
+                      yield this.cooperator.cooperate();
+                    }
+                    if (dart.notNull(comp) < 0) {
+                      a[$_set](k, a[$_get](less));
+                      a[$_set]((t0$1 = less, less = t0$1 + 1, t0$1), a[$_get](great));
+                      a[$_set]((t0$2 = great, great = t0$2 - 1, t0$2), ak);
+                    } else {
+                      a[$_set](k, a[$_get](great));
+                      a[$_set]((t0$3 = great, great = t0$3 - 1, t0$3), ak);
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }
+        }
+        a[$_set](left, a[$_get](less - 1));
+        a[$_set](less - 1, pivot1);
+        a[$_set](right, a[$_get](great + 1));
+        a[$_set](great + 1, pivot2);
+        yield this[_doSort](dart.legacy(E), a, left, less - 2, compare);
+        yield this[_doSort](dart.legacy(E), a, great + 2, right, compare);
+        if (pivots_are_equal) {
+          return;
+        }
+        if (less < index1 && great > index5) {
+          while (compare(a[$_get](less), pivot1) === 0) {
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            less = less + 1;
+          }
+          while (compare(a[$_get](great), pivot2) === 0) {
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            great = great - 1;
+          }
+          for (let k = less; k <= great; k = k + 1) {
+            let ak = a[$_get](k);
+            let comp_pivot1 = compare(ak, pivot1);
+            if (dart.test(this.cooperator.needCooperate)) {
+              yield this.cooperator.cooperate();
+            }
+            if (comp_pivot1 === 0) {
+              if (k !== less) {
+                a[$_set](k, a[$_get](less));
+                a[$_set](less, ak);
+              }
+              less = less + 1;
+            } else {
+              let comp_pivot2 = compare(ak, pivot2);
+              if (comp_pivot2 === 0) {
+                while (true) {
+                  let comp = compare(a[$_get](great), pivot2);
+                  if (dart.test(this.cooperator.needCooperate)) {
+                    yield this.cooperator.cooperate();
+                  }
+                  if (comp === 0) {
+                    great = great - 1;
+                    if (great < k) break;
+                    continue;
+                  } else {
+                    comp = compare(a[$_get](great), pivot1);
+                    if (dart.test(this.cooperator.needCooperate)) {
+                      yield this.cooperator.cooperate();
+                    }
+                    if (dart.notNull(comp) < 0) {
+                      a[$_set](k, a[$_get](less));
+                      a[$_set]((t0$4 = less, less = t0$4 + 1, t0$4), a[$_get](great));
+                      a[$_set]((t0$5 = great, great = t0$5 - 1, t0$5), ak);
+                    } else {
+                      a[$_set](k, a[$_get](great));
+                      a[$_set]((t0$6 = great, great = t0$6 - 1, t0$6), ak);
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }
+          yield this[_doSort](dart.legacy(E), a, less, great, compare);
+        } else {
+          yield this[_doSort](dart.legacy(E), a, less, great, compare);
+        }
+      }).bind(this));
+    }
+  };
+  (sort.Sort.new = function(cooperator) {
+    this[cooperator$] = cooperator;
+    ;
+  }).prototype = sort.Sort.prototype;
+  dart.addTypeTests(sort.Sort);
+  dart.addTypeCaches(sort.Sort);
+  dart.setMethodSignature(sort.Sort, () => ({
+    __proto__: dart.getMethods(sort.Sort.__proto__),
+    sort: dart.gFnType(E => [dart.legacy(async.Future), [dart.legacy(core.List$(dart.legacy(E))), dart.legacy(dart.fnType(dart.legacy(core.int), [dart.legacy(E), dart.legacy(E)]))]]),
+    [_doSort]: dart.gFnType(E => [dart.legacy(async.Future), [dart.legacy(core.List$(dart.legacy(E))), dart.legacy(core.int), dart.legacy(core.int), dart.legacy(dart.fnType(dart.legacy(core.int), [dart.legacy(E), dart.legacy(E)]))]]),
+    [_insertionSort]: dart.gFnType(E => [dart.legacy(async.Future), [dart.legacy(core.List$(dart.legacy(E))), dart.legacy(core.int), dart.legacy(core.int), dart.legacy(dart.fnType(dart.legacy(core.int), [dart.legacy(E), dart.legacy(E)]))]]),
+    [_dualPivotQuicksort]: dart.gFnType(E => [dart.legacy(async.Future), [dart.legacy(core.List$(dart.legacy(E))), dart.legacy(core.int), dart.legacy(core.int), dart.legacy(dart.fnType(dart.legacy(core.int), [dart.legacy(E), dart.legacy(E)]))]])
+  }));
+  dart.setLibraryUri(sort.Sort, I[1]);
+  dart.setFieldSignature(sort.Sort, () => ({
+    __proto__: dart.getFields(sort.Sort.__proto__),
+    cooperator: dart.finalFieldType(dart.legacy(cooperator.Cooperator))
+  }));
+  dart.defineLazy(sort.Sort, {
+    /*sort.Sort._INSERTION_SORT_THRESHOLD*/get _INSERTION_SORT_THRESHOLD() {
+      return 32;
+    }
+  }, true);
+  sort.findSortedIndex = function findSortedIndex(T, list, item, compare) {
+    let start = 0;
+    let end = list[$length];
+    while (start < dart.notNull(end)) {
+      let pivot = start + ((dart.notNull(end) - start) / 2)[$truncate]();
+      let value = list[$_get](pivot);
+      let cmp = compare(value, item);
+      if (dart.notNull(cmp) < 0) {
+        start = pivot + 1;
+      } else {
+        end = pivot;
+      }
+    }
+    return start;
+  };
+  dart.trackLibraries("packages/sembast/src/sort.dart", {
+    "package:sembast/src/sort.dart": sort
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["sort.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../packages/sembast/src/sort.dart.lib.js"}');
+  // Exports:
+  return {
+    src__sort: sort
+  };
+}));
+
+//# sourceMappingURL=sort.dart.lib.js.map

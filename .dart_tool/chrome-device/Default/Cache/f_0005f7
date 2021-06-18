@@ -1,0 +1,2014 @@
+define(['dart_sdk', 'packages/idb_shim/src/common/common_key_range.dart', 'packages/idb_shim/src/common/common_exception.dart', 'packages/sembast/src/api/v2/transaction.dart', 'packages/idb_shim/src/database_exception.dart', 'packages/idb_shim/src/common/common_transaction.dart', 'packages/idb_shim/src/common/common_meta.dart', 'packages/sembast/src/sembast_codec.dart', 'packages/idb_shim/src/sembast/sembast_filter.dart', 'packages/idb_shim/src/common/common_validation.dart', 'packages/idb_shim/src/sembast/sembast_value.dart', 'packages/sembast/src/api/client.dart', 'packages/idb_shim/src/common/common_database.dart', 'packages/path/src/path_set.dart', 'packages/sembast/sembast_memory.dart'], (function load__packages__idb_shim__src__sembast__sembast_transaction_dart(dart_sdk, packages__idb_shim__src__common__common_key_range$46dart, packages__idb_shim__src__common__common_exception$46dart, packages__sembast__src__api__v2__transaction$46dart, packages__idb_shim__src__database_exception$46dart, packages__idb_shim__src__common__common_transaction$46dart, packages__idb_shim__src__common__common_meta$46dart, packages__sembast__src__sembast_codec$46dart, packages__idb_shim__src__sembast__sembast_filter$46dart, packages__idb_shim__src__common__common_validation$46dart, packages__idb_shim__src__sembast__sembast_value$46dart, packages__sembast__src__api__client$46dart, packages__idb_shim__src__common__common_database$46dart, packages__path__src__path_set$46dart, packages__sembast__sembast_memory$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const collection = dart_sdk.collection;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const idb = packages__idb_shim__src__common__common_key_range$46dart.idb;
+  const common_value = packages__idb_shim__src__common__common_key_range$46dart.src__common__common_value;
+  const error = packages__idb_shim__src__common__common_key_range$46dart.src__client__error;
+  const common_factory = packages__idb_shim__src__common__common_key_range$46dart.src__common__common_factory;
+  const common_exception = packages__idb_shim__src__common__common_exception$46dart.src__common__common_exception;
+  const transaction = packages__sembast__src__api__v2__transaction$46dart.src__api__v2__transaction;
+  const database_exception = packages__idb_shim__src__database_exception$46dart.src__database_exception;
+  const common_transaction = packages__idb_shim__src__common__common_transaction$46dart.src__common__common_transaction;
+  const common_meta = packages__idb_shim__src__common__common_meta$46dart.src__common__common_meta;
+  const database = packages__sembast__src__sembast_codec$46dart.src__api__v2__database;
+  const store_ref_impl = packages__sembast__src__sembast_codec$46dart.src__store_ref_impl;
+  const finder$ = packages__sembast__src__sembast_codec$46dart.src__api__finder;
+  const record_snapshot = packages__sembast__src__sembast_codec$46dart.src__api__record_snapshot;
+  const filter = packages__sembast__src__sembast_codec$46dart.src__api__filter;
+  const sort_order = packages__sembast__src__sembast_codec$46dart.src__api__sort_order;
+  const record_ref_impl = packages__sembast__src__sembast_codec$46dart.src__record_ref_impl;
+  const store_ref = packages__sembast__src__sembast_codec$46dart.src__api__store_ref;
+  const field = packages__sembast__src__sembast_codec$46dart.src__api__field;
+  const factory = packages__sembast__src__sembast_codec$46dart.src__api__v2__factory;
+  const sembast_filter = packages__idb_shim__src__sembast__sembast_filter$46dart.src__sembast__sembast_filter;
+  const common_validation = packages__idb_shim__src__common__common_validation$46dart.src__common__common_validation;
+  const sembast_value = packages__idb_shim__src__sembast__sembast_value$46dart.src__sembast__sembast_value;
+  const client = packages__sembast__src__api__client$46dart.src__api__client;
+  const common_database = packages__idb_shim__src__common__common_database$46dart.src__common__common_database;
+  const path = packages__path__src__path_set$46dart.path;
+  const sembast_memory = packages__sembast__sembast_memory$46dart.sembast_memory;
+  var sembast_transaction = Object.create(dart.library);
+  var sembast_index = Object.create(dart.library);
+  var sembast_cursor = Object.create(dart.library);
+  var sembast_object_store = Object.create(dart.library);
+  var sembast_database = Object.create(dart.library);
+  var idb_client_sembast = Object.create(dart.library);
+  var sembast_factory = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $length = dartx.length;
+  var $add = dartx.add;
+  var $addAll = dartx.addAll;
+  var $toString = dartx.toString;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $first = dartx.first;
+  var $map = dartx.map;
+  var $toList = dartx.toList;
+  var $removeAt = dartx.removeAt;
+  var $_set = dartx._set;
+  var $sort = dartx.sort;
+  var $forEach = dartx.forEach;
+  var $cast = dartx.cast;
+  dart._checkModuleNullSafetyMode(false);
+  var T$ = {
+    DatabaseL: () => (T$.DatabaseL = dart.constFn(dart.legacy(idb.Database)))(),
+    CompleterOfDatabaseL: () => (T$.CompleterOfDatabaseL = dart.constFn(async.Completer$(T$.DatabaseL())))(),
+    CompleterL: () => (T$.CompleterL = dart.constFn(dart.legacy(async.Completer)))(),
+    JSArrayOfCompleterL: () => (T$.JSArrayOfCompleterL = dart.constFn(_interceptors.JSArray$(T$.CompleterL())))(),
+    FunctionL: () => (T$.FunctionL = dart.constFn(dart.legacy(core.Function)))(),
+    JSArrayOfFunctionL: () => (T$.JSArrayOfFunctionL = dart.constFn(_interceptors.JSArray$(T$.FunctionL())))(),
+    FutureL: () => (T$.FutureL = dart.constFn(dart.legacy(async.Future)))(),
+    JSArrayOfFutureL: () => (T$.JSArrayOfFutureL = dart.constFn(_interceptors.JSArray$(T$.FutureL())))(),
+    FutureOfNull: () => (T$.FutureOfNull = dart.constFn(async.Future$(core.Null)))(),
+    FutureLOfNull: () => (T$.FutureLOfNull = dart.constFn(dart.legacy(T$.FutureOfNull())))(),
+    voidToFutureLOfNull: () => (T$.voidToFutureLOfNull = dart.constFn(dart.fnType(T$.FutureLOfNull(), [dart.void])))(),
+    DatabaseSembastL: () => (T$.DatabaseSembastL = dart.constFn(dart.legacy(sembast_database.DatabaseSembast)))(),
+    VoidToFutureOrL: () => (T$.VoidToFutureOrL = dart.constFn(dart.fnType(dart.dynamic, [])))(),
+    VoidToLFutureOrL: () => (T$.VoidToLFutureOrL = dart.constFn(dart.legacy(T$.VoidToFutureOrL())))(),
+    VoidToFutureLOfNull: () => (T$.VoidToFutureLOfNull = dart.constFn(dart.fnType(T$.FutureLOfNull(), [])))(),
+    dynamicToNull: () => (T$.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    StackTraceL: () => (T$.StackTraceL = dart.constFn(dart.legacy(core.StackTrace)))(),
+    dynamicAndStackTraceLToNull: () => (T$.dynamicAndStackTraceLToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic, T$.StackTraceL()])))(),
+    dynamicToFutureL: () => (T$.dynamicToFutureL = dart.constFn(dart.fnType(T$.FutureL(), [dart.dynamic])))(),
+    VoidToFutureL: () => (T$.VoidToFutureL = dart.constFn(dart.fnType(T$.FutureL(), [])))(),
+    TransactionL: () => (T$.TransactionL = dart.constFn(dart.legacy(transaction.Transaction)))(),
+    TransactionLToFutureL: () => (T$.TransactionLToFutureL = dart.constFn(dart.fnType(T$.FutureL(), [T$.TransactionL()])))(),
+    VoidToNull: () => (T$.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    dynamicToFutureLOfNull: () => (T$.dynamicToFutureLOfNull = dart.constFn(dart.fnType(T$.FutureLOfNull(), [dart.dynamic])))(),
+    intL: () => (T$.intL = dart.constFn(dart.legacy(core.int)))(),
+    FutureOfintL: () => (T$.FutureOfintL = dart.constFn(async.Future$(T$.intL())))(),
+    FutureLOfintL: () => (T$.FutureLOfintL = dart.constFn(dart.legacy(T$.FutureOfintL())))(),
+    VoidToFutureLOfintL: () => (T$.VoidToFutureLOfintL = dart.constFn(dart.fnType(T$.FutureLOfintL(), [])))(),
+    RecordSnapshotL: () => (T$.RecordSnapshotL = dart.constFn(dart.legacy(record_snapshot.RecordSnapshot)))(),
+    ListOfRecordSnapshotL: () => (T$.ListOfRecordSnapshotL = dart.constFn(core.List$(T$.RecordSnapshotL())))(),
+    ListLOfRecordSnapshotL: () => (T$.ListLOfRecordSnapshotL = dart.constFn(dart.legacy(T$.ListOfRecordSnapshotL())))(),
+    ListLOfRecordSnapshotLTodynamic: () => (T$.ListLOfRecordSnapshotLTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T$.ListLOfRecordSnapshotL()])))(),
+    ListL: () => (T$.ListL = dart.constFn(dart.legacy(core.List)))(),
+    FutureOfListL: () => (T$.FutureOfListL = dart.constFn(async.Future$(T$.ListL())))(),
+    FutureLOfListL: () => (T$.FutureLOfListL = dart.constFn(dart.legacy(T$.FutureOfListL())))(),
+    VoidToFutureLOfListL: () => (T$.VoidToFutureLOfListL = dart.constFn(dart.fnType(T$.FutureLOfListL(), [])))(),
+    VoidTovoid: () => (T$.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    IndexKeyCursorControllerSembastL: () => (T$.IndexKeyCursorControllerSembastL = dart.constFn(dart.legacy(sembast_cursor.IndexKeyCursorControllerSembast)))(),
+    IndexCursorWithValueControllerSembastL: () => (T$.IndexCursorWithValueControllerSembastL = dart.constFn(dart.legacy(sembast_cursor.IndexCursorWithValueControllerSembast)))(),
+    IndexRecordSnapshotSembastL: () => (T$.IndexRecordSnapshotSembastL = dart.constFn(dart.legacy(sembast_cursor.IndexRecordSnapshotSembast)))(),
+    JSArrayOfIndexRecordSnapshotSembastL: () => (T$.JSArrayOfIndexRecordSnapshotSembastL = dart.constFn(_interceptors.JSArray$(T$.IndexRecordSnapshotSembastL())))(),
+    MapL: () => (T$.MapL = dart.constFn(dart.legacy(core.Map)))(),
+    IndexRecordSnapshotSembastLAndIndexRecordSnapshotSembastLTointL: () => (T$.IndexRecordSnapshotSembastLAndIndexRecordSnapshotSembastLTointL = dart.constFn(dart.fnType(T$.intL(), [T$.IndexRecordSnapshotSembastL(), T$.IndexRecordSnapshotSembastL()])))(),
+    RecordSnapshotLToIndexRecordSnapshotSembastL: () => (T$.RecordSnapshotLToIndexRecordSnapshotSembastL = dart.constFn(dart.fnType(T$.IndexRecordSnapshotSembastL(), [T$.RecordSnapshotL()])))(),
+    RecordSnapshotSembastL: () => (T$.RecordSnapshotSembastL = dart.constFn(dart.legacy(sembast_cursor.RecordSnapshotSembast)))(),
+    RecordSnapshotLToRecordSnapshotSembastL: () => (T$.RecordSnapshotLToRecordSnapshotSembastL = dart.constFn(dart.fnType(T$.RecordSnapshotSembastL(), [T$.RecordSnapshotL()])))(),
+    StringL: () => (T$.StringL = dart.constFn(dart.legacy(core.String)))(),
+    SortOrderL: () => (T$.SortOrderL = dart.constFn(dart.legacy(sort_order.SortOrder)))(),
+    JSArrayOfSortOrderL: () => (T$.JSArrayOfSortOrderL = dart.constFn(_interceptors.JSArray$(T$.SortOrderL())))(),
+    ListOfSortOrderL: () => (T$.ListOfSortOrderL = dart.constFn(core.List$(T$.SortOrderL())))(),
+    intLToSortOrderL: () => (T$.intLToSortOrderL = dart.constFn(dart.fnType(T$.SortOrderL(), [T$.intL()])))(),
+    RecordSnapshotLToNull: () => (T$.RecordSnapshotLToNull = dart.constFn(dart.fnType(core.Null, [T$.RecordSnapshotL()])))(),
+    IdbIndexMetaL: () => (T$.IdbIndexMetaL = dart.constFn(dart.legacy(common_meta.IdbIndexMeta)))(),
+    IdbIndexMetaLToNull: () => (T$.IdbIndexMetaLToNull = dart.constFn(dart.fnType(core.Null, [T$.IdbIndexMetaL()])))(),
+    dynamicTodynamic: () => (T$.dynamicTodynamic = dart.constFn(dart.fnType(dart.dynamic, [dart.dynamic])))(),
+    ListLToFutureL: () => (T$.ListLToFutureL = dart.constFn(dart.fnType(T$.FutureL(), [T$.ListL()])))(),
+    intLToNull: () => (T$.intLToNull = dart.constFn(dart.fnType(core.Null, [T$.intL()])))(),
+    RecordSnapshotLTodynamic: () => (T$.RecordSnapshotLTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T$.RecordSnapshotL()])))(),
+    TransactionSembastL: () => (T$.TransactionSembastL = dart.constFn(dart.legacy(sembast_transaction.TransactionSembast)))(),
+    StoreRefOfStringL$dynamic: () => (T$.StoreRefOfStringL$dynamic = dart.constFn(store_ref.StoreRef$(T$.StringL(), dart.dynamic)))(),
+    IdbFactorySembastL: () => (T$.IdbFactorySembastL = dart.constFn(dart.legacy(idb_client_sembast.IdbFactorySembast)))(),
+    JSArrayOfStringL: () => (T$.JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(T$.StringL())))(),
+    StringLToNull: () => (T$.StringLToNull = dart.constFn(dart.fnType(core.Null, [T$.StringL()])))(),
+    IdbObjectStoreMetaL: () => (T$.IdbObjectStoreMetaL = dart.constFn(dart.legacy(common_meta.IdbObjectStoreMeta)))(),
+    ListOfIdbObjectStoreMetaL: () => (T$.ListOfIdbObjectStoreMetaL = dart.constFn(core.List$(T$.IdbObjectStoreMetaL())))(),
+    ListLOfIdbObjectStoreMetaL: () => (T$.ListLOfIdbObjectStoreMetaL = dart.constFn(dart.legacy(T$.ListOfIdbObjectStoreMetaL())))(),
+    JSArrayOfIdbObjectStoreMetaL: () => (T$.JSArrayOfIdbObjectStoreMetaL = dart.constFn(_interceptors.JSArray$(T$.IdbObjectStoreMetaL())))(),
+    RecordSnapshotOfStringL$dynamic: () => (T$.RecordSnapshotOfStringL$dynamic = dart.constFn(record_snapshot.RecordSnapshot$(T$.StringL(), dart.dynamic)))(),
+    RecordSnapshotLOfStringL$dynamic: () => (T$.RecordSnapshotLOfStringL$dynamic = dart.constFn(dart.legacy(T$.RecordSnapshotOfStringL$dynamic())))(),
+    RecordSnapshotLOfStringL$dynamicToNull: () => (T$.RecordSnapshotLOfStringL$dynamicToNull = dart.constFn(dart.fnType(core.Null, [T$.RecordSnapshotLOfStringL$dynamic()])))(),
+    ListOfRecordSnapshotLOfStringL$dynamic: () => (T$.ListOfRecordSnapshotLOfStringL$dynamic = dart.constFn(core.List$(T$.RecordSnapshotLOfStringL$dynamic())))(),
+    ListLOfRecordSnapshotLOfStringL$dynamic: () => (T$.ListLOfRecordSnapshotLOfStringL$dynamic = dart.constFn(dart.legacy(T$.ListOfRecordSnapshotLOfStringL$dynamic())))(),
+    ListLOfRecordSnapshotLOfStringL$dynamicToListLOfIdbObjectStoreMetaL: () => (T$.ListLOfRecordSnapshotLOfStringL$dynamicToListLOfIdbObjectStoreMetaL = dart.constFn(dart.fnType(T$.ListLOfIdbObjectStoreMetaL(), [T$.ListLOfRecordSnapshotLOfStringL$dynamic()])))(),
+    IdbObjectStoreMetaLToNull: () => (T$.IdbObjectStoreMetaLToNull = dart.constFn(dart.fnType(core.Null, [T$.IdbObjectStoreMetaL()])))(),
+    ListLOfIdbObjectStoreMetaLToNull: () => (T$.ListLOfIdbObjectStoreMetaLToNull = dart.constFn(dart.fnType(core.Null, [T$.ListLOfIdbObjectStoreMetaL()])))(),
+    TransactionLToFutureLOfintL: () => (T$.TransactionLToFutureLOfintL = dart.constFn(dart.fnType(T$.FutureLOfintL(), [T$.TransactionL()])))(),
+    DatabaseL$1: () => (T$.DatabaseL$1 = dart.constFn(dart.legacy(database.Database)))(),
+    DatabaseLAndintLAndintLToNull: () => (T$.DatabaseLAndintLAndintLToNull = dart.constFn(dart.fnType(core.Null, [T$.DatabaseL$1(), T$.intL(), T$.intL()])))(),
+    LinkedHashSetOfIdbObjectStoreMetaL: () => (T$.LinkedHashSetOfIdbObjectStoreMetaL = dart.constFn(collection.LinkedHashSet$(T$.IdbObjectStoreMetaL())))(),
+    TransactionLToFutureLOfNull: () => (T$.TransactionLToFutureLOfNull = dart.constFn(dart.fnType(T$.FutureLOfNull(), [T$.TransactionL()])))(),
+    IdbFactoryL: () => (T$.IdbFactoryL = dart.constFn(dart.legacy(idb.IdbFactory)))(),
+    FutureOfIdbFactoryL: () => (T$.FutureOfIdbFactoryL = dart.constFn(async.Future$(T$.IdbFactoryL())))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const(new _js_helper.PrivateSymbol.new('_factory', _factory));
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = [
+    "package:idb_shim/src/sembast/sembast_transaction.dart",
+    "package:idb_shim/src/sembast/sembast_index.dart",
+    "package:idb_shim/src/sembast/sembast_cursor.dart",
+    "package:idb_shim/src/sembast/sembast_object_store.dart",
+    "package:idb_shim/src/sembast/sembast_database.dart",
+    "package:idb_shim/idb_client_sembast.dart",
+    "package:idb_shim/src/sembast/sembast_factory.dart"
+  ];
+  var sdbTransaction = dart.privateName(sembast_transaction, "TransactionSembast.sdbTransaction");
+  var meta$ = dart.privateName(sembast_transaction, "TransactionSembast.meta");
+  var _debugId = dart.privateName(sembast_transaction, "_debugId");
+  var _index = dart.privateName(sembast_transaction, "_index");
+  var _inactive = dart.privateName(sembast_transaction, "_inactive");
+  var _aborted = dart.privateName(sembast_transaction, "_aborted");
+  var _endException = dart.privateName(sembast_transaction, "_endException");
+  var _completedCompleter = dart.privateName(sembast_transaction, "_completedCompleter");
+  var _lazyExecution = dart.privateName(sembast_transaction, "_lazyExecution");
+  var _transactionCompleter = dart.privateName(sembast_transaction, "_transactionCompleter");
+  var _completers = dart.privateName(sembast_transaction, "_completers");
+  var _actions = dart.privateName(sembast_transaction, "_actions");
+  var _futures = dart.privateName(sembast_transaction, "_futures");
+  var _completed = dart.privateName(sembast_transaction, "_completed");
+  var _complete = dart.privateName(sembast_transaction, "_complete");
+  var _completeError = dart.privateName(sembast_transaction, "_completeError");
+  var _execute = dart.privateName(sembast_transaction, "_execute");
+  var _next = dart.privateName(sembast_transaction, "_next");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var _enqueue = dart.privateName(sembast_transaction, "_enqueue");
+  const IdbTransactionBase_TransactionWithMetaMixin$36 = class IdbTransactionBase_TransactionWithMetaMixin extends common_transaction.IdbTransactionBase {};
+  (IdbTransactionBase_TransactionWithMetaMixin$36.new = function(database) {
+    IdbTransactionBase_TransactionWithMetaMixin$36.__proto__.new.call(this, database);
+  }).prototype = IdbTransactionBase_TransactionWithMetaMixin$36.prototype;
+  dart.applyMixin(IdbTransactionBase_TransactionWithMetaMixin$36, common_meta.TransactionWithMetaMixin);
+  sembast_transaction.TransactionSembast = class TransactionSembast extends IdbTransactionBase_TransactionWithMetaMixin$36 {
+    get sdbTransaction() {
+      return this[sdbTransaction];
+    }
+    set sdbTransaction(value) {
+      this[sdbTransaction] = value;
+    }
+    get meta() {
+      return this[meta$];
+    }
+    set meta(value) {
+      super.meta = value;
+    }
+    get database() {
+      return T$.DatabaseSembastL().as(super.database);
+    }
+    set database(value) {
+      super.database = value;
+    }
+    get sdbDatabase() {
+      return this.database.db;
+    }
+    [_complete]() {
+      if (!dart.test(this[_completedCompleter].isCompleted)) {
+        if (dart.test(this[_aborted])) {
+          this[_completeError](common_exception.newAbortException());
+        } else {
+          this[_completedCompleter].complete(this.database);
+        }
+      }
+    }
+    [_completeError](e, st = null) {
+      if (!dart.test(this[_completedCompleter].isCompleted)) {
+        this[_completedCompleter].completeError(e, st);
+      }
+    }
+    [_execute](i) {
+      if (dart.test(sembast_transaction._debugTransaction)) {
+        core.print("exec " + dart.str(i));
+      }
+      let completer = this[_completers][$_get](i);
+      let action = T$.VoidToLFutureOrL().as(this[_actions][$_get](i));
+      if (dart.test(sembast_transaction.newTransaction)) {
+        return dart.fn(() => async.async(core.Null, function*() {
+          try {
+            let result = action();
+            if (T$.FutureL().is(result)) {
+              result = (yield result);
+            }
+            if (dart.test(sembast_transaction._debugTransaction)) {
+              core.print("done " + dart.str(i));
+            }
+            completer.complete(result);
+          } catch (e$) {
+            let e = dart.getThrown(e$);
+            let st = dart.stackTrace(e$);
+            if (dart.test(sembast_transaction._debugTransaction)) {
+              core.print("err " + dart.str(i) + " " + dart.str(e));
+            }
+            completer.completeError(e, st);
+          }
+        }), T$.VoidToFutureLOfNull())();
+      } else {
+        return async.Future.sync(action).then(core.Null, dart.fn(result => {
+          if (dart.test(sembast_transaction._debugTransaction)) {
+            core.print("done " + dart.str(i));
+          }
+          completer.complete(result);
+        }, T$.dynamicToNull())).catchError(dart.fn((e, st) => {
+          if (dart.test(sembast_transaction._debugTransaction)) {
+            core.print("err " + dart.str(i) + " " + dart.str(e));
+          }
+          completer.completeError(e, st);
+        }, T$.dynamicAndStackTraceLToNull()));
+      }
+    }
+    [_next]() {
+      let t2;
+      if (dart.test(this[_aborted])) {
+        if (dart.test(sembast_transaction._debugTransaction)) {
+          core.print("throwing abort exception");
+        }
+        dart.throw(common_exception.newAbortException("Transaction aborted"));
+      }
+      if (dart.notNull(this[_index]) < dart.notNull(this[_actions][$length])) {
+        return this[_execute]((t2 = this[_index], this[_index] = dart.notNull(t2) + 1, t2)).then(dart.dynamic, dart.fn(_ => this[_next](), T$.dynamicToFutureL()));
+      } else {
+        if (dart.test(sembast_transaction._debugTransaction)) {
+          core.print("transaction done?");
+        }
+        const _checkNextAction = () => {
+          if (dart.notNull(this[_index]) < dart.notNull(this[_actions][$length])) {
+            return this[_next]();
+          }
+          if (dart.test(sembast_transaction._debugTransaction)) {
+            core.print("transaction done");
+          }
+          this[_inactive] = true;
+          return async.Future.value(null);
+        };
+        dart.fn(_checkNextAction, T$.VoidToFutureL());
+        if (dart.test(sembast_transaction._transactionLazyMode)) {
+          return async.Future.delayed(C[0] || CT.C0, _checkNextAction);
+        } else {
+          return _checkNextAction();
+        }
+      }
+    }
+    execute(T, action) {
+      let actionFuture = this[_enqueue](dart.legacy(T), action);
+      this[_futures][$add](actionFuture);
+      if (this[_lazyExecution] == null) {
+        const _sdbAction = () => {
+          return this.sdbDatabase.transaction(dart.dynamic, dart.fn(txn => async.async(dart.dynamic, (function*() {
+            this.sdbTransaction = txn;
+            let result = (yield this[_next]());
+            if (this[_endException] != null) {
+              dart.throw(this[_endException]);
+            }
+            return result;
+          }).bind(this)), T$.TransactionLToFutureL())).whenComplete(dart.fn(() => {
+            if (!dart.test(this[_transactionCompleter].isCompleted)) {
+              this[_transactionCompleter].complete();
+            }
+            if (dart.test(sembast_transaction._debugTransaction)) {
+              core.print("txn end of sembast transaction");
+            }
+          }, T$.VoidToNull())).catchError(dart.fn(e => {
+            if (!dart.test(this[_transactionCompleter].isCompleted)) {
+              this[_transactionCompleter].completeError(e);
+            }
+          }, T$.dynamicToNull()));
+        };
+        dart.fn(_sdbAction, T$.VoidToFutureL());
+        if (dart.test(sembast_transaction._transactionLazyMode)) {
+          this[_lazyExecution] = async.Future.microtask(_sdbAction);
+        } else {
+          this[_lazyExecution] = async.Future.sync(_sdbAction);
+        }
+      }
+      return actionFuture;
+    }
+    [_enqueue](T, action) {
+      if (dart.test(sembast_transaction._debugTransaction)) {
+        core.print("enqueing");
+      }
+      if (dart.test(this[_inactive])) {
+        return async.Future$(dart.legacy(T)).error(new idb.DatabaseError.new("TransactionInactiveError"));
+      }
+      let completer = async.Completer$(dart.legacy(T)).sync();
+      this[_completers][$add](completer);
+      this[_actions][$add](action);
+      return completer.future.then(dart.legacy(T), dart.fn(result => result, dart.fnType(dart.legacy(T), [dart.legacy(T)])));
+    }
+    get [_completed]() {
+      return async.async(dart.void, (function* _completed() {
+        try {
+          if (this[_lazyExecution] == null) {
+            if (dart.test(sembast_transaction._debugTransaction)) {
+              core.print("no lazy executor " + dart.str(this[_debugId]) + "...");
+            }
+            this[_inactive] = true;
+          } else {
+            if (dart.test(sembast_transaction._debugTransaction)) {
+              core.print("lazy executor created " + dart.str(this[_debugId]) + "...");
+            }
+            yield this[_lazyExecution].then(core.Null, dart.fn(_ => async.async(core.Null, (function*() {
+              try {
+                yield async.Future.wait(dart.dynamic, (() => {
+                  let t2 = T$.JSArrayOfFutureL().of([this[_transactionCompleter].future]);
+                  t2[$addAll](this[_futures]);
+                  return t2;
+                })());
+              } catch (e$) {
+                let e = dart.getThrown(e$);
+                if (dart.test(sembast_transaction._debugTransaction)) {
+                  core.print("Handling transaction error " + dart.str(e));
+                }
+                this[_endException] = new database_exception.DatabaseException.new(dart.toString(e));
+              }
+            }).bind(this)), T$.dynamicToFutureLOfNull()));
+          }
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (dart.test(sembast_transaction._debugTransaction)) {
+            core.print("Catch _completed exception " + dart.str(e));
+          }
+          dart.rethrow(e$);
+        }
+      }).bind(this));
+    }
+    get completed() {
+      return async.async(T$.DatabaseL(), (function* completed() {
+        yield async.Future.value();
+        try {
+          yield this[_completed];
+        } catch (e) {
+          let _ = dart.getThrown(e);
+        }
+        return this[_completedCompleter].future;
+      }).bind(this));
+    }
+    objectStore(name) {
+      this.meta.checkObjectStore(name);
+      return new sembast_object_store.ObjectStoreSembast.new(this, this.database.meta.getObjectStore(name));
+    }
+    abort() {
+      if (dart.test(sembast_transaction._debugTransaction)) {
+        core.print("abort");
+      }
+      this[_aborted] = true;
+      this[_endException] = common_exception.newAbortException();
+    }
+  };
+  (sembast_transaction.TransactionSembast.new = function(database, meta) {
+    this[sdbTransaction] = null;
+    this[_debugId] = null;
+    this[_index] = 0;
+    this[_inactive] = false;
+    this[_aborted] = false;
+    this[_endException] = null;
+    this[_completedCompleter] = T$.CompleterOfDatabaseL().sync();
+    this[_lazyExecution] = null;
+    this[_transactionCompleter] = async.Completer.new();
+    this[_completers] = T$.JSArrayOfCompleterL().of([]);
+    this[_actions] = T$.JSArrayOfFunctionL().of([]);
+    this[_futures] = T$.JSArrayOfFutureL().of([]);
+    this[meta$] = meta;
+    sembast_transaction.TransactionSembast.__proto__.new.call(this, database);
+    if (dart.test(sembast_transaction._debugTransaction)) {
+      this[_debugId] = sembast_transaction.TransactionSembast._debugAllIds = dart.notNull(sembast_transaction.TransactionSembast._debugAllIds) + 1;
+    }
+    if (!dart.test(sembast_transaction._transactionLazyMode)) {
+      sembast_transaction._delayedInit().then(core.Null, dart.fn(_ => async.async(core.Null, (function*() {
+        if (dart.test(sembast_transaction._debugTransaction)) {
+          core.print("Delayed init triggered");
+        }
+        try {
+          yield this[_completed];
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (dart.test(sembast_transaction._debugTransaction)) {
+            core.print("Handle TransactionSembast constructor async completed error " + dart.str(e));
+          }
+        }
+        if (dart.test(sembast_transaction._debugTransaction)) {
+          core.print("completed aborted: " + dart.str(this[_aborted]));
+        }
+        this[_inactive] = true;
+        yield async.Future.value();
+        this[_complete]();
+      }).bind(this)), T$.voidToFutureLOfNull()));
+    }
+  }).prototype = sembast_transaction.TransactionSembast.prototype;
+  dart.addTypeTests(sembast_transaction.TransactionSembast);
+  dart.addTypeCaches(sembast_transaction.TransactionSembast);
+  dart.setMethodSignature(sembast_transaction.TransactionSembast, () => ({
+    __proto__: dart.getMethods(sembast_transaction.TransactionSembast.__proto__),
+    [_complete]: dart.fnType(dart.void, []),
+    [_completeError]: dart.fnType(dart.void, [dart.dynamic], [dart.legacy(core.StackTrace)]),
+    [_execute]: dart.fnType(dart.legacy(async.Future), [dart.legacy(core.int)]),
+    [_next]: dart.fnType(dart.legacy(async.Future), []),
+    execute: dart.gFnType(T => [dart.legacy(async.Future$(dart.legacy(T))), [dart.legacy(dart.fnType(dart.legacy(async.FutureOr$(dart.legacy(T))), []))]]),
+    [_enqueue]: dart.gFnType(T => [dart.legacy(async.Future$(dart.legacy(T))), [dart.legacy(dart.fnType(dart.legacy(async.FutureOr$(dart.legacy(T))), []))]]),
+    objectStore: dart.fnType(dart.legacy(idb.ObjectStore), [dart.legacy(core.String)])
+  }));
+  dart.setGetterSignature(sembast_transaction.TransactionSembast, () => ({
+    __proto__: dart.getGetters(sembast_transaction.TransactionSembast.__proto__),
+    database: dart.legacy(sembast_database.DatabaseSembast),
+    sdbDatabase: dart.legacy(database.Database),
+    [_completed]: dart.legacy(async.Future$(dart.void)),
+    completed: dart.legacy(async.Future$(dart.legacy(idb.Database)))
+  }));
+  dart.setLibraryUri(sembast_transaction.TransactionSembast, I[0]);
+  dart.setFieldSignature(sembast_transaction.TransactionSembast, () => ({
+    __proto__: dart.getFields(sembast_transaction.TransactionSembast.__proto__),
+    sdbTransaction: dart.fieldType(dart.legacy(transaction.Transaction)),
+    [_debugId]: dart.fieldType(dart.legacy(core.int)),
+    [_index]: dart.fieldType(dart.legacy(core.int)),
+    [_inactive]: dart.fieldType(dart.legacy(core.bool)),
+    [_aborted]: dart.fieldType(dart.legacy(core.bool)),
+    [_endException]: dart.fieldType(dart.legacy(core.Exception)),
+    [_completedCompleter]: dart.finalFieldType(dart.legacy(async.Completer$(dart.legacy(idb.Database)))),
+    [_lazyExecution]: dart.fieldType(dart.legacy(async.Future)),
+    [_transactionCompleter]: dart.finalFieldType(dart.legacy(async.Completer)),
+    [_completers]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(async.Completer)))),
+    [_actions]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.Function)))),
+    [_futures]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(async.Future)))),
+    meta: dart.finalFieldType(dart.legacy(common_meta.IdbTransactionMeta))
+  }));
+  dart.defineLazy(sembast_transaction.TransactionSembast, {
+    /*sembast_transaction.TransactionSembast._debugAllIds*/get _debugAllIds() {
+      return 0;
+    },
+    set _debugAllIds(_) {}
+  }, true);
+  sembast_transaction._delayedInit = function _delayedInit() {
+    return async.async(dart.void, function* _delayedInit() {
+      yield async.Future.delayed(C[0] || CT.C0);
+    });
+  };
+  dart.defineLazy(sembast_transaction, {
+    /*sembast_transaction._debugTransaction*/get _debugTransaction() {
+      return false;
+    },
+    set _debugTransaction(_) {},
+    /*sembast_transaction._transactionLazyMode*/get _transactionLazyMode() {
+      return false;
+    },
+    set _transactionLazyMode(_) {},
+    /*sembast_transaction.newTransaction*/get newTransaction() {
+      return false;
+    },
+    set newTransaction(_) {}
+  }, true);
+  var store$ = dart.privateName(sembast_index, "IndexSembast.store");
+  var meta$0 = dart.privateName(sembast_index, "IndexSembast.meta");
+  var _indexKeyOrRangeFilter = dart.privateName(sembast_index, "_indexKeyOrRangeFilter");
+  const Index_IndexWithMetaMixin$36 = class Index_IndexWithMetaMixin extends idb.Index {};
+  (Index_IndexWithMetaMixin$36.new = function() {
+  }).prototype = Index_IndexWithMetaMixin$36.prototype;
+  dart.applyMixin(Index_IndexWithMetaMixin$36, common_meta.IndexWithMetaMixin);
+  sembast_index.IndexSembast = class IndexSembast extends Index_IndexWithMetaMixin$36 {
+    get store() {
+      return this[store$];
+    }
+    set store(value) {
+      super.store = value;
+    }
+    get meta() {
+      return this[meta$0];
+    }
+    set meta(value) {
+      super.meta = value;
+    }
+    inTransaction(T, computation) {
+      return this.store.inTransaction(dart.legacy(T), computation);
+    }
+    [_indexKeyOrRangeFilter](keyOrRange = null) {
+      if (keyOrRange == null) {
+        return sembast_filter.keyNotNullFilter(this.meta.keyPath);
+      }
+      return sembast_filter.keyOrRangeFilter(this.meta.keyPath, keyOrRange, this.multiEntry);
+    }
+    count(keyOrRange = null) {
+      return this.inTransaction(T$.intL(), dart.fn(() => store_ref_impl['SembastStoreRefExtension|count'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {filter: this[_indexKeyOrRangeFilter](keyOrRange)}), T$.VoidToFutureLOfintL()));
+    }
+    get(key) {
+      common_validation.checkKeyParam(key);
+      return this.inTransaction(dart.dynamic, dart.fn(() => {
+        let finder = finder$.Finder.new({filter: this[_indexKeyOrRangeFilter](key), limit: 1});
+        return store_ref_impl['SembastStoreRefExtension|find'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {finder: finder}).then(dart.dynamic, dart.fn(records => {
+          if (dart.test(records[$isNotEmpty])) {
+            return this.store.recordToValue(records[$first]);
+          }
+        }, T$.ListLOfRecordSnapshotLTodynamic()));
+      }, T$.VoidToFutureL()));
+    }
+    getKey(key) {
+      common_validation.checkKeyParam(key);
+      return this.inTransaction(dart.dynamic, dart.fn(() => {
+        let finder = finder$.Finder.new({filter: this[_indexKeyOrRangeFilter](key), limit: 1});
+        return store_ref_impl['SembastStoreRefExtension|find'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {finder: finder}).then(dart.dynamic, dart.fn(records => {
+          if (dart.test(records[$isNotEmpty])) {
+            return records[$first].key;
+          }
+        }, T$.ListLOfRecordSnapshotLTodynamic()));
+      }, T$.VoidToFutureL()));
+    }
+    openCursor(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let range = opts && 'range' in opts ? opts.range : null;
+      let direction = opts && 'direction' in opts ? opts.direction : null;
+      let autoAdvance = opts && 'autoAdvance' in opts ? opts.autoAdvance : null;
+      let cursorMeta = new common_meta.IdbCursorMeta.new(key, range, direction, autoAdvance);
+      let ctlr = new sembast_cursor.IndexCursorWithValueControllerSembast.new(this, cursorMeta);
+      this.inTransaction(dart.dynamic, dart.fn(() => ctlr.openCursor(), T$.VoidToFutureL()));
+      return ctlr.stream;
+    }
+    openKeyCursor(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let range = opts && 'range' in opts ? opts.range : null;
+      let direction = opts && 'direction' in opts ? opts.direction : null;
+      let autoAdvance = opts && 'autoAdvance' in opts ? opts.autoAdvance : null;
+      let cursorMeta = new common_meta.IdbCursorMeta.new(key, range, direction, autoAdvance);
+      let ctlr = new sembast_cursor.IndexKeyCursorControllerSembast.new(this, cursorMeta);
+      this.inTransaction(dart.dynamic, dart.fn(() => ctlr.openCursor(), T$.VoidToFutureL()));
+      return ctlr.stream;
+    }
+    cursorFilter(key, range) {
+      return sembast_filter.keyCursorFilter(this.keyPath, key, range, this.multiEntry);
+    }
+    sortOrders(ascending) {
+      return sembast_cursor.keyPathSortOrders(this.keyPath, ascending);
+    }
+    getAll(query = null, count = null) {
+      return this.inTransaction(T$.ListL(), dart.fn(() => async.async(T$.ListL(), (function*() {
+        let finder = finder$.Finder.new({filter: this[_indexKeyOrRangeFilter](query), limit: count, sortOrders: this.sortOrders(true)});
+        return (yield store_ref_impl['SembastStoreRefExtension|find'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {finder: finder}))[$map](dart.dynamic, dart.bind(this.store, 'recordToValue'))[$toList]({growable: false});
+      }).bind(this)), T$.VoidToFutureLOfListL()));
+    }
+    getAllKeys(query = null, count = null) {
+      return this.inTransaction(T$.ListL(), dart.fn(() => async.async(T$.ListL(), (function*() {
+        let finder = finder$.Finder.new({filter: this[_indexKeyOrRangeFilter](query), limit: count, sortOrders: this.sortOrders(true)});
+        return store_ref_impl['SembastStoreRefExtension|findKeys'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {finder: finder});
+      }).bind(this)), T$.VoidToFutureLOfListL()));
+    }
+  };
+  (sembast_index.IndexSembast.new = function(store, meta) {
+    this[store$] = store;
+    this[meta$0] = meta;
+    ;
+  }).prototype = sembast_index.IndexSembast.prototype;
+  dart.addTypeTests(sembast_index.IndexSembast);
+  dart.addTypeCaches(sembast_index.IndexSembast);
+  dart.setMethodSignature(sembast_index.IndexSembast, () => ({
+    __proto__: dart.getMethods(sembast_index.IndexSembast.__proto__),
+    inTransaction: dart.gFnType(T => [dart.legacy(async.Future$(dart.legacy(T))), [dart.legacy(dart.fnType(dart.legacy(async.FutureOr$(dart.legacy(T))), []))]]),
+    [_indexKeyOrRangeFilter]: dart.fnType(dart.legacy(filter.Filter), [], [dart.dynamic]),
+    count: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.int))), [], [dart.dynamic]),
+    get: dart.fnType(dart.legacy(async.Future), [dart.dynamic]),
+    getKey: dart.fnType(dart.legacy(async.Future), [dart.dynamic]),
+    openCursor: dart.fnType(dart.legacy(async.Stream$(dart.legacy(idb.CursorWithValue))), [], {autoAdvance: dart.legacy(core.bool), direction: dart.legacy(core.String), key: dart.dynamic, range: dart.legacy(idb.KeyRange)}, {}),
+    openKeyCursor: dart.fnType(dart.legacy(async.Stream$(dart.legacy(idb.Cursor))), [], {autoAdvance: dart.legacy(core.bool), direction: dart.legacy(core.String), key: dart.dynamic, range: dart.legacy(idb.KeyRange)}, {}),
+    cursorFilter: dart.fnType(dart.legacy(filter.Filter), [dart.dynamic, dart.legacy(idb.KeyRange)]),
+    sortOrders: dart.fnType(dart.legacy(core.List$(dart.legacy(sort_order.SortOrder))), [dart.legacy(core.bool)]),
+    getAll: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List))), [], [dart.dynamic, dart.legacy(core.int)]),
+    getAllKeys: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List))), [], [dart.dynamic, dart.legacy(core.int)])
+  }));
+  dart.setLibraryUri(sembast_index.IndexSembast, I[1]);
+  dart.setFieldSignature(sembast_index.IndexSembast, () => ({
+    __proto__: dart.getFields(sembast_index.IndexSembast.__proto__),
+    store: dart.finalFieldType(dart.legacy(sembast_object_store.ObjectStoreSembast)),
+    meta: dart.finalFieldType(dart.legacy(common_meta.IdbIndexMeta))
+  }));
+  var recordIndex = dart.privateName(sembast_cursor, "KeyCursorSembastMixin.recordIndex");
+  var ctlr = dart.privateName(sembast_cursor, "KeyCursorSembastMixin.ctlr");
+  sembast_cursor.KeyCursorSembastMixin = class KeyCursorSembastMixin extends core.Object {
+    get recordIndex() {
+      return this[recordIndex];
+    }
+    set recordIndex(value) {
+      this[recordIndex] = value;
+    }
+    get ctlr() {
+      return this[ctlr];
+    }
+    set ctlr(value) {
+      this[ctlr] = value;
+    }
+    get store() {
+      return this.ctlr.store;
+    }
+    get meta() {
+      return this.ctlr.meta;
+    }
+    get record() {
+      return this.ctlr.records[$_get](this.recordIndex);
+    }
+    get direction() {
+      return this.meta.direction;
+    }
+    advance(count) {
+      this.ctlr.advance(count);
+    }
+    next() {
+      return this.store.transaction.execute(dart.void, dart.fn(() => this.advance(1), T$.VoidTovoid()));
+    }
+    delete() {
+      return async.async(dart.dynamic, (function* $delete() {
+        yield this.store.delete(this.record.primaryKey);
+        let i = dart.notNull(this.recordIndex) + 1;
+        while (i < dart.notNull(this.ctlr.records[$length])) {
+          if (dart.equals(this.ctlr.records[$_get](i).primaryKey, this.record.primaryKey)) {
+            this.ctlr.records[$removeAt](i);
+          } else {
+            i = i + 1;
+          }
+        }
+      }).bind(this));
+    }
+    get key() {
+      return this.record.key;
+    }
+    get primaryKey() {
+      return this.record.primaryKey;
+    }
+    update(value) {
+      return async.async(dart.dynamic, (function* update() {
+        yield this.store.put(value, this.store.getUpdateKeyIfNeeded(value, this.primaryKey));
+        yield this.store.transaction.execute(core.Null, dart.fn(() => async.async(core.Null, (function*() {
+          let sdbSnapshot = (yield record_ref_impl['SembastRecordRefExtension|getSnapshot'](dart.dynamic, dart.dynamic, this.store.sdbStore.record(this.primaryKey), this.store.sdbClient));
+          let i = dart.notNull(this.recordIndex) + 1;
+          while (i < dart.notNull(this.ctlr.records[$length])) {
+            if (dart.equals(this.ctlr.records[$_get](i).primaryKey, this.record.primaryKey)) {
+              if (sdbSnapshot == null) {
+                this.ctlr.records[$removeAt](i);
+              } else {
+                this.ctlr.records[$_set](i, new sembast_cursor.IndexRecordSnapshotSembast.new(this.ctlr.records[$_get](i).key, sdbSnapshot));
+                i = i + 1;
+              }
+            } else {
+              i = i + 1;
+            }
+          }
+        }).bind(this)), T$.VoidToFutureLOfNull()));
+      }).bind(this));
+    }
+  };
+  (sembast_cursor.KeyCursorSembastMixin.new = function() {
+    this[recordIndex] = null;
+    this[ctlr] = null;
+    ;
+  }).prototype = sembast_cursor.KeyCursorSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.KeyCursorSembastMixin);
+  dart.addTypeCaches(sembast_cursor.KeyCursorSembastMixin);
+  sembast_cursor.KeyCursorSembastMixin[dart.implements] = () => [idb.Cursor];
+  dart.setMethodSignature(sembast_cursor.KeyCursorSembastMixin, () => ({
+    __proto__: dart.getMethods(sembast_cursor.KeyCursorSembastMixin.__proto__),
+    advance: dart.fnType(dart.void, [dart.legacy(core.int)]),
+    next: dart.fnType(dart.void, []),
+    delete: dart.fnType(dart.legacy(async.Future), []),
+    update: dart.fnType(dart.legacy(async.Future), [dart.dynamic])
+  }));
+  dart.setGetterSignature(sembast_cursor.KeyCursorSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.KeyCursorSembastMixin.__proto__),
+    store: dart.legacy(sembast_object_store.ObjectStoreSembast),
+    meta: dart.legacy(common_meta.IdbCursorMeta),
+    record: dart.legacy(sembast_cursor.RecordSnapshotSembast),
+    direction: dart.legacy(core.String),
+    key: dart.legacy(core.Object),
+    primaryKey: dart.legacy(core.Object)
+  }));
+  dart.setLibraryUri(sembast_cursor.KeyCursorSembastMixin, I[2]);
+  dart.setFieldSignature(sembast_cursor.KeyCursorSembastMixin, () => ({
+    __proto__: dart.getFields(sembast_cursor.KeyCursorSembastMixin.__proto__),
+    recordIndex: dart.fieldType(dart.legacy(core.int)),
+    ctlr: dart.fieldType(dart.legacy(sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.Cursor))))
+  }));
+  sembast_cursor.IndexCursorSembastMixin = class IndexCursorSembastMixin extends core.Object {
+    get index() {
+      return this.indexCtlr.index;
+    }
+  };
+  (sembast_cursor.IndexCursorSembastMixin.new = function() {
+    ;
+  }).prototype = sembast_cursor.IndexCursorSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.IndexCursorSembastMixin);
+  dart.addTypeCaches(sembast_cursor.IndexCursorSembastMixin);
+  sembast_cursor.IndexCursorSembastMixin[dart.implements] = () => [idb.Cursor];
+  dart.setGetterSignature(sembast_cursor.IndexCursorSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexCursorSembastMixin.__proto__),
+    index: dart.legacy(sembast_index.IndexSembast)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexCursorSembastMixin, I[2]);
+  sembast_cursor.CursorWithValueSembastMixin = class CursorWithValueSembastMixin extends core.Object {
+    get value() {
+      return this.store.recordToValue(this.record.snapshot);
+    }
+  };
+  (sembast_cursor.CursorWithValueSembastMixin.new = function() {
+    ;
+  }).prototype = sembast_cursor.CursorWithValueSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.CursorWithValueSembastMixin);
+  dart.addTypeCaches(sembast_cursor.CursorWithValueSembastMixin);
+  sembast_cursor.CursorWithValueSembastMixin[dart.implements] = () => [idb.CursorWithValue];
+  dart.setGetterSignature(sembast_cursor.CursorWithValueSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.CursorWithValueSembastMixin.__proto__),
+    value: dart.legacy(core.Object)
+  }));
+  dart.setLibraryUri(sembast_cursor.CursorWithValueSembastMixin, I[2]);
+  const Object_KeyCursorSembastMixin$36 = class Object_KeyCursorSembastMixin extends core.Object {};
+  (Object_KeyCursorSembastMixin$36.new = function() {
+    sembast_cursor.KeyCursorSembastMixin.new.call(this);
+  }).prototype = Object_KeyCursorSembastMixin$36.prototype;
+  dart.applyMixin(Object_KeyCursorSembastMixin$36, sembast_cursor.KeyCursorSembastMixin);
+  const Object_IndexCursorSembastMixin$36 = class Object_IndexCursorSembastMixin extends Object_KeyCursorSembastMixin$36 {};
+  (Object_IndexCursorSembastMixin$36.new = function() {
+    Object_IndexCursorSembastMixin$36.__proto__.new.call(this);
+  }).prototype = Object_IndexCursorSembastMixin$36.prototype;
+  dart.applyMixin(Object_IndexCursorSembastMixin$36, sembast_cursor.IndexCursorSembastMixin);
+  sembast_cursor.IndexKeyCursorSembast = class IndexKeyCursorSembast extends Object_IndexCursorSembastMixin$36 {
+    get indexCtlr() {
+      return T$.IndexKeyCursorControllerSembastL().as(this.ctlr);
+    }
+  };
+  (sembast_cursor.IndexKeyCursorSembast.new = function(ctlr, index) {
+    sembast_cursor.IndexKeyCursorSembast.__proto__.new.call(this);
+    this.ctlr = ctlr;
+    this.recordIndex = index;
+  }).prototype = sembast_cursor.IndexKeyCursorSembast.prototype;
+  dart.addTypeTests(sembast_cursor.IndexKeyCursorSembast);
+  dart.addTypeCaches(sembast_cursor.IndexKeyCursorSembast);
+  sembast_cursor.IndexKeyCursorSembast[dart.implements] = () => [idb.Cursor];
+  dart.setGetterSignature(sembast_cursor.IndexKeyCursorSembast, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexKeyCursorSembast.__proto__),
+    indexCtlr: dart.legacy(sembast_cursor.IndexKeyCursorControllerSembast)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexKeyCursorSembast, I[2]);
+  const Object_KeyCursorSembastMixin$36$ = class Object_KeyCursorSembastMixin extends core.Object {};
+  (Object_KeyCursorSembastMixin$36$.new = function() {
+    sembast_cursor.KeyCursorSembastMixin.new.call(this);
+  }).prototype = Object_KeyCursorSembastMixin$36$.prototype;
+  dart.applyMixin(Object_KeyCursorSembastMixin$36$, sembast_cursor.KeyCursorSembastMixin);
+  const Object_CursorWithValueSembastMixin$36 = class Object_CursorWithValueSembastMixin extends Object_KeyCursorSembastMixin$36$ {};
+  (Object_CursorWithValueSembastMixin$36.new = function() {
+    Object_CursorWithValueSembastMixin$36.__proto__.new.call(this);
+  }).prototype = Object_CursorWithValueSembastMixin$36.prototype;
+  dart.applyMixin(Object_CursorWithValueSembastMixin$36, sembast_cursor.CursorWithValueSembastMixin);
+  sembast_cursor.IndexCursorWithValueSembast = class IndexCursorWithValueSembast extends Object_CursorWithValueSembastMixin$36 {
+    get indexCtlr() {
+      return T$.IndexCursorWithValueControllerSembastL().as(this.ctlr);
+    }
+  };
+  (sembast_cursor.IndexCursorWithValueSembast.new = function(ctlr, index) {
+    sembast_cursor.IndexCursorWithValueSembast.__proto__.new.call(this);
+    this.ctlr = ctlr;
+    this.recordIndex = index;
+  }).prototype = sembast_cursor.IndexCursorWithValueSembast.prototype;
+  dart.addTypeTests(sembast_cursor.IndexCursorWithValueSembast);
+  dart.addTypeCaches(sembast_cursor.IndexCursorWithValueSembast);
+  dart.setGetterSignature(sembast_cursor.IndexCursorWithValueSembast, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexCursorWithValueSembast.__proto__),
+    indexCtlr: dart.legacy(sembast_cursor.IndexCursorWithValueControllerSembast)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexCursorWithValueSembast, I[2]);
+  const Object_KeyCursorSembastMixin$36$0 = class Object_KeyCursorSembastMixin extends core.Object {};
+  (Object_KeyCursorSembastMixin$36$0.new = function() {
+    sembast_cursor.KeyCursorSembastMixin.new.call(this);
+  }).prototype = Object_KeyCursorSembastMixin$36$0.prototype;
+  dart.applyMixin(Object_KeyCursorSembastMixin$36$0, sembast_cursor.KeyCursorSembastMixin);
+  const Object_CursorWithValueSembastMixin$36$ = class Object_CursorWithValueSembastMixin extends Object_KeyCursorSembastMixin$36$0 {};
+  (Object_CursorWithValueSembastMixin$36$.new = function() {
+    Object_CursorWithValueSembastMixin$36$.__proto__.new.call(this);
+  }).prototype = Object_CursorWithValueSembastMixin$36$.prototype;
+  dart.applyMixin(Object_CursorWithValueSembastMixin$36$, sembast_cursor.CursorWithValueSembastMixin);
+  sembast_cursor.StoreCursorWithValueSembast = class StoreCursorWithValueSembast extends Object_CursorWithValueSembastMixin$36$ {};
+  (sembast_cursor.StoreCursorWithValueSembast.new = function(ctlr, index) {
+    sembast_cursor.StoreCursorWithValueSembast.__proto__.new.call(this);
+    this.ctlr = ctlr;
+    this.recordIndex = index;
+  }).prototype = sembast_cursor.StoreCursorWithValueSembast.prototype;
+  dart.addTypeTests(sembast_cursor.StoreCursorWithValueSembast);
+  dart.addTypeCaches(sembast_cursor.StoreCursorWithValueSembast);
+  dart.setLibraryUri(sembast_cursor.StoreCursorWithValueSembast, I[2]);
+  const Object_KeyCursorSembastMixin$36$1 = class Object_KeyCursorSembastMixin extends core.Object {};
+  (Object_KeyCursorSembastMixin$36$1.new = function() {
+    sembast_cursor.KeyCursorSembastMixin.new.call(this);
+  }).prototype = Object_KeyCursorSembastMixin$36$1.prototype;
+  dart.applyMixin(Object_KeyCursorSembastMixin$36$1, sembast_cursor.KeyCursorSembastMixin);
+  sembast_cursor.StoreKeyCursorSembast = class StoreKeyCursorSembast extends Object_KeyCursorSembastMixin$36$1 {};
+  (sembast_cursor.StoreKeyCursorSembast.new = function(ctlr, index) {
+    sembast_cursor.StoreKeyCursorSembast.__proto__.new.call(this);
+    this.ctlr = ctlr;
+    this.recordIndex = index;
+  }).prototype = sembast_cursor.StoreKeyCursorSembast.prototype;
+  dart.addTypeTests(sembast_cursor.StoreKeyCursorSembast);
+  dart.addTypeCaches(sembast_cursor.StoreKeyCursorSembast);
+  dart.setLibraryUri(sembast_cursor.StoreKeyCursorSembast, I[2]);
+  sembast_cursor._ICursorSembast = class _ICursorSembast extends core.Object {};
+  (sembast_cursor._ICursorSembast.new = function() {
+    this.records = null;
+    ;
+  }).prototype = sembast_cursor._ICursorSembast.prototype;
+  dart.addTypeTests(sembast_cursor._ICursorSembast);
+  dart.addTypeCaches(sembast_cursor._ICursorSembast);
+  dart.setLibraryUri(sembast_cursor._ICursorSembast, I[2]);
+  dart.setFieldSignature(sembast_cursor._ICursorSembast, () => ({
+    __proto__: dart.getFields(sembast_cursor._ICursorSembast.__proto__),
+    records: dart.fieldType(dart.legacy(core.List$(dart.legacy(sembast_cursor.RecordSnapshotSembast))))
+  }));
+  var snapshot$ = dart.privateName(sembast_cursor, "RecordSnapshotSembast.snapshot");
+  sembast_cursor.RecordSnapshotSembast = class RecordSnapshotSembast extends core.Object {
+    get snapshot() {
+      return this[snapshot$];
+    }
+    set snapshot(value) {
+      super.snapshot = value;
+    }
+    get primaryKey() {
+      return this.snapshot.key;
+    }
+    get key() {
+      return this.primaryKey;
+    }
+    toString() {
+      return dart.str(this.snapshot);
+    }
+  };
+  (sembast_cursor.RecordSnapshotSembast.new = function(snapshot) {
+    this[snapshot$] = snapshot;
+    ;
+  }).prototype = sembast_cursor.RecordSnapshotSembast.prototype;
+  dart.addTypeTests(sembast_cursor.RecordSnapshotSembast);
+  dart.addTypeCaches(sembast_cursor.RecordSnapshotSembast);
+  dart.setMethodSignature(sembast_cursor.RecordSnapshotSembast, () => ({
+    __proto__: dart.getMethods(sembast_cursor.RecordSnapshotSembast.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setGetterSignature(sembast_cursor.RecordSnapshotSembast, () => ({
+    __proto__: dart.getGetters(sembast_cursor.RecordSnapshotSembast.__proto__),
+    primaryKey: dart.dynamic,
+    key: dart.dynamic
+  }));
+  dart.setLibraryUri(sembast_cursor.RecordSnapshotSembast, I[2]);
+  dart.setFieldSignature(sembast_cursor.RecordSnapshotSembast, () => ({
+    __proto__: dart.getFields(sembast_cursor.RecordSnapshotSembast.__proto__),
+    snapshot: dart.finalFieldType(dart.legacy(record_snapshot.RecordSnapshot))
+  }));
+  dart.defineExtensionMethods(sembast_cursor.RecordSnapshotSembast, ['toString']);
+  var key$ = dart.privateName(sembast_cursor, "IndexRecordSnapshotSembast.key");
+  sembast_cursor.IndexRecordSnapshotSembast = class IndexRecordSnapshotSembast extends sembast_cursor.RecordSnapshotSembast {
+    get key() {
+      return this[key$];
+    }
+    set key(value) {
+      super.key = value;
+    }
+    toString() {
+      return dart.str(this.key) + " " + dart.str(this.snapshot);
+    }
+  };
+  (sembast_cursor.IndexRecordSnapshotSembast.new = function(key, snapshot) {
+    this[key$] = key;
+    sembast_cursor.IndexRecordSnapshotSembast.__proto__.new.call(this, snapshot);
+    ;
+  }).prototype = sembast_cursor.IndexRecordSnapshotSembast.prototype;
+  dart.addTypeTests(sembast_cursor.IndexRecordSnapshotSembast);
+  dart.addTypeCaches(sembast_cursor.IndexRecordSnapshotSembast);
+  dart.setLibraryUri(sembast_cursor.IndexRecordSnapshotSembast, I[2]);
+  dart.setFieldSignature(sembast_cursor.IndexRecordSnapshotSembast, () => ({
+    __proto__: dart.getFields(sembast_cursor.IndexRecordSnapshotSembast.__proto__),
+    key: dart.finalFieldType(dart.dynamic)
+  }));
+  dart.defineExtensionMethods(sembast_cursor.IndexRecordSnapshotSembast, ['toString']);
+  var index = dart.privateName(sembast_cursor, "IndexCursorControllerSembastMixin.index");
+  sembast_cursor.IndexCursorControllerSembastMixin = class IndexCursorControllerSembastMixin extends core.Object {
+    get index() {
+      return this[index];
+    }
+    set index(value) {
+      this[index] = value;
+    }
+    get sortOrders() {
+      return this.index.sortOrders(this.meta.ascending);
+    }
+    get filter() {
+      return this.index.cursorFilter(this.meta.key, this.meta.range);
+    }
+    setRecords(records) {
+      if (dart.test(this.index.multiEntry)) {
+        let list = T$.JSArrayOfIndexRecordSnapshotSembastL().of([]);
+        for (let record of records) {
+          let keys = common_value.valueAsSet(common_value.mapValueAtKeyPath(T$.MapL().as(record.value), this.index.keyPath));
+          if (keys != null) {
+            for (let key of keys) {
+              list[$add](new sembast_cursor.IndexRecordSnapshotSembast.new(common_value.decodeKey(key), record));
+            }
+          }
+        }
+        list[$sort](dart.fn((a, b) => common_value.fixCompareValue(common_value.compareKeys(a.key, b.key), {asc: this.meta.ascending}), T$.IndexRecordSnapshotSembastLAndIndexRecordSnapshotSembastLTointL()));
+        this.records = list;
+      } else {
+        this.records = records[$map](T$.IndexRecordSnapshotSembastL(), dart.fn(snapshot => new sembast_cursor.IndexRecordSnapshotSembast.new(common_value.mapValueAtKeyPath(T$.MapL().as(snapshot.value), this.index.keyPath), snapshot), T$.RecordSnapshotLToIndexRecordSnapshotSembastL()))[$toList]({growable: false});
+      }
+    }
+  };
+  (sembast_cursor.IndexCursorControllerSembastMixin.new = function() {
+    this[index] = null;
+    ;
+  }).prototype = sembast_cursor.IndexCursorControllerSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.IndexCursorControllerSembastMixin);
+  dart.addTypeCaches(sembast_cursor.IndexCursorControllerSembastMixin);
+  sembast_cursor.IndexCursorControllerSembastMixin[dart.implements] = () => [sembast_cursor._ICursorSembast];
+  dart.setMethodSignature(sembast_cursor.IndexCursorControllerSembastMixin, () => ({
+    __proto__: dart.getMethods(sembast_cursor.IndexCursorControllerSembastMixin.__proto__),
+    setRecords: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(record_snapshot.RecordSnapshot)))])
+  }));
+  dart.setGetterSignature(sembast_cursor.IndexCursorControllerSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexCursorControllerSembastMixin.__proto__),
+    sortOrders: dart.legacy(core.List$(dart.legacy(sort_order.SortOrder))),
+    filter: dart.legacy(filter.Filter)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexCursorControllerSembastMixin, I[2]);
+  dart.setFieldSignature(sembast_cursor.IndexCursorControllerSembastMixin, () => ({
+    __proto__: dart.getFields(sembast_cursor.IndexCursorControllerSembastMixin.__proto__),
+    index: dart.fieldType(dart.legacy(sembast_index.IndexSembast))
+  }));
+  sembast_cursor.StoreCursorControllerSembastMixin = class StoreCursorControllerSembastMixin extends core.Object {
+    get sortOrders() {
+      return this.store.sortOrders(this.meta.ascending);
+    }
+    get filter() {
+      return this.store.cursorFilter(this.meta.key, this.meta.range);
+    }
+  };
+  (sembast_cursor.StoreCursorControllerSembastMixin.new = function() {
+    ;
+  }).prototype = sembast_cursor.StoreCursorControllerSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.StoreCursorControllerSembastMixin);
+  dart.addTypeCaches(sembast_cursor.StoreCursorControllerSembastMixin);
+  sembast_cursor.StoreCursorControllerSembastMixin[dart.implements] = () => [sembast_cursor._ICursorSembast];
+  dart.setGetterSignature(sembast_cursor.StoreCursorControllerSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.StoreCursorControllerSembastMixin.__proto__),
+    sortOrders: dart.legacy(core.List$(dart.legacy(sort_order.SortOrder))),
+    filter: dart.legacy(filter.Filter)
+  }));
+  dart.setLibraryUri(sembast_cursor.StoreCursorControllerSembastMixin, I[2]);
+  var meta = dart.privateName(sembast_cursor, "BaseCursorControllerSembastMixin.meta");
+  var records = dart.privateName(sembast_cursor, "BaseCursorControllerSembastMixin.records");
+  var currentIndex = dart.privateName(sembast_cursor, "BaseCursorControllerSembastMixin.currentIndex");
+  var ctlr$ = dart.privateName(sembast_cursor, "BaseCursorControllerSembastMixin.ctlr");
+  const _is_BaseCursorControllerSembastMixin_default = Symbol('_is_BaseCursorControllerSembastMixin_default');
+  sembast_cursor.BaseCursorControllerSembastMixin$ = dart.generic(T => {
+    var TL = () => (TL = dart.constFn(dart.legacy(T)))();
+    var StreamControllerOfTL = () => (StreamControllerOfTL = dart.constFn(async.StreamController$(TL())))();
+    var StreamControllerLOfTL = () => (StreamControllerLOfTL = dart.constFn(dart.legacy(StreamControllerOfTL())))();
+    class BaseCursorControllerSembastMixin extends core.Object {
+      get meta() {
+        return this[meta];
+      }
+      set meta(value) {
+        this[meta] = value;
+      }
+      get records() {
+        return this[records];
+      }
+      set records(value) {
+        this[records] = value;
+      }
+      get currentIndex() {
+        return this[currentIndex];
+      }
+      set currentIndex(value) {
+        this[currentIndex] = value;
+      }
+      get ctlr() {
+        return this[ctlr$];
+      }
+      set ctlr(value) {
+        this[ctlr$] = StreamControllerLOfTL().as(value);
+      }
+      get done() {
+        return this.currentIndex == null;
+      }
+      init() {
+        this.ctlr = StreamControllerOfTL().new({sync: true});
+      }
+      autoNext() {
+        return this.advance(1).then(dart.dynamic, dart.fn(_ => {
+          if (dart.test(this.meta.autoAdvance) && !dart.test(this.done)) {
+            return this.autoNext();
+          }
+          return null;
+        }, T$.dynamicToFutureL()));
+      }
+      advance(count) {
+        this.currentIndex = dart.notNull(this.currentIndex) + dart.notNull(count);
+        if (dart.notNull(this.currentIndex) >= dart.notNull(this.records[$length])) {
+          this.currentIndex = null;
+          return this.ctlr.close();
+        }
+        this.ctlr.add(this.nextEvent(this.currentIndex));
+        return async.Future.value();
+      }
+      openCursor() {
+        return async.async(dart.dynamic, (function* openCursor() {
+          let filter = this.filter;
+          let sortOrders = this.sortOrders;
+          let finder = finder$.Finder.new({filter: filter, sortOrders: sortOrders});
+          let records = (yield store_ref_impl['SembastStoreRefExtension|find'](dart.dynamic, dart.dynamic, this.store.sdbStore, this.store.sdbClient, {finder: finder}));
+          this.setRecords(records);
+          return this.autoNext();
+        }).bind(this));
+      }
+      setRecords(records) {
+        this.records = records[$map](T$.RecordSnapshotSembastL(), dart.fn(snapshot => new sembast_cursor.RecordSnapshotSembast.new(snapshot), T$.RecordSnapshotLToRecordSnapshotSembastL()))[$toList]({growable: false});
+      }
+    }
+    (BaseCursorControllerSembastMixin.new = function() {
+      this[meta] = null;
+      this[records] = null;
+      this[currentIndex] = -1;
+      this[ctlr$] = null;
+      ;
+    }).prototype = BaseCursorControllerSembastMixin.prototype;
+    dart.addTypeTests(BaseCursorControllerSembastMixin);
+    BaseCursorControllerSembastMixin.prototype[_is_BaseCursorControllerSembastMixin_default] = true;
+    dart.addTypeCaches(BaseCursorControllerSembastMixin);
+    BaseCursorControllerSembastMixin[dart.implements] = () => [sembast_cursor._ICursorSembast];
+    dart.setMethodSignature(BaseCursorControllerSembastMixin, () => ({
+      __proto__: dart.getMethods(BaseCursorControllerSembastMixin.__proto__),
+      init: dart.fnType(dart.void, []),
+      autoNext: dart.fnType(dart.legacy(async.Future), []),
+      advance: dart.fnType(dart.legacy(async.Future), [dart.legacy(core.int)]),
+      openCursor: dart.fnType(dart.legacy(async.Future), []),
+      setRecords: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(record_snapshot.RecordSnapshot)))])
+    }));
+    dart.setGetterSignature(BaseCursorControllerSembastMixin, () => ({
+      __proto__: dart.getGetters(BaseCursorControllerSembastMixin.__proto__),
+      done: dart.legacy(core.bool)
+    }));
+    dart.setLibraryUri(BaseCursorControllerSembastMixin, I[2]);
+    dart.setFieldSignature(BaseCursorControllerSembastMixin, () => ({
+      __proto__: dart.getFields(BaseCursorControllerSembastMixin.__proto__),
+      meta: dart.fieldType(dart.legacy(common_meta.IdbCursorMeta)),
+      records: dart.fieldType(dart.legacy(core.List$(dart.legacy(sembast_cursor.RecordSnapshotSembast)))),
+      currentIndex: dart.fieldType(dart.legacy(core.int)),
+      ctlr: dart.fieldType(dart.legacy(async.StreamController$(dart.legacy(T))))
+    }));
+    return BaseCursorControllerSembastMixin;
+  });
+  sembast_cursor.BaseCursorControllerSembastMixin = sembast_cursor.BaseCursorControllerSembastMixin$();
+  dart.addTypeTests(sembast_cursor.BaseCursorControllerSembastMixin, _is_BaseCursorControllerSembastMixin_default);
+  sembast_cursor.KeyCursorControllerSembastMixin = class KeyCursorControllerSembastMixin extends core.Object {
+    get stream() {
+      return this.ctlr.stream;
+    }
+  };
+  (sembast_cursor.KeyCursorControllerSembastMixin.new = function() {
+    ;
+  }).prototype = sembast_cursor.KeyCursorControllerSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.KeyCursorControllerSembastMixin);
+  dart.addTypeCaches(sembast_cursor.KeyCursorControllerSembastMixin);
+  dart.setGetterSignature(sembast_cursor.KeyCursorControllerSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.KeyCursorControllerSembastMixin.__proto__),
+    stream: dart.legacy(async.Stream$(dart.legacy(idb.Cursor)))
+  }));
+  dart.setLibraryUri(sembast_cursor.KeyCursorControllerSembastMixin, I[2]);
+  sembast_cursor.CursorWithValueControllerSembastMixin = class CursorWithValueControllerSembastMixin extends core.Object {
+    get stream() {
+      return this.ctlr.stream;
+    }
+  };
+  (sembast_cursor.CursorWithValueControllerSembastMixin.new = function() {
+    ;
+  }).prototype = sembast_cursor.CursorWithValueControllerSembastMixin.prototype;
+  dart.addTypeTests(sembast_cursor.CursorWithValueControllerSembastMixin);
+  dart.addTypeCaches(sembast_cursor.CursorWithValueControllerSembastMixin);
+  dart.setGetterSignature(sembast_cursor.CursorWithValueControllerSembastMixin, () => ({
+    __proto__: dart.getGetters(sembast_cursor.CursorWithValueControllerSembastMixin.__proto__),
+    stream: dart.legacy(async.Stream$(dart.legacy(idb.CursorWithValue)))
+  }));
+  dart.setLibraryUri(sembast_cursor.CursorWithValueControllerSembastMixin, I[2]);
+  const Object_KeyCursorControllerSembastMixin$36 = class Object_KeyCursorControllerSembastMixin extends core.Object {};
+  (Object_KeyCursorControllerSembastMixin$36.new = function() {
+  }).prototype = Object_KeyCursorControllerSembastMixin$36.prototype;
+  dart.applyMixin(Object_KeyCursorControllerSembastMixin$36, sembast_cursor.KeyCursorControllerSembastMixin);
+  const Object_BaseCursorControllerSembastMixin$36 = class Object_BaseCursorControllerSembastMixin extends Object_KeyCursorControllerSembastMixin$36 {};
+  (Object_BaseCursorControllerSembastMixin$36.new = function() {
+    sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.Cursor)).new.call(this);
+  }).prototype = Object_BaseCursorControllerSembastMixin$36.prototype;
+  dart.applyMixin(Object_BaseCursorControllerSembastMixin$36, sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.Cursor)));
+  const Object_IndexCursorControllerSembastMixin$36 = class Object_IndexCursorControllerSembastMixin extends Object_BaseCursorControllerSembastMixin$36 {};
+  (Object_IndexCursorControllerSembastMixin$36.new = function() {
+    sembast_cursor.IndexCursorControllerSembastMixin.new.call(this);
+    Object_IndexCursorControllerSembastMixin$36.__proto__.new.call(this);
+  }).prototype = Object_IndexCursorControllerSembastMixin$36.prototype;
+  dart.applyMixin(Object_IndexCursorControllerSembastMixin$36, sembast_cursor.IndexCursorControllerSembastMixin);
+  sembast_cursor.IndexKeyCursorControllerSembast = class IndexKeyCursorControllerSembast extends Object_IndexCursorControllerSembastMixin$36 {
+    get store() {
+      return this.index.store;
+    }
+    nextEvent(index) {
+      let cursor = new sembast_cursor.IndexKeyCursorSembast.new(this, index);
+      return cursor;
+    }
+  };
+  (sembast_cursor.IndexKeyCursorControllerSembast.new = function(index, meta) {
+    sembast_cursor.IndexKeyCursorControllerSembast.__proto__.new.call(this);
+    this.meta = meta;
+    this.index = index;
+    this.init();
+  }).prototype = sembast_cursor.IndexKeyCursorControllerSembast.prototype;
+  dart.addTypeTests(sembast_cursor.IndexKeyCursorControllerSembast);
+  dart.addTypeCaches(sembast_cursor.IndexKeyCursorControllerSembast);
+  dart.setMethodSignature(sembast_cursor.IndexKeyCursorControllerSembast, () => ({
+    __proto__: dart.getMethods(sembast_cursor.IndexKeyCursorControllerSembast.__proto__),
+    nextEvent: dart.fnType(dart.legacy(idb.Cursor), [dart.legacy(core.int)])
+  }));
+  dart.setGetterSignature(sembast_cursor.IndexKeyCursorControllerSembast, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexKeyCursorControllerSembast.__proto__),
+    store: dart.legacy(sembast_object_store.ObjectStoreSembast)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexKeyCursorControllerSembast, I[2]);
+  const Object_CursorWithValueControllerSembastMixin$36 = class Object_CursorWithValueControllerSembastMixin extends core.Object {};
+  (Object_CursorWithValueControllerSembastMixin$36.new = function() {
+  }).prototype = Object_CursorWithValueControllerSembastMixin$36.prototype;
+  dart.applyMixin(Object_CursorWithValueControllerSembastMixin$36, sembast_cursor.CursorWithValueControllerSembastMixin);
+  const Object_BaseCursorControllerSembastMixin$36$ = class Object_BaseCursorControllerSembastMixin extends Object_CursorWithValueControllerSembastMixin$36 {};
+  (Object_BaseCursorControllerSembastMixin$36$.new = function() {
+    sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.CursorWithValue)).new.call(this);
+  }).prototype = Object_BaseCursorControllerSembastMixin$36$.prototype;
+  dart.applyMixin(Object_BaseCursorControllerSembastMixin$36$, sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.CursorWithValue)));
+  const Object_IndexCursorControllerSembastMixin$36$ = class Object_IndexCursorControllerSembastMixin extends Object_BaseCursorControllerSembastMixin$36$ {};
+  (Object_IndexCursorControllerSembastMixin$36$.new = function() {
+    sembast_cursor.IndexCursorControllerSembastMixin.new.call(this);
+    Object_IndexCursorControllerSembastMixin$36$.__proto__.new.call(this);
+  }).prototype = Object_IndexCursorControllerSembastMixin$36$.prototype;
+  dart.applyMixin(Object_IndexCursorControllerSembastMixin$36$, sembast_cursor.IndexCursorControllerSembastMixin);
+  sembast_cursor.IndexCursorWithValueControllerSembast = class IndexCursorWithValueControllerSembast extends Object_IndexCursorControllerSembastMixin$36$ {
+    get store() {
+      return this.index.store;
+    }
+    nextEvent(index) {
+      let cursor = new sembast_cursor.IndexCursorWithValueSembast.new(this, index);
+      return cursor;
+    }
+  };
+  (sembast_cursor.IndexCursorWithValueControllerSembast.new = function(index, meta) {
+    sembast_cursor.IndexCursorWithValueControllerSembast.__proto__.new.call(this);
+    this.meta = meta;
+    this.index = index;
+    this.init();
+  }).prototype = sembast_cursor.IndexCursorWithValueControllerSembast.prototype;
+  dart.addTypeTests(sembast_cursor.IndexCursorWithValueControllerSembast);
+  dart.addTypeCaches(sembast_cursor.IndexCursorWithValueControllerSembast);
+  dart.setMethodSignature(sembast_cursor.IndexCursorWithValueControllerSembast, () => ({
+    __proto__: dart.getMethods(sembast_cursor.IndexCursorWithValueControllerSembast.__proto__),
+    nextEvent: dart.fnType(dart.legacy(idb.CursorWithValue), [dart.legacy(core.int)])
+  }));
+  dart.setGetterSignature(sembast_cursor.IndexCursorWithValueControllerSembast, () => ({
+    __proto__: dart.getGetters(sembast_cursor.IndexCursorWithValueControllerSembast.__proto__),
+    store: dart.legacy(sembast_object_store.ObjectStoreSembast)
+  }));
+  dart.setLibraryUri(sembast_cursor.IndexCursorWithValueControllerSembast, I[2]);
+  var store$0 = dart.privateName(sembast_cursor, "StoreKeyCursorControllerSembast.store");
+  const Object_KeyCursorControllerSembastMixin$36$ = class Object_KeyCursorControllerSembastMixin extends core.Object {};
+  (Object_KeyCursorControllerSembastMixin$36$.new = function() {
+  }).prototype = Object_KeyCursorControllerSembastMixin$36$.prototype;
+  dart.applyMixin(Object_KeyCursorControllerSembastMixin$36$, sembast_cursor.KeyCursorControllerSembastMixin);
+  const Object_BaseCursorControllerSembastMixin$36$0 = class Object_BaseCursorControllerSembastMixin extends Object_KeyCursorControllerSembastMixin$36$ {};
+  (Object_BaseCursorControllerSembastMixin$36$0.new = function() {
+    sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.Cursor)).new.call(this);
+  }).prototype = Object_BaseCursorControllerSembastMixin$36$0.prototype;
+  dart.applyMixin(Object_BaseCursorControllerSembastMixin$36$0, sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.Cursor)));
+  const Object_StoreCursorControllerSembastMixin$36 = class Object_StoreCursorControllerSembastMixin extends Object_BaseCursorControllerSembastMixin$36$0 {};
+  (Object_StoreCursorControllerSembastMixin$36.new = function() {
+    Object_StoreCursorControllerSembastMixin$36.__proto__.new.call(this);
+  }).prototype = Object_StoreCursorControllerSembastMixin$36.prototype;
+  dart.applyMixin(Object_StoreCursorControllerSembastMixin$36, sembast_cursor.StoreCursorControllerSembastMixin);
+  sembast_cursor.StoreKeyCursorControllerSembast = class StoreKeyCursorControllerSembast extends Object_StoreCursorControllerSembastMixin$36 {
+    get store() {
+      return this[store$0];
+    }
+    set store(value) {
+      this[store$0] = value;
+    }
+    nextEvent(index) {
+      let cursor = new sembast_cursor.StoreKeyCursorSembast.new(this, index);
+      return cursor;
+    }
+  };
+  (sembast_cursor.StoreKeyCursorControllerSembast.new = function(store, meta) {
+    this[store$0] = store;
+    sembast_cursor.StoreKeyCursorControllerSembast.__proto__.new.call(this);
+    this.meta = meta;
+    this.init();
+  }).prototype = sembast_cursor.StoreKeyCursorControllerSembast.prototype;
+  dart.addTypeTests(sembast_cursor.StoreKeyCursorControllerSembast);
+  dart.addTypeCaches(sembast_cursor.StoreKeyCursorControllerSembast);
+  dart.setMethodSignature(sembast_cursor.StoreKeyCursorControllerSembast, () => ({
+    __proto__: dart.getMethods(sembast_cursor.StoreKeyCursorControllerSembast.__proto__),
+    nextEvent: dart.fnType(dart.legacy(idb.Cursor), [dart.legacy(core.int)])
+  }));
+  dart.setLibraryUri(sembast_cursor.StoreKeyCursorControllerSembast, I[2]);
+  dart.setFieldSignature(sembast_cursor.StoreKeyCursorControllerSembast, () => ({
+    __proto__: dart.getFields(sembast_cursor.StoreKeyCursorControllerSembast.__proto__),
+    store: dart.fieldType(dart.legacy(sembast_object_store.ObjectStoreSembast))
+  }));
+  var store$1 = dart.privateName(sembast_cursor, "StoreCursorWithValueControllerSembast.store");
+  const Object_CursorWithValueControllerSembastMixin$36$ = class Object_CursorWithValueControllerSembastMixin extends core.Object {};
+  (Object_CursorWithValueControllerSembastMixin$36$.new = function() {
+  }).prototype = Object_CursorWithValueControllerSembastMixin$36$.prototype;
+  dart.applyMixin(Object_CursorWithValueControllerSembastMixin$36$, sembast_cursor.CursorWithValueControllerSembastMixin);
+  const Object_BaseCursorControllerSembastMixin$36$1 = class Object_BaseCursorControllerSembastMixin extends Object_CursorWithValueControllerSembastMixin$36$ {};
+  (Object_BaseCursorControllerSembastMixin$36$1.new = function() {
+    sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.CursorWithValue)).new.call(this);
+  }).prototype = Object_BaseCursorControllerSembastMixin$36$1.prototype;
+  dart.applyMixin(Object_BaseCursorControllerSembastMixin$36$1, sembast_cursor.BaseCursorControllerSembastMixin$(dart.legacy(idb.CursorWithValue)));
+  const Object_StoreCursorControllerSembastMixin$36$ = class Object_StoreCursorControllerSembastMixin extends Object_BaseCursorControllerSembastMixin$36$1 {};
+  (Object_StoreCursorControllerSembastMixin$36$.new = function() {
+    Object_StoreCursorControllerSembastMixin$36$.__proto__.new.call(this);
+  }).prototype = Object_StoreCursorControllerSembastMixin$36$.prototype;
+  dart.applyMixin(Object_StoreCursorControllerSembastMixin$36$, sembast_cursor.StoreCursorControllerSembastMixin);
+  sembast_cursor.StoreCursorWithValueControllerSembast = class StoreCursorWithValueControllerSembast extends Object_StoreCursorControllerSembastMixin$36$ {
+    get store() {
+      return this[store$1];
+    }
+    set store(value) {
+      this[store$1] = value;
+    }
+    nextEvent(index) {
+      let cursor = new sembast_cursor.StoreCursorWithValueSembast.new(this, index);
+      return cursor;
+    }
+  };
+  (sembast_cursor.StoreCursorWithValueControllerSembast.new = function(store, meta) {
+    this[store$1] = store;
+    sembast_cursor.StoreCursorWithValueControllerSembast.__proto__.new.call(this);
+    this.meta = meta;
+    this.init();
+  }).prototype = sembast_cursor.StoreCursorWithValueControllerSembast.prototype;
+  dart.addTypeTests(sembast_cursor.StoreCursorWithValueControllerSembast);
+  dart.addTypeCaches(sembast_cursor.StoreCursorWithValueControllerSembast);
+  dart.setMethodSignature(sembast_cursor.StoreCursorWithValueControllerSembast, () => ({
+    __proto__: dart.getMethods(sembast_cursor.StoreCursorWithValueControllerSembast.__proto__),
+    nextEvent: dart.fnType(dart.legacy(idb.CursorWithValue), [dart.legacy(core.int)])
+  }));
+  dart.setLibraryUri(sembast_cursor.StoreCursorWithValueControllerSembast, I[2]);
+  dart.setFieldSignature(sembast_cursor.StoreCursorWithValueControllerSembast, () => ({
+    __proto__: dart.getFields(sembast_cursor.StoreCursorWithValueControllerSembast.__proto__),
+    store: dart.fieldType(dart.legacy(sembast_object_store.ObjectStoreSembast))
+  }));
+  sembast_cursor.keyPathSortOrders = function keyPathSortOrders(keyPath, ascending) {
+    if (T$.StringL().is(keyPath)) {
+      return T$.JSArrayOfSortOrderL().of([sort_order.SortOrder.new(keyPath, ascending)]);
+    } else if (T$.ListL().is(keyPath)) {
+      let keyList = keyPath;
+      return T$.ListOfSortOrderL().generate(keyList[$length], dart.fn(i => sort_order.SortOrder.new(T$.StringL().as(keyList[$_get](i)), ascending), T$.intLToSortOrderL()));
+    }
+    dart.throw("invalid keyPath " + dart.str(keyPath));
+  };
+  var meta$1 = dart.privateName(sembast_object_store, "ObjectStoreSembast.meta");
+  var transaction$ = dart.privateName(sembast_object_store, "ObjectStoreSembast.transaction");
+  var _sdbClient = dart.privateName(sembast_object_store, "_sdbClient");
+  var _sdbStore = dart.privateName(sembast_object_store, "_sdbStore");
+  var _inWritableTransaction = dart.privateName(sembast_object_store, "_inWritableTransaction");
+  var _storeKeyOrRangeFilter = dart.privateName(sembast_object_store, "_storeKeyOrRangeFilter");
+  const ObjectStore_ObjectStoreWithMetaMixin$36 = class ObjectStore_ObjectStoreWithMetaMixin extends idb.ObjectStore {};
+  (ObjectStore_ObjectStoreWithMetaMixin$36.new = function() {
+  }).prototype = ObjectStore_ObjectStoreWithMetaMixin$36.prototype;
+  dart.applyMixin(ObjectStore_ObjectStoreWithMetaMixin$36, common_meta.ObjectStoreWithMetaMixin);
+  sembast_object_store.ObjectStoreSembast = class ObjectStoreSembast extends ObjectStore_ObjectStoreWithMetaMixin$36 {
+    get meta() {
+      return this[meta$1];
+    }
+    set meta(value) {
+      super.meta = value;
+    }
+    get transaction() {
+      return this[transaction$];
+    }
+    set transaction(value) {
+      super.transaction = value;
+    }
+    get database() {
+      return this.transaction.database;
+    }
+    get sdbDatabase() {
+      return this.database.db;
+    }
+    get sdbTransaction() {
+      return this.transaction.sdbTransaction;
+    }
+    get sdbStore() {
+      let t6;
+      t6 = this[_sdbStore];
+      return t6 == null ? this[_sdbStore] = store_ref.StoreRef.new(this.name) : t6;
+    }
+    get sdbClient() {
+      let t7, t6;
+      t6 = this[_sdbClient];
+      return t6 == null ? this[_sdbClient] = (t7 = this.sdbTransaction, t7 == null ? this.sdbDatabase : t7) : t6;
+    }
+    [_inWritableTransaction](T, computation) {
+      if (this.transaction.meta.mode !== "readwrite") {
+        return async.Future$(dart.legacy(T)).error(new error.DatabaseReadOnlyError.new());
+      }
+      return this.inTransaction(dart.legacy(T), computation);
+    }
+    inTransaction(T, computation) {
+      return this.transaction.execute(dart.legacy(T), computation);
+    }
+    getKeyImpl(value, key = null) {
+      if (this.keyPath != null) {
+        if (key != null) {
+          dart.throw(new core.ArgumentError.new("The object store uses in-line keys and the key parameter '" + dart.str(key) + "' was provided"));
+        }
+        if (T$.MapL().is(value)) {
+          key = common_value.mapValueAtKeyPath(value, this.keyPath);
+        }
+      }
+      if (key == null && !dart.test(this.autoIncrement)) {
+        dart.throw(new idb.DatabaseError.new("neither keyPath nor autoIncrement set and trying to add object without key"));
+      }
+      return key;
+    }
+    getUpdateKeyIfNeeded(value, key = null) {
+      if (this.keyPath == null) {
+        return key;
+      }
+      return null;
+    }
+    putImpl(value, key) {
+      let futures = T$.JSArrayOfFutureL().of([]);
+      if (T$.MapL().is(value)) {
+        this.meta.indecies[$forEach](dart.fn(indexMeta => {
+          let fieldValue = common_value.mapValueAtKeyPath(value, indexMeta.keyPath);
+          if (fieldValue != null) {
+            let finder = finder$.Finder.new({filter: sembast_filter.keyFilter(indexMeta.keyPath, fieldValue, false), limit: 1});
+            futures[$add](store_ref_impl['SembastStoreRefExtension|findFirst'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient, {finder: finder}).then(dart.dynamic, dart.fn(record => {
+              if (record != null && !dart.equals(record.key, key) && !dart.test(indexMeta.multiEntry) && dart.test(indexMeta.unique)) {
+                dart.throw(new idb.DatabaseError.new("key '" + dart.str(fieldValue) + "' already exists in " + dart.str(record) + " for index " + dart.str(indexMeta)));
+              }
+            }, T$.RecordSnapshotLToNull())));
+          }
+        }, T$.IdbIndexMetaLToNull()));
+      }
+      return async.Future.wait(dart.dynamic, futures).then(dart.dynamic, dart.fn(_ => {
+        if (key == null) {
+          return store_ref_impl['SembastStoreRefExtension|add'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient, value);
+        } else {
+          return record_ref_impl['SembastRecordRefExtension|put'](dart.dynamic, dart.dynamic, this.sdbStore.record(key), this.sdbClient, value).then(dart.dynamic, dart.fn(_ => key, T$.dynamicTodynamic()));
+        }
+      }, T$.ListLToFutureL()));
+    }
+    add(value, key = null) {
+      value = sembast_value.toSembastValue(value);
+      return this[_inWritableTransaction](dart.dynamic, dart.fn(() => {
+        key = this.getKeyImpl(value, key);
+        if (key != null) {
+          return record_ref_impl['SembastRecordRefExtension|get'](dart.dynamic, dart.dynamic, this.sdbStore.record(key), this.sdbClient).then(dart.dynamic, dart.fn(existingValue => {
+            if (existingValue != null) {
+              dart.throw(new idb.DatabaseError.new("Key " + dart.str(key) + " already exists in the object store"));
+            }
+            return this.putImpl(value, key);
+          }, T$.dynamicToFutureL()));
+        } else {
+          return this.putImpl(value, key);
+        }
+      }, T$.VoidToFutureL()));
+    }
+    clear() {
+      return this[_inWritableTransaction](T$.intL(), dart.fn(() => store_ref_impl['SembastStoreRefExtension|delete'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient), T$.VoidToFutureLOfintL())).then(dart.dynamic, dart.fn(_ => null, T$.intLToNull()));
+    }
+    [_storeKeyOrRangeFilter](keyOrRange = null) {
+      return sembast_filter.keyOrRangeFilter(field.Field.key, keyOrRange, false);
+    }
+    count(keyOrRange = null) {
+      return this.inTransaction(T$.intL(), dart.fn(() => store_ref_impl['SembastStoreRefExtension|count'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient, {filter: this[_storeKeyOrRangeFilter](keyOrRange)}), T$.VoidToFutureLOfintL()));
+    }
+    getAll(keyOrRange = null, count = null) {
+      return this.inTransaction(T$.ListL(), dart.fn(() => async.async(T$.ListL(), (function*() {
+        return (yield store_ref_impl['SembastStoreRefExtension|find'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient, {finder: finder$.Finder.new({filter: this[_storeKeyOrRangeFilter](keyOrRange), limit: count})}))[$map](dart.dynamic, dart.bind(this, 'recordToValue'))[$toList]({growable: false});
+      }).bind(this)), T$.VoidToFutureLOfListL()));
+    }
+    getAllKeys(keyOrRange = null, count = null) {
+      return this.inTransaction(T$.ListL(), dart.fn(() => async.async(T$.ListL(), (function*() {
+        return yield store_ref_impl['SembastStoreRefExtension|findKeys'](dart.dynamic, dart.dynamic, this.sdbStore, this.sdbClient, {finder: finder$.Finder.new({filter: this[_storeKeyOrRangeFilter](keyOrRange), limit: count})});
+      }).bind(this)), T$.VoidToFutureLOfListL()));
+    }
+    createIndex(name, keyPath, opts) {
+      let unique = opts && 'unique' in opts ? opts.unique : null;
+      let multiEntry = opts && 'multiEntry' in opts ? opts.multiEntry : null;
+      let indexMeta = new common_meta.IdbIndexMeta.new(name, keyPath, unique, multiEntry);
+      this.meta.createIndex(this.database.meta, indexMeta);
+      return new sembast_index.IndexSembast.new(this, indexMeta);
+    }
+    deleteIndex(name) {
+      this.meta.deleteIndex(this.database.meta, name);
+    }
+    delete(key) {
+      return this[_inWritableTransaction](dart.dynamic, dart.fn(() => record_ref_impl['SembastRecordRefExtension|delete'](dart.dynamic, dart.dynamic, this.sdbStore.record(key), this.sdbClient).then(dart.dynamic, dart.fn(_ => null, T$.dynamicToNull())), T$.VoidToFutureL()));
+    }
+    recordToValue(record) {
+      if (record == null) {
+        return null;
+      }
+      let value = record.value;
+      if (this.keyPath != null && T$.MapL().is(value)) {
+        value = common_value.cloneValue(value, this.keyPath, record.key);
+      }
+      return sembast_value.fromSembastValue(value);
+    }
+    getObject(key) {
+      common_validation.checkKeyParam(key);
+      return this.inTransaction(dart.dynamic, dart.fn(() => record_ref_impl['SembastRecordRefExtension|getSnapshot'](dart.dynamic, dart.dynamic, this.sdbStore.record(key), this.sdbClient).then(dart.dynamic, dart.fn(record => this.recordToValue(record), T$.RecordSnapshotLTodynamic())), T$.VoidToFutureL()));
+    }
+    index(name) {
+      let indexMeta = this.meta.index(name);
+      return new sembast_index.IndexSembast.new(this, indexMeta);
+    }
+    sortOrders(ascending) {
+      return sembast_cursor.keyPathSortOrders(this.keyField, ascending);
+    }
+    cursorFilter(key, range) {
+      if (range != null) {
+        return sembast_filter.keyRangeFilter(this.keyField, range, false);
+      } else {
+        return sembast_filter.keyFilter(this.keyField, key, false);
+      }
+    }
+    get keyField() {
+      let t6;
+      t6 = this.keyPath;
+      return t6 == null ? field.Field.key : t6;
+    }
+    openCursor(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let range = opts && 'range' in opts ? opts.range : null;
+      let direction = opts && 'direction' in opts ? opts.direction : null;
+      let autoAdvance = opts && 'autoAdvance' in opts ? opts.autoAdvance : null;
+      let cursorMeta = new common_meta.IdbCursorMeta.new(key, range, direction, autoAdvance);
+      let ctlr = new sembast_cursor.StoreCursorWithValueControllerSembast.new(this, cursorMeta);
+      this.inTransaction(dart.dynamic, dart.fn(() => ctlr.openCursor(), T$.VoidToFutureL()));
+      return ctlr.stream;
+    }
+    openKeyCursor(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let range = opts && 'range' in opts ? opts.range : null;
+      let direction = opts && 'direction' in opts ? opts.direction : null;
+      let autoAdvance = opts && 'autoAdvance' in opts ? opts.autoAdvance : null;
+      let cursorMeta = new common_meta.IdbCursorMeta.new(key, range, direction, autoAdvance);
+      let ctlr = new sembast_cursor.StoreKeyCursorControllerSembast.new(this, cursorMeta);
+      this.inTransaction(dart.dynamic, dart.fn(() => ctlr.openCursor(), T$.VoidToFutureL()));
+      return ctlr.stream;
+    }
+    put(value, key = null) {
+      value = sembast_value.toSembastValue(value);
+      return this[_inWritableTransaction](dart.dynamic, dart.fn(() => this.putImpl(value, this.getKeyImpl(value, key)), T$.VoidToFutureL()));
+    }
+  };
+  (sembast_object_store.ObjectStoreSembast.new = function(transaction, meta) {
+    this[_sdbClient] = null;
+    this[_sdbStore] = null;
+    this[transaction$] = transaction;
+    this[meta$1] = meta;
+  }).prototype = sembast_object_store.ObjectStoreSembast.prototype;
+  dart.addTypeTests(sembast_object_store.ObjectStoreSembast);
+  dart.addTypeCaches(sembast_object_store.ObjectStoreSembast);
+  dart.setMethodSignature(sembast_object_store.ObjectStoreSembast, () => ({
+    __proto__: dart.getMethods(sembast_object_store.ObjectStoreSembast.__proto__),
+    [_inWritableTransaction]: dart.gFnType(T => [dart.legacy(async.Future$(dart.legacy(T))), [dart.legacy(dart.fnType(dart.legacy(async.FutureOr$(dart.legacy(T))), []))]]),
+    inTransaction: dart.gFnType(T => [dart.legacy(async.Future$(dart.legacy(T))), [dart.legacy(dart.fnType(dart.legacy(async.FutureOr$(dart.legacy(T))), []))]]),
+    getKeyImpl: dart.fnType(dart.dynamic, [dart.dynamic], [dart.dynamic]),
+    getUpdateKeyIfNeeded: dart.fnType(dart.dynamic, [dart.dynamic], [dart.dynamic]),
+    putImpl: dart.fnType(dart.legacy(async.Future), [dart.dynamic, dart.dynamic]),
+    add: dart.fnType(dart.legacy(async.Future), [dart.dynamic], [dart.dynamic]),
+    clear: dart.fnType(dart.legacy(async.Future), []),
+    [_storeKeyOrRangeFilter]: dart.fnType(dart.legacy(filter.Filter), [], [dart.dynamic]),
+    count: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.int))), [], [dart.dynamic]),
+    getAll: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List))), [], [dart.dynamic, dart.legacy(core.int)]),
+    getAllKeys: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List))), [], [dart.dynamic, dart.legacy(core.int)]),
+    createIndex: dart.fnType(dart.legacy(idb.Index), [dart.legacy(core.String), dart.dynamic], {multiEntry: dart.legacy(core.bool), unique: dart.legacy(core.bool)}, {}),
+    deleteIndex: dart.fnType(dart.void, [dart.legacy(core.String)]),
+    delete: dart.fnType(dart.legacy(async.Future), [dart.dynamic]),
+    recordToValue: dart.fnType(dart.dynamic, [dart.legacy(record_snapshot.RecordSnapshot)]),
+    getObject: dart.fnType(dart.legacy(async.Future), [dart.dynamic]),
+    index: dart.fnType(dart.legacy(idb.Index), [dart.legacy(core.String)]),
+    sortOrders: dart.fnType(dart.legacy(core.List$(dart.legacy(sort_order.SortOrder))), [dart.legacy(core.bool)]),
+    cursorFilter: dart.fnType(dart.legacy(filter.Filter), [dart.dynamic, dart.legacy(idb.KeyRange)]),
+    openCursor: dart.fnType(dart.legacy(async.Stream$(dart.legacy(idb.CursorWithValue))), [], {autoAdvance: dart.legacy(core.bool), direction: dart.legacy(core.String), key: dart.dynamic, range: dart.legacy(idb.KeyRange)}, {}),
+    openKeyCursor: dart.fnType(dart.legacy(async.Stream$(dart.legacy(idb.Cursor))), [], {autoAdvance: dart.legacy(core.bool), direction: dart.legacy(core.String), key: dart.dynamic, range: dart.legacy(idb.KeyRange)}, {}),
+    put: dart.fnType(dart.legacy(async.Future), [dart.dynamic], [dart.dynamic])
+  }));
+  dart.setGetterSignature(sembast_object_store.ObjectStoreSembast, () => ({
+    __proto__: dart.getGetters(sembast_object_store.ObjectStoreSembast.__proto__),
+    database: dart.legacy(sembast_database.DatabaseSembast),
+    sdbDatabase: dart.legacy(database.Database),
+    sdbTransaction: dart.legacy(transaction.Transaction),
+    sdbStore: dart.legacy(store_ref.StoreRef),
+    sdbClient: dart.legacy(client.DatabaseClient),
+    keyField: dart.dynamic
+  }));
+  dart.setLibraryUri(sembast_object_store.ObjectStoreSembast, I[3]);
+  dart.setFieldSignature(sembast_object_store.ObjectStoreSembast, () => ({
+    __proto__: dart.getFields(sembast_object_store.ObjectStoreSembast.__proto__),
+    meta: dart.finalFieldType(dart.legacy(common_meta.IdbObjectStoreMeta)),
+    transaction: dart.finalFieldType(dart.legacy(sembast_transaction.TransactionSembast)),
+    [_sdbClient]: dart.fieldType(dart.legacy(client.DatabaseClient)),
+    [_sdbStore]: dart.fieldType(dart.legacy(store_ref.StoreRef))
+  }));
+  sembast_database._SdbVersionChangeEvent = class _SdbVersionChangeEvent extends common_database.IdbVersionChangeEventBase {
+    get target() {
+      return this.request;
+    }
+    get database() {
+      return this.transaction.database;
+    }
+    get transaction() {
+      return T$.TransactionSembastL().as(this.request.transaction);
+    }
+    toString() {
+      return dart.str(this.oldVersion) + " => " + dart.str(this.newVersion);
+    }
+  };
+  (sembast_database._SdbVersionChangeEvent.new = function(database, oldVersion, newVersion) {
+    let t6;
+    this.request = null;
+    this.newVersion = newVersion;
+    this.oldVersion = (t6 = oldVersion, t6 == null ? 0 : t6);
+    if (dart.notNull(this.oldVersion) >= dart.notNull(this.newVersion)) {
+      dart.throw(new core.StateError.new("cannot downgrade from " + dart.str(oldVersion) + " to " + dart.str(this.newVersion)));
+    }
+    this.request = new idb.OpenDBRequest.new(database, database.versionChangeTransaction);
+  }).prototype = sembast_database._SdbVersionChangeEvent.prototype;
+  dart.addTypeTests(sembast_database._SdbVersionChangeEvent);
+  dart.addTypeCaches(sembast_database._SdbVersionChangeEvent);
+  dart.setMethodSignature(sembast_database._SdbVersionChangeEvent, () => ({
+    __proto__: dart.getMethods(sembast_database._SdbVersionChangeEvent.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setGetterSignature(sembast_database._SdbVersionChangeEvent, () => ({
+    __proto__: dart.getGetters(sembast_database._SdbVersionChangeEvent.__proto__),
+    target: dart.legacy(core.Object),
+    database: dart.legacy(idb.Database),
+    transaction: dart.legacy(sembast_transaction.TransactionSembast)
+  }));
+  dart.setLibraryUri(sembast_database._SdbVersionChangeEvent, I[4]);
+  dart.setFieldSignature(sembast_database._SdbVersionChangeEvent, () => ({
+    __proto__: dart.getFields(sembast_database._SdbVersionChangeEvent.__proto__),
+    oldVersion: dart.finalFieldType(dart.legacy(core.int)),
+    newVersion: dart.finalFieldType(dart.legacy(core.int)),
+    request: dart.fieldType(dart.legacy(idb.Request))
+  }));
+  dart.defineExtensionMethods(sembast_database._SdbVersionChangeEvent, ['toString']);
+  var versionChangeTransaction = dart.privateName(sembast_database, "DatabaseSembast.versionChangeTransaction");
+  var meta$2 = dart.privateName(sembast_database, "DatabaseSembast.meta");
+  var db = dart.privateName(sembast_database, "DatabaseSembast.db");
+  var mainStore = dart.privateName(sembast_database, "DatabaseSembast.mainStore");
+  var _readMeta = dart.privateName(sembast_database, "_readMeta");
+  var _loadStoresMeta = dart.privateName(sembast_database, "_loadStoresMeta");
+  var _factory = dart.privateName(sembast_database, "_factory");
+  var _factory$ = dart.privateName(idb, "_factory");
+  const IdbDatabaseBase_DatabaseWithMetaMixin$36 = class IdbDatabaseBase_DatabaseWithMetaMixin extends common_database.IdbDatabaseBase {};
+  (IdbDatabaseBase_DatabaseWithMetaMixin$36.new = function(_factory) {
+    IdbDatabaseBase_DatabaseWithMetaMixin$36.__proto__.new.call(this, _factory);
+  }).prototype = IdbDatabaseBase_DatabaseWithMetaMixin$36.prototype;
+  dart.applyMixin(IdbDatabaseBase_DatabaseWithMetaMixin$36, common_meta.DatabaseWithMetaMixin);
+  sembast_database.DatabaseSembast = class DatabaseSembast extends IdbDatabaseBase_DatabaseWithMetaMixin$36 {
+    get versionChangeTransaction() {
+      return this[versionChangeTransaction];
+    }
+    set versionChangeTransaction(value) {
+      this[versionChangeTransaction] = value;
+    }
+    get meta() {
+      return this[meta$2];
+    }
+    set meta(value) {
+      super.meta = value;
+    }
+    get db() {
+      return this[db];
+    }
+    set db(value) {
+      this[db] = value;
+    }
+    get mainStore() {
+      return this[mainStore];
+    }
+    set mainStore(value) {
+      super.mainStore = value;
+    }
+    get factory() {
+      return T$.IdbFactorySembastL().as(super.factory);
+    }
+    get sdbFactory() {
+      return this.factory.sdbFactory;
+    }
+    static fromDatabase(factory, db) {
+      return async.async(T$.DatabaseSembastL(), function* fromDatabase() {
+        let t6;
+        let idbDb = new sembast_database.DatabaseSembast.__(factory);
+        idbDb.db = db;
+        let version = (yield idbDb[_readMeta]());
+        idbDb.meta.name = db.path;
+        idbDb.meta.version = (t6 = version, t6 == null ? 1 : t6);
+        return idbDb;
+      });
+    }
+    [_loadStoresMeta](storeNames) {
+      let keys = T$.JSArrayOfStringL().of([]);
+      storeNames[$forEach](dart.fn(storeName => {
+        keys[$add]("store_" + dart.str(storeName));
+      }, T$.StringLToNull()));
+      return this.mainStore.records(keys).getSnapshots(this.db).then(T$.ListLOfIdbObjectStoreMetaL(), dart.fn(records => {
+        let list = T$.JSArrayOfIdbObjectStoreMetaL().of([]);
+        records[$forEach](dart.fn(record => {
+          let t6;
+          let map = (t6 = T$.MapL().as(record.value), t6 == null ? null : t6[$cast](T$.StringL(), dart.dynamic));
+          let store = new common_meta.IdbObjectStoreMeta.fromMap(map);
+          list[$add](store);
+        }, T$.RecordSnapshotLOfStringL$dynamicToNull()));
+        return list;
+      }, T$.ListLOfRecordSnapshotLOfStringL$dynamicToListLOfIdbObjectStoreMetaL()));
+    }
+    [_readMeta]() {
+      return async.async(T$.intL(), (function* _readMeta() {
+        return this.db.transaction(T$.intL(), dart.fn(txn => async.async(T$.intL(), (function*() {
+          let t6;
+          this.meta.version = T$.intL().as(yield record_ref_impl['SembastRecordRefExtension|get'](T$.StringL(), dart.dynamic, this.mainStore.record("version"), txn));
+          let storeList = (yield record_ref_impl['SembastRecordRefExtension|get'](T$.StringL(), dart.dynamic, this.mainStore.record("stores"), txn));
+          if (storeList != null) {
+            let storeNames = (t6 = T$.ListL().as(storeList), t6 == null ? null : t6[$cast](T$.StringL()));
+            yield this[_loadStoresMeta](storeNames).then(core.Null, dart.fn(storeMetas => {
+              storeMetas[$forEach](dart.fn(store => {
+                this.meta.putObjectStore(store);
+              }, T$.IdbObjectStoreMetaLToNull()));
+            }, T$.ListLOfIdbObjectStoreMetaLToNull()));
+          }
+          return this.meta.version;
+        }).bind(this)), T$.TransactionLToFutureLOfintL()));
+      }).bind(this));
+    }
+    open(newVersion, onUpgradeNeeded) {
+      return async.async(T$.DatabaseL$1(), (function* open() {
+        let t6, t7;
+        let previousVersion = null;
+        if (dart.test(sembast_factory.sembastDebug)) {
+          core.print("open2 " + dart.str(onUpgradeNeeded) + " " + (onUpgradeNeeded != null ? "NOT NULL" : "NULL"));
+        }
+        this.db = (yield this.sdbFactory.openDatabase(this.factory.getDbPath(this.name), {version: 1, onVersionChanged: dart.fn((db, oldVersion, newVersion) => {
+            if (dart.test(sembast_factory.sembastDebug)) {
+              core.print("changing " + dart.str(db.path) + " " + dart.str(oldVersion) + " -> " + dart.str(newVersion));
+            }
+          }, T$.DatabaseLAndintLAndintLToNull())}));
+        try {
+          previousVersion = (yield this[_readMeta]());
+          if (previousVersion == null) {
+            newVersion == null ? newVersion = 1 : null;
+          }
+          if (newVersion != null && newVersion != previousVersion) {
+            let changedStores = null;
+            let deletedStores = null;
+            yield this.meta.onUpgradeNeeded(dart.fn(() => async.async(core.Null, (function*() {
+              this.versionChangeTransaction = new sembast_transaction.TransactionSembast.new(this, this.meta.versionChangeTransaction);
+              if (onUpgradeNeeded != null) {
+                yield onUpgradeNeeded(new sembast_database._SdbVersionChangeEvent.new(this, previousVersion, newVersion));
+              }
+              yield this.versionChangeTransaction.completed;
+              changedStores = T$.LinkedHashSetOfIdbObjectStoreMetaL().from(this.meta.versionChangeTransaction.createdStores);
+              changedStores.addAll(this.meta.versionChangeTransaction.updatedStores);
+              deletedStores = this.meta.versionChangeTransaction.deletedStores;
+            }).bind(this)), T$.VoidToFutureLOfNull()));
+            yield this.db.transaction(core.Null, dart.fn(txn => async.async(core.Null, (function*() {
+              let t6;
+              yield record_ref_impl['SembastRecordRefExtension|put'](T$.StringL(), dart.dynamic, this.mainStore.record("version"), txn, newVersion);
+              for (let storeMeta of deletedStores) {
+                yield store_ref_impl['SembastStoreRefExtension|drop'](dart.dynamic, dart.dynamic, store_ref.StoreRef.new(storeMeta.name), txn);
+              }
+              if (dart.test(changedStores[$isNotEmpty]) || dart.test(deletedStores[$isNotEmpty])) {
+                yield record_ref_impl['SembastRecordRefExtension|put'](T$.StringL(), dart.dynamic, this.mainStore.record("stores"), txn, (t6 = core.List.from(this.objectStoreNames), (() => {
+                  t6[$sort]();
+                  return t6;
+                })()));
+              }
+              for (let storeMeta of changedStores) {
+                yield record_ref_impl['SembastRecordRefExtension|put'](T$.StringL(), dart.dynamic, this.mainStore.record("store_" + dart.str(storeMeta.name)), txn, storeMeta.toMap());
+              }
+            }).bind(this)), T$.TransactionLToFutureLOfNull()));
+            this.meta.version = newVersion;
+          } else {
+            this.meta.version = (t6 = previousVersion, t6 == null ? 1 : t6);
+          }
+          return this.db;
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          try {
+            yield (t7 = this.db, t7 == null ? null : t7.close());
+          } catch (e$0) {
+            let _ = dart.getThrown(e$0);
+          }
+          dart.rethrow(e$);
+        }
+      }).bind(this));
+    }
+    close() {
+      this.db.close();
+    }
+    createObjectStore(name, opts) {
+      let keyPath = opts && 'keyPath' in opts ? opts.keyPath : null;
+      let autoIncrement = opts && 'autoIncrement' in opts ? opts.autoIncrement : null;
+      let storeMeta = new common_meta.IdbObjectStoreMeta.new(name, keyPath, autoIncrement);
+      this.meta.createObjectStore(storeMeta);
+      return new sembast_object_store.ObjectStoreSembast.new(this.versionChangeTransaction, storeMeta);
+    }
+    deleteObjectStore(name) {
+      this.meta.deleteObjectStore(name);
+    }
+    get objectStoreNames() {
+      return this.meta.objectStoreNames;
+    }
+    get onVersionChange() {
+      dart.throw("not implemented yet");
+    }
+    transaction(storeNameOrStoreNames, mode) {
+      let txnMeta = this.meta.transaction(storeNameOrStoreNames, mode);
+      return new sembast_transaction.TransactionSembast.new(this, txnMeta);
+    }
+    transactionList(storeNames, mode) {
+      let txnMeta = this.meta.transaction(storeNames, mode);
+      return new sembast_transaction.TransactionSembast.new(this, txnMeta);
+    }
+    get version() {
+      return this.meta.version;
+    }
+    toDebugMap() {
+      let map = null;
+      if (this.meta != null) {
+        map = this.meta.toDebugMap();
+      } else {
+        map = new _js_helper.LinkedMap.new();
+      }
+      return map;
+    }
+    toString() {
+      return dart.toString(this.toDebugMap());
+    }
+    get [_factory$]() {
+      return T$.IdbFactoryL().as(this.noSuchMethod(new core._Invocation.getter(C[1] || CT.C1)));
+    }
+  };
+  (sembast_database.DatabaseSembast.__ = function(factory) {
+    this[versionChangeTransaction] = null;
+    this[meta$2] = new common_meta.IdbDatabaseMeta.new();
+    this[db] = null;
+    this[mainStore] = T$.StoreRefOfStringL$dynamic().main();
+    sembast_database.DatabaseSembast.__proto__.new.call(this, factory);
+    ;
+  }).prototype = sembast_database.DatabaseSembast.prototype;
+  (sembast_database.DatabaseSembast.new = function(factory, name) {
+    this[versionChangeTransaction] = null;
+    this[meta$2] = new common_meta.IdbDatabaseMeta.new();
+    this[db] = null;
+    this[mainStore] = T$.StoreRefOfStringL$dynamic().main();
+    sembast_database.DatabaseSembast.__proto__.new.call(this, factory);
+    this.meta.name = name;
+  }).prototype = sembast_database.DatabaseSembast.prototype;
+  dart.addTypeTests(sembast_database.DatabaseSembast);
+  dart.addTypeCaches(sembast_database.DatabaseSembast);
+  dart.setMethodSignature(sembast_database.DatabaseSembast, () => ({
+    __proto__: dart.getMethods(sembast_database.DatabaseSembast.__proto__),
+    [_loadStoresMeta]: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List$(dart.legacy(common_meta.IdbObjectStoreMeta))))), [dart.legacy(core.List$(dart.legacy(core.String)))]),
+    [_readMeta]: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.int))), []),
+    open: dart.fnType(dart.legacy(async.Future$(dart.legacy(database.Database))), [dart.legacy(core.int), dart.legacy(dart.fnType(dart.void, [dart.legacy(idb.VersionChangeEvent)]))]),
+    close: dart.fnType(dart.void, []),
+    createObjectStore: dart.fnType(dart.legacy(idb.ObjectStore), [dart.legacy(core.String)], {autoIncrement: dart.legacy(core.bool), keyPath: dart.legacy(core.String)}, {}),
+    transaction: dart.fnType(dart.legacy(idb.Transaction), [dart.dynamic, dart.legacy(core.String)]),
+    transactionList: dart.fnType(dart.legacy(idb.Transaction), [dart.legacy(core.List$(dart.legacy(core.String))), dart.legacy(core.String)]),
+    toDebugMap: dart.fnType(dart.legacy(core.Map), [])
+  }));
+  dart.setGetterSignature(sembast_database.DatabaseSembast, () => ({
+    __proto__: dart.getGetters(sembast_database.DatabaseSembast.__proto__),
+    factory: dart.legacy(idb_client_sembast.IdbFactorySembast),
+    sdbFactory: dart.legacy(factory.DatabaseFactory),
+    onVersionChange: dart.legacy(async.Stream$(dart.legacy(idb.VersionChangeEvent))),
+    [_factory$]: dart.legacy(idb.IdbFactory)
+  }));
+  dart.setLibraryUri(sembast_database.DatabaseSembast, I[4]);
+  dart.setFieldSignature(sembast_database.DatabaseSembast, () => ({
+    __proto__: dart.getFields(sembast_database.DatabaseSembast.__proto__),
+    versionChangeTransaction: dart.fieldType(dart.legacy(sembast_transaction.TransactionSembast)),
+    meta: dart.finalFieldType(dart.legacy(common_meta.IdbDatabaseMeta)),
+    db: dart.fieldType(dart.legacy(database.Database)),
+    mainStore: dart.finalFieldType(dart.legacy(store_ref.StoreRef$(dart.legacy(core.String), dart.dynamic)))
+  }));
+  dart.defineExtensionMethods(sembast_database.DatabaseSembast, ['toString']);
+  idb_client_sembast.IdbFactorySembast = class IdbFactorySembast extends common_factory.IdbFactoryBase {
+    static new(databaseFactory, path = null) {
+      return new sembast_factory.IdbFactorySembastImpl.new(databaseFactory, path);
+    }
+  };
+  dart.addTypeTests(idb_client_sembast.IdbFactorySembast);
+  dart.addTypeCaches(idb_client_sembast.IdbFactorySembast);
+  dart.setLibraryUri(idb_client_sembast.IdbFactorySembast, I[5]);
+  dart.copyProperties(idb_client_sembast, {
+    get idbFactorySembastMemory() {
+      return sembast_factory.idbFactorySembastMemoryImpl;
+    }
+  });
+  dart.defineLazy(idb_client_sembast, {
+    /*idb_client_sembast.idbFactoryNameSembast*/get idbFactoryNameSembast() {
+      return "sembast";
+    }
+  }, true);
+  var _databaseFactory$ = dart.privateName(sembast_factory, "_databaseFactory");
+  var _path$ = dart.privateName(sembast_factory, "_path");
+  sembast_factory.IdbFactorySembastImpl = class IdbFactorySembastImpl extends common_factory.IdbFactoryBase {
+    getDbPath(dbName) {
+      return this[_path$] == null ? dbName : path.join(this[_path$], dbName);
+    }
+    get sdbFactory() {
+      return this[_databaseFactory$];
+    }
+    get persistent() {
+      return this[_databaseFactory$].hasStorage;
+    }
+    get name() {
+      return "sembast";
+    }
+    getSdbDatabase(db) {
+      return T$.DatabaseSembastL().as(db).db;
+    }
+    openFromSdbDatabase(sdbDb) {
+      return sembast_database.DatabaseSembast.fromDatabase(this, sdbDb);
+    }
+    open(dbName, opts) {
+      let version = opts && 'version' in opts ? opts.version : null;
+      let onUpgradeNeeded = opts && 'onUpgradeNeeded' in opts ? opts.onUpgradeNeeded : null;
+      let onBlocked = opts && 'onBlocked' in opts ? opts.onBlocked : null;
+      return async.async(T$.DatabaseL(), (function* open() {
+        this.checkOpenArguments({version: version, onUpgradeNeeded: onUpgradeNeeded});
+        let db = new sembast_database.DatabaseSembast.new(this, dbName);
+        if (dart.test(sembast_factory.sembastDebug)) {
+          core.print("open1 onUpgradeNeeded " + (onUpgradeNeeded != null ? "NOT NULL" : "NULL"));
+        }
+        yield db.open(version, onUpgradeNeeded);
+        return db;
+      }).bind(this));
+    }
+    deleteDatabase(dbName, opts) {
+      let onBlocked = opts && 'onBlocked' in opts ? opts.onBlocked : null;
+      return async.async(T$.IdbFactoryL(), (function* deleteDatabase() {
+        if (dbName == null) {
+          return T$.FutureOfIdbFactoryL().error(new core.ArgumentError.new("dbName cannot be null"));
+        }
+        yield this[_databaseFactory$].deleteDatabase(this.getDbPath(dbName));
+        return this;
+      }).bind(this));
+    }
+    get supportsDatabaseNames() {
+      return false;
+    }
+    getDatabaseNames() {
+      dart.throw(new database_exception.DatabaseException.new("getDatabaseNames not supported"));
+    }
+    get supportsDoubleKey() {
+      return true;
+    }
+    toString() {
+      return "IdbFactorySembast(" + dart.str(this[_databaseFactory$]) + ")";
+    }
+  };
+  (sembast_factory.IdbFactorySembastImpl.new = function(_databaseFactory, _path = null) {
+    this[_databaseFactory$] = _databaseFactory;
+    this[_path$] = _path;
+    sembast_factory.IdbFactorySembastImpl.__proto__.new.call(this);
+    ;
+  }).prototype = sembast_factory.IdbFactorySembastImpl.prototype;
+  dart.addTypeTests(sembast_factory.IdbFactorySembastImpl);
+  dart.addTypeCaches(sembast_factory.IdbFactorySembastImpl);
+  sembast_factory.IdbFactorySembastImpl[dart.implements] = () => [idb_client_sembast.IdbFactorySembast];
+  dart.setMethodSignature(sembast_factory.IdbFactorySembastImpl, () => ({
+    __proto__: dart.getMethods(sembast_factory.IdbFactorySembastImpl.__proto__),
+    getDbPath: dart.fnType(dart.legacy(core.String), [dart.legacy(core.String)]),
+    getSdbDatabase: dart.fnType(dart.legacy(database.Database), [dart.legacy(idb.Database)]),
+    openFromSdbDatabase: dart.fnType(dart.legacy(async.Future$(dart.legacy(idb.Database))), [dart.legacy(database.Database)]),
+    open: dart.fnType(dart.legacy(async.Future$(dart.legacy(idb.Database))), [dart.legacy(core.String)], {onBlocked: dart.legacy(dart.fnType(dart.void, [dart.legacy(idb.Event)])), onUpgradeNeeded: dart.legacy(dart.fnType(dart.void, [dart.legacy(idb.VersionChangeEvent)])), version: dart.legacy(core.int)}, {}),
+    deleteDatabase: dart.fnType(dart.legacy(async.Future$(dart.legacy(idb.IdbFactory))), [dart.legacy(core.String)], {onBlocked: dart.legacy(dart.fnType(dart.void, [dart.legacy(idb.Event)]))}, {}),
+    getDatabaseNames: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.List$(dart.legacy(core.String))))), []),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setGetterSignature(sembast_factory.IdbFactorySembastImpl, () => ({
+    __proto__: dart.getGetters(sembast_factory.IdbFactorySembastImpl.__proto__),
+    sdbFactory: dart.legacy(factory.DatabaseFactory),
+    persistent: dart.legacy(core.bool),
+    name: dart.legacy(core.String),
+    supportsDatabaseNames: dart.legacy(core.bool),
+    supportsDoubleKey: dart.legacy(core.bool)
+  }));
+  dart.setLibraryUri(sembast_factory.IdbFactorySembastImpl, I[6]);
+  dart.setFieldSignature(sembast_factory.IdbFactorySembastImpl, () => ({
+    __proto__: dart.getFields(sembast_factory.IdbFactorySembastImpl.__proto__),
+    [_databaseFactory$]: dart.finalFieldType(dart.legacy(factory.DatabaseFactory)),
+    [_path$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(sembast_factory.IdbFactorySembastImpl, ['toString']);
+  sembast_factory.newIdbFactorySembastMemoryImpl = function newIdbFactorySembastMemoryImpl() {
+    return idb_client_sembast.IdbFactorySembast.new(sembast_memory.newDatabaseFactoryMemory());
+  };
+  dart.copyProperties(sembast_factory, {
+    get idbFactorySembastMemoryFsImpl() {
+      let t8;
+      t8 = sembast_factory._idbFactorySembastMemoryFsImpl;
+      return t8 == null ? sembast_factory._idbFactorySembastMemoryFsImpl = idb_client_sembast.IdbFactorySembast.new(sembast_memory.databaseFactoryMemoryFs) : t8;
+    },
+    get idbFactorySembastMemoryImpl() {
+      let t8;
+      t8 = sembast_factory._idbSembastMemoryFactoryImpl;
+      return t8 == null ? sembast_factory._idbSembastMemoryFactoryImpl = idb_client_sembast.IdbFactorySembast.new(sembast_memory.databaseFactoryMemory) : t8;
+    }
+  });
+  dart.defineLazy(sembast_factory, {
+    /*sembast_factory.sembastDebug*/get sembastDebug() {
+      return false;
+    },
+    set sembastDebug(_) {},
+    /*sembast_factory._idbFactorySembastMemoryFsImpl*/get _idbFactorySembastMemoryFsImpl() {
+      return null;
+    },
+    set _idbFactorySembastMemoryFsImpl(_) {},
+    /*sembast_factory._idbSembastMemoryFactoryImpl*/get _idbSembastMemoryFactoryImpl() {
+      return null;
+    },
+    set _idbSembastMemoryFactoryImpl(_) {}
+  }, true);
+  dart.trackLibraries("packages/idb_shim/src/sembast/sembast_transaction.dart", {
+    "package:idb_shim/src/sembast/sembast_transaction.dart": sembast_transaction,
+    "package:idb_shim/src/sembast/sembast_index.dart": sembast_index,
+    "package:idb_shim/src/sembast/sembast_cursor.dart": sembast_cursor,
+    "package:idb_shim/src/sembast/sembast_object_store.dart": sembast_object_store,
+    "package:idb_shim/src/sembast/sembast_database.dart": sembast_database,
+    "package:idb_shim/idb_client_sembast.dart": idb_client_sembast,
+    "package:idb_shim/src/sembast/sembast_factory.dart": sembast_factory
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["../common/common_transaction.dart","sembast_transaction.dart","sembast_index.dart","sembast_cursor.dart","sembast_object_store.dart","sembast_database.dart","../common/common_database.dart","../../idb_client_sembast.dart","sembast_factory.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../packages/idb_shim/src/sembast/sembast_transaction.dart.lib.js"}');
+  // Exports:
+  return {
+    src__sembast__sembast_transaction: sembast_transaction,
+    src__sembast__sembast_index: sembast_index,
+    src__sembast__sembast_cursor: sembast_cursor,
+    src__sembast__sembast_object_store: sembast_object_store,
+    src__sembast__sembast_database: sembast_database,
+    idb_client_sembast: idb_client_sembast,
+    src__sembast__sembast_factory: sembast_factory
+  };
+}));
+
+//# sourceMappingURL=sembast_transaction.dart.lib.js.map

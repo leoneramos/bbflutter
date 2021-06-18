@@ -1,0 +1,747 @@
+define(['dart_sdk', 'packages/idb_shim/src/common/common_key_range.dart', 'packages/sembast/src/sembast_codec.dart', 'packages/sembast_web/src/web_defs.dart', 'packages/sembast/src/key_utils.dart', 'packages/idb_shim/utils/idb_import_export.dart', 'packages/idb_shim/idb_client_memory.dart'], (function load__packages__sembast_web__src__jdb_factory_idb_dart(dart_sdk, packages__idb_shim__src__common__common_key_range$46dart, packages__sembast__src__sembast_codec$46dart, packages__sembast_web__src__web_defs$46dart, packages__sembast__src__key_utils$46dart, packages__idb_shim__utils__idb_import_export$46dart, packages__idb_shim__idb_client_memory$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const _interceptors = dart_sdk._interceptors;
+  const async = dart_sdk.async;
+  const _internal = dart_sdk._internal;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const idb = packages__idb_shim__src__common__common_key_range$46dart.idb;
+  const jdb = packages__sembast__src__sembast_codec$46dart.src__jdb;
+  const database_factory_mixin = packages__sembast__src__sembast_codec$46dart.src__database_factory_mixin;
+  const json_encodable_codec = packages__sembast__src__sembast_codec$46dart.src__json_encodable_codec;
+  const store_ref = packages__sembast__src__sembast_codec$46dart.src__api__store_ref;
+  const storage = packages__sembast__src__sembast_codec$46dart.src__storage;
+  const sembast_jdb = packages__sembast__src__sembast_codec$46dart.src__sembast_jdb;
+  const web_defs = packages__sembast_web__src__web_defs$46dart.src__web_defs;
+  const key_utils = packages__sembast__src__key_utils$46dart.src__key_utils;
+  const idb_import_export = packages__idb_shim__utils__idb_import_export$46dart.utils__idb_import_export;
+  const idb_client_memory = packages__idb_shim__idb_client_memory$46dart.idb_client_memory;
+  var jdb_factory_idb = Object.create(dart.library);
+  var $isEmpty = dartx.isEmpty;
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $add = dartx.add;
+  var $remove = dartx.remove;
+  var $toList = dartx.toList;
+  var $isNotEmpty = dartx.isNotEmpty;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    ListOfJdbDatabaseIdb: () => (T.ListOfJdbDatabaseIdb = dart.constFn(core.List$(jdb_factory_idb.JdbDatabaseIdb)))(),
+    IdentityMapOfString$ListOfJdbDatabaseIdb: () => (T.IdentityMapOfString$ListOfJdbDatabaseIdb = dart.constFn(_js_helper.IdentityMap$(core.String, T.ListOfJdbDatabaseIdb())))(),
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    VersionChangeEventToNull: () => (T.VersionChangeEventToNull = dart.constFn(dart.fnType(core.Null, [idb.VersionChangeEvent])))(),
+    JSArrayOfJdbDatabaseIdb: () => (T.JSArrayOfJdbDatabaseIdb = dart.constFn(_interceptors.JSArray$(jdb_factory_idb.JdbDatabaseIdb)))(),
+    VoidToDatabase: () => (T.VoidToDatabase = dart.constFn(dart.fnType(idb.Database, [])))(),
+    DatabaseTodynamic: () => (T.DatabaseTodynamic = dart.constFn(dart.fnType(dart.dynamic, [idb.Database])))(),
+    StreamControllerOfint: () => (T.StreamControllerOfint = dart.constFn(async.StreamController$(core.int)))(),
+    StreamControllerOfJdbReadEntry: () => (T.StreamControllerOfJdbReadEntry = dart.constFn(async.StreamController$(jdb.JdbReadEntry)))(),
+    VoidToStreamControllerOfJdbReadEntry: () => (T.VoidToStreamControllerOfJdbReadEntry = dart.constFn(dart.fnType(T.StreamControllerOfJdbReadEntry(), [])))(),
+    StreamControllerOfJdbReadEntryTodynamic: () => (T.StreamControllerOfJdbReadEntryTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T.StreamControllerOfJdbReadEntry()])))(),
+    CursorWithValueTovoid: () => (T.CursorWithValueTovoid = dart.constFn(dart.fnType(dart.void, [idb.CursorWithValue])))(),
+    FutureOfvoid: () => (T.FutureOfvoid = dart.constFn(async.Future$(dart.void)))(),
+    VoidToFutureOfvoid: () => (T.VoidToFutureOfvoid = dart.constFn(dart.fnType(T.FutureOfvoid(), [])))(),
+    intN: () => (T.intN = dart.constFn(dart.nullable(core.int)))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    IdentityMapOfString$ObjectN: () => (T.IdentityMapOfString$ObjectN = dart.constFn(_js_helper.IdentityMap$(core.String, T.ObjectN())))(),
+    JSArrayOfint: () => (T.JSArrayOfint = dart.constFn(_interceptors.JSArray$(core.int)))(),
+    ListOfint: () => (T.ListOfint = dart.constFn(core.List$(core.int)))(),
+    ListOfString: () => (T.ListOfString = dart.constFn(core.List$(core.String)))(),
+    intToString: () => (T.intToString = dart.constFn(dart.fnType(core.String, [core.int])))(),
+    StreamControllerOfJdbEntry: () => (T.StreamControllerOfJdbEntry = dart.constFn(async.StreamController$(jdb.JdbEntry)))(),
+    VoidToStreamControllerOfJdbEntry: () => (T.VoidToStreamControllerOfJdbEntry = dart.constFn(dart.fnType(T.StreamControllerOfJdbEntry(), [])))(),
+    StreamControllerOfJdbEntryTodynamic: () => (T.StreamControllerOfJdbEntryTodynamic = dart.constFn(dart.fnType(dart.dynamic, [T.StreamControllerOfJdbEntry()])))(),
+    MapOfString$ObjectN: () => (T.MapOfString$ObjectN = dart.constFn(core.Map$(core.String, T.ObjectN())))(),
+    JSArrayOfMapOfString$ObjectN: () => (T.JSArrayOfMapOfString$ObjectN = dart.constFn(_interceptors.JSArray$(T.MapOfString$ObjectN())))(),
+    ListOfMapOfString$ObjectN: () => (T.ListOfMapOfString$ObjectN = dart.constFn(core.List$(T.MapOfString$ObjectN())))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var C = [];
+  var I = [
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/sembast_web-2.0.0+2/lib/src/jdb_factory_idb.dart",
+    "package:sembast_web/src/jdb_factory_idb.dart"
+  ];
+  var idbFactory$ = dart.privateName(jdb_factory_idb, "JdbFactoryIdb.idbFactory");
+  var databases = dart.privateName(jdb_factory_idb, "JdbFactoryIdb.databases");
+  var _lastId = dart.privateName(jdb_factory_idb, "_lastId");
+  jdb_factory_idb.JdbFactoryIdb = class JdbFactoryIdb extends core.Object {
+    get idbFactory() {
+      return this[idbFactory$];
+    }
+    set idbFactory(value) {
+      super.idbFactory = value;
+    }
+    get databases() {
+      return this[databases];
+    }
+    set databases(value) {
+      super.databases = value;
+    }
+    open(path, opts) {
+      if (path == null) dart.nullFailed(I[0], 44, 39, "path");
+      let options = opts && 'options' in opts ? opts.options : null;
+      return async.async(jdb.JdbDatabase, (function* open() {
+        let t3, t2, t1, t0;
+        let id = this[_lastId] = dart.notNull(this[_lastId]) + 1;
+        if (dart.test(jdb_factory_idb._debug)) {
+          core.print("[idb-" + dart.str(id) + "] opening " + dart.str(path));
+        }
+        let iDb = (yield this.idbFactory.open(path, {version: 2, onUpgradeNeeded: dart.fn(event => {
+            if (event == null) dart.nullFailed(I[0], 50, 73, "event");
+            if (dart.test(jdb_factory_idb._debug)) {
+              core.print("[idb-" + dart.str(id) + "] migrating " + dart.str(event.oldVersion) + " -> " + dart.str(event.newVersion));
+            }
+            let db = event.database;
+            if (dart.notNull(event.oldVersion) < 2) {
+              db.createObjectStore("info");
+              let entryStore = db.createObjectStore("entry", {autoIncrement: true});
+              entryStore.createIndex("record", T.JSArrayOfString().of(["store", "key"]));
+              entryStore.createIndex("deleted", "deleted", {multiEntry: true});
+            }
+          }, T.VersionChangeEventToNull())}));
+        let db = new jdb_factory_idb.JdbDatabaseIdb.new(this, iDb, id, path, options);
+        if (dart.test(this.databases[$isEmpty])) {
+          this.start();
+        }
+        let list = (t0 = this.databases, t1 = path, t2 = t0[$_get](t1), t2 == null ? (t3 = T.JSArrayOfJdbDatabaseIdb().of([]), t0[$_set](t1, t3), t3) : t2);
+        list[$add](db);
+        return db;
+      }).bind(this));
+    }
+    delete(path) {
+      if (path == null) dart.nullFailed(I[0], 76, 30, "path");
+      return async.async(dart.void, (function* $delete() {
+        try {
+          if (dart.test(jdb_factory_idb._debug)) {
+            core.print("[idb] deleting " + dart.str(path));
+          }
+          this.databases[$remove](path);
+          this.checkAllClosed();
+          yield this.idbFactory.deleteDatabase(path);
+          this.notifyRevision(new web_defs.StorageRevision.new(path, 0));
+          if (dart.test(jdb_factory_idb._debug)) {
+            core.print("[idb] deleted " + dart.str(path));
+          }
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+            core.print(e);
+          } else
+            throw e$;
+        }
+      }).bind(this));
+    }
+    exists(path) {
+      if (path == null) dart.nullFailed(I[0], 96, 30, "path");
+      return async.async(core.bool, (function* exists() {
+        let db = null;
+        let db$35isSet = false;
+        function db$35get() {
+          return db$35isSet ? db : dart.throw(new _internal.LateError.localNI("db"));
+        }
+        dart.fn(db$35get, T.VoidToDatabase());
+        function db$35set(t4) {
+          if (t4 == null) dart.nullFailed(I[0], 97, 23, "null");
+          db$35isSet = true;
+          return db = t4;
+        }
+        dart.fn(db$35set, T.DatabaseTodynamic());
+        try {
+          db$35set(yield this.idbFactory.open(path));
+          let meta = (yield db$35get().transaction("info", "readonly").objectStore("info").getObject("meta"));
+          if (core.Map.is(meta) && core.int.is(meta[$_get]("sembast"))) {
+            return true;
+          }
+        } catch (e) {
+          let _ = dart.getThrown(e);
+          if (core.Object.is(_)) {
+          } else
+            throw e;
+        } finally {
+          try {
+            db$35get().close();
+          } catch (e$) {
+            let _ = dart.getThrown(e$);
+            if (core.Object.is(_)) {
+            } else
+              throw e$;
+          }
+        }
+        return false;
+      }).bind(this));
+    }
+    toString() {
+      return "JdbFactoryIdb(" + dart.str(this.idbFactory) + ")";
+    }
+    checkAllClosed() {
+      if (dart.test(this.databases[$isEmpty])) {
+        this.stop();
+      }
+    }
+    start() {
+    }
+    stop() {
+    }
+    notifyRevision(storageRevision) {
+      if (storageRevision == null) dart.nullFailed(I[0], 132, 39, "storageRevision");
+      if (dart.test(web_defs.debugStorageNotification)) {
+        core.print("notifyRevision " + dart.str(storageRevision) + ": not supported");
+      }
+    }
+  };
+  (jdb_factory_idb.JdbFactoryIdb.new = function(idbFactory) {
+    if (idbFactory == null) dart.nullFailed(I[0], 38, 22, "idbFactory");
+    this[_lastId] = 0;
+    this[databases] = new (T.IdentityMapOfString$ListOfJdbDatabaseIdb()).new();
+    this[idbFactory$] = idbFactory;
+    ;
+  }).prototype = jdb_factory_idb.JdbFactoryIdb.prototype;
+  dart.addTypeTests(jdb_factory_idb.JdbFactoryIdb);
+  dart.addTypeCaches(jdb_factory_idb.JdbFactoryIdb);
+  jdb_factory_idb.JdbFactoryIdb[dart.implements] = () => [jdb.JdbFactory];
+  dart.setMethodSignature(jdb_factory_idb.JdbFactoryIdb, () => ({
+    __proto__: dart.getMethods(jdb_factory_idb.JdbFactoryIdb.__proto__),
+    open: dart.fnType(async.Future$(jdb.JdbDatabase), [core.String], {options: dart.nullable(database_factory_mixin.DatabaseOpenOptions)}, {}),
+    delete: dart.fnType(async.Future$(dart.void), [core.String]),
+    exists: dart.fnType(async.Future$(core.bool), [core.String]),
+    checkAllClosed: dart.fnType(dart.void, []),
+    start: dart.fnType(dart.void, []),
+    stop: dart.fnType(dart.void, []),
+    notifyRevision: dart.fnType(dart.void, [web_defs.StorageRevision])
+  }));
+  dart.setLibraryUri(jdb_factory_idb.JdbFactoryIdb, I[1]);
+  dart.setFieldSignature(jdb_factory_idb.JdbFactoryIdb, () => ({
+    __proto__: dart.getFields(jdb_factory_idb.JdbFactoryIdb.__proto__),
+    [_lastId]: dart.fieldType(core.int),
+    idbFactory: dart.finalFieldType(idb.IdbFactory),
+    databases: dart.finalFieldType(core.Map$(core.String, core.List$(jdb_factory_idb.JdbDatabaseIdb)))
+  }));
+  dart.defineExtensionMethods(jdb_factory_idb.JdbFactoryIdb, ['toString']);
+  var _revisionUpdateController = dart.privateName(jdb_factory_idb, "_revisionUpdateController");
+  var _closed = dart.privateName(jdb_factory_idb, "_closed");
+  var _factory$ = dart.privateName(jdb_factory_idb, "_factory");
+  var _idbDatabase$ = dart.privateName(jdb_factory_idb, "_idbDatabase");
+  var _id$ = dart.privateName(jdb_factory_idb, "_id");
+  var _path$ = dart.privateName(jdb_factory_idb, "_path");
+  var _options$ = dart.privateName(jdb_factory_idb, "_options");
+  var _entryFromCursor = dart.privateName(jdb_factory_idb, "_entryFromCursor");
+  var _debugPrefix = dart.privateName(jdb_factory_idb, "_debugPrefix");
+  var _txnGetInfoEntry = dart.privateName(jdb_factory_idb, "_txnGetInfoEntry");
+  var _txnSetInfoEntry = dart.privateName(jdb_factory_idb, "_txnSetInfoEntry");
+  var _txnAddEntries = dart.privateName(jdb_factory_idb, "_txnAddEntries");
+  var _txnPutRevision = dart.privateName(jdb_factory_idb, "_txnPutRevision");
+  var _txnPutDeltaMinRevision = dart.privateName(jdb_factory_idb, "_txnPutDeltaMinRevision");
+  var _txnGetRevision = dart.privateName(jdb_factory_idb, "_txnGetRevision");
+  var _storeLastIdKey = dart.privateName(jdb_factory_idb, "_storeLastIdKey");
+  var _txnStoreToDebugMap = dart.privateName(jdb_factory_idb, "_txnStoreToDebugMap");
+  var _txnGetDeltaMinRevision = dart.privateName(jdb_factory_idb, "_txnGetDeltaMinRevision");
+  jdb_factory_idb.JdbDatabaseIdb = class JdbDatabaseIdb extends core.Object {
+    [_entryFromCursor](cwv) {
+      let t9, t8, t9$, t8$, t8$0, t8$1;
+      if (cwv == null) dart.nullFailed(I[0], 147, 53, "cwv");
+      let map = core.Map.as(cwv.value);
+      let deleted = dart.equals(map[$_get]("deleted"), 1);
+      let value = null;
+      if (!deleted) {
+        value = core.Object.as(map[$_get]("value"));
+        if ((t8 = this[_options$], t8 == null ? null : (t9 = t8.codec, t9 == null ? null : t9.codec)) != null && typeof value == 'string') {
+          value = dart.nullCheck(dart.nullCheck(dart.nullCheck(dart.nullCheck(this[_options$]).codec).codec).decode(value));
+        }
+        value = (t8$0 = (t8$ = this[_options$], t8$ == null ? null : (t9$ = t8$.codec, t9$ == null ? null : t9$.jsonEncodableCodec)), t8$0 == null ? json_encodable_codec.sembastDefaultJsonEncodableCodec : t8$0).decode(value);
+      }
+      let entry = (t8$1 = new jdb.JdbReadEntry.new(), (() => {
+        t8$1.id = core.int.as(cwv.key);
+        t8$1.record = store_ref.StoreRef.new(core.String.as(map[$_get]("store"))).record(map[$_get]("key"));
+        t8$1.value = value;
+        t8$1.deleted = deleted;
+        return t8$1;
+      })());
+      return entry;
+    }
+    get [_debugPrefix]() {
+      return "[idb-" + dart.str(this[_id$]) + "]";
+    }
+    get entries() {
+      let ctlr = null;
+      let ctlr$35isSet = false;
+      function ctlr$35get() {
+        return ctlr$35isSet ? ctlr : dart.throw(new _internal.LateError.localNI("ctlr"));
+      }
+      dart.fn(ctlr$35get, T.VoidToStreamControllerOfJdbReadEntry());
+      function ctlr$35set(t11) {
+        if (t11 == null) dart.nullFailed(I[0], 181, 45, "null");
+        ctlr$35isSet = true;
+        return ctlr = t11;
+      }
+      dart.fn(ctlr$35set, T.StreamControllerOfJdbReadEntryTodynamic());
+      ctlr$35set(T.StreamControllerOfJdbReadEntry().new({onListen: dart.fn(() => async.async(dart.void, (function*() {
+          yield this[_idbDatabase$].transaction("entry", "readonly").objectStore("entry").openCursor({autoAdvance: true}).listen(dart.fn(cwv => {
+            if (cwv == null) dart.nullFailed(I[0], 187, 20, "cwv");
+            let entry = this[_entryFromCursor](cwv);
+            if (dart.test(jdb_factory_idb._debug)) {
+              core.print(dart.str(this[_debugPrefix]) + " reading entry " + dart.str(entry));
+            }
+            ctlr$35get().add(entry);
+          }, T.CursorWithValueTovoid())).asFuture(dart.dynamic);
+          yield ctlr$35get().close();
+        }).bind(this)), T.VoidToFutureOfvoid())}));
+      return ctlr$35get().stream;
+    }
+    close() {
+      if (!dart.test(this[_closed])) {
+        let list = this[_factory$].databases[$_get](this[_path$]);
+        if (list != null) {
+          list[$remove](this);
+          if (dart.test(list[$isEmpty])) {
+            this[_factory$].databases[$remove](this[_path$]);
+          }
+          this[_factory$].checkAllClosed();
+        }
+        if (dart.test(jdb_factory_idb._debug)) {
+          core.print(dart.str(this[_debugPrefix]) + " closing");
+        }
+        this[_closed] = true;
+        this[_idbDatabase$].close();
+      }
+    }
+    getInfoEntry(id) {
+      if (id == null) dart.nullFailed(I[0], 228, 48, "id");
+      return async.async(jdb.JdbInfoEntry, (function* getInfoEntry() {
+        let txn = this[_idbDatabase$].transaction("info", "readonly");
+        return this[_txnGetInfoEntry](txn, id);
+      }).bind(this));
+    }
+    [_txnGetInfoEntry](txn, id) {
+      if (txn == null) dart.nullFailed(I[0], 234, 23, "txn");
+      if (id == null) dart.nullFailed(I[0], 234, 35, "id");
+      return async.async(jdb.JdbInfoEntry, function* _txnGetInfoEntry() {
+        let t13;
+        let info = (yield txn.objectStore("info").getObject(id));
+        t13 = new jdb.JdbInfoEntry.new();
+        return (() => {
+          t13.id = id;
+          t13.value = info;
+          return t13;
+        })();
+      });
+    }
+    setInfoEntry(entry) {
+      if (entry == null) dart.nullFailed(I[0], 242, 40, "entry");
+      return async.async(dart.dynamic, (function* setInfoEntry() {
+        let txn = this[_idbDatabase$].transaction("info", "readwrite");
+        yield this[_txnSetInfoEntry](txn, entry);
+        yield txn.completed;
+      }).bind(this));
+    }
+    [_txnSetInfoEntry](txn, entry) {
+      if (txn == null) dart.nullFailed(I[0], 248, 43, "txn");
+      if (entry == null) dart.nullFailed(I[0], 248, 65, "entry");
+      return async.async(dart.dynamic, function* _txnSetInfoEntry() {
+        yield txn.objectStore("info").put(dart.nullCast(entry.value, core.Object), entry.id);
+      });
+    }
+    addEntries(entries) {
+      if (entries == null) dart.nullFailed(I[0], 253, 45, "entries");
+      return async.async(dart.dynamic, (function* addEntries() {
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["entry", "info"]), "readwrite");
+        yield this[_txnAddEntries](txn, entries);
+        yield txn.completed;
+      }).bind(this));
+    }
+    [_txnPutRevision](txn, revision) {
+      if (txn == null) dart.nullFailed(I[0], 265, 42, "txn");
+      if (revision == null) dart.nullFailed(I[0], 265, 51, "revision");
+      return async.async(dart.dynamic, function* _txnPutRevision() {
+        let infoStore = txn.objectStore("info");
+        yield infoStore.put(revision, "revision");
+      });
+    }
+    [_txnPutDeltaMinRevision](txn, revision) {
+      if (txn == null) dart.nullFailed(I[0], 270, 50, "txn");
+      if (revision == null) dart.nullFailed(I[0], 270, 59, "revision");
+      return async.async(dart.dynamic, function* _txnPutDeltaMinRevision() {
+        let infoStore = txn.objectStore("info");
+        yield infoStore.put(revision, "deltaMinRevision");
+      });
+    }
+    [_txnGetRevision](txn) {
+      if (txn == null) dart.nullFailed(I[0], 275, 48, "txn");
+      return async.async(T.intN(), function* _txnGetRevision() {
+        let infoStore = txn.objectStore("info");
+        return T.intN().as(yield infoStore.getObject("revision"));
+      });
+    }
+    [_txnAddEntries](txn, entries) {
+      if (txn == null) dart.nullFailed(I[0], 282, 23, "txn");
+      if (entries == null) dart.nullFailed(I[0], 282, 52, "entries");
+      return async.async(T.intN(), (function* _txnAddEntries() {
+        let t14, t13, t13$, t14$, t13$0, t14$0;
+        let objectStore = txn.objectStore("entry");
+        let index = objectStore.index("record");
+        let lastEntryId = null;
+        for (let jdbWriteEntry of entries) {
+          let store = jdbWriteEntry.record.store.name;
+          let key = jdbWriteEntry.record.key;
+          let idbKey = (yield index.getKey([store, key]));
+          if (idbKey != null) {
+            if (dart.test(jdb_factory_idb._debug)) {
+              core.print(dart.str(this[_debugPrefix]) + " deleting entry " + dart.str(idbKey));
+            }
+            yield objectStore.delete(idbKey);
+          }
+          let value = null;
+          if (!dart.test(jdbWriteEntry.deleted)) {
+            value = (t13$ = (t13 = this[_options$], t13 == null ? null : (t14 = t13.codec, t14 == null ? null : t14.jsonEncodableCodec)), t13$ == null ? json_encodable_codec.sembastDefaultJsonEncodableCodec : t13$).encode(dart.nullCheck(jdbWriteEntry.value));
+            if ((t13$0 = this[_options$], t13$0 == null ? null : (t14$ = t13$0.codec, t14$ == null ? null : t14$.codec)) != null) {
+              value = dart.nullCheck(dart.nullCheck(dart.nullCheck(this[_options$]).codec).codec).encode(value);
+            }
+          }
+          lastEntryId = core.int.as(yield objectStore.add((() => {
+            let t13 = new (T.IdentityMapOfString$ObjectN()).new();
+            t13[$_set]("store", store);
+            t13[$_set]("key", key);
+            if (value != null) t13[$_set]("value", value);
+            if (dart.test(jdbWriteEntry.deleted)) t13[$_set]("deleted", 1);
+            return t13;
+          })()));
+          t14$0 = jdbWriteEntry.txnRecord;
+          t14$0 == null ? null : t14$0.record.revision = lastEntryId;
+          if (dart.test(jdb_factory_idb._debug)) {
+            core.print(dart.str(this[_debugPrefix]) + " added entry " + dart.str(lastEntryId) + " " + dart.str(jdbWriteEntry));
+          }
+        }
+        return lastEntryId;
+      }).bind(this));
+    }
+    notifyRevision(revision) {
+      if (revision == null) dart.nullFailed(I[0], 327, 27, "revision");
+      this[_factory$].notifyRevision(new web_defs.StorageRevision.new(this[_path$], revision));
+    }
+    toString() {
+      return "JdbDatabaseIdb(" + dart.str(this[_id$]) + ", " + dart.str(this[_path$]) + ")";
+    }
+    [_storeLastIdKey](store) {
+      if (store == null) dart.nullFailed(I[0], 334, 33, "store");
+      return storage.jdbStoreLastIdKey(store);
+    }
+    generateUniqueIntKeys(store, count) {
+      if (store == null) dart.nullFailed(I[0], 337, 50, "store");
+      if (count == null) dart.nullFailed(I[0], 337, 61, "count");
+      return async.async(T.ListOfint(), (function* generateUniqueIntKeys() {
+        let t14;
+        let keys = T.JSArrayOfint().of([]);
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["entry", "info"]), "readonly");
+        let infoStore = txn.objectStore("info");
+        let infoKey = this[_storeLastIdKey](store);
+        let lastId = (t14 = T.intN().as(yield infoStore.getObject(infoKey)), t14 == null ? 0 : t14);
+        for (let i = 0; i < dart.notNull(count); i = i + 1) {
+          lastId = dart.notNull(lastId) + 1;
+          keys[$add](lastId);
+        }
+        yield txn.completed;
+        return keys;
+      }).bind(this));
+    }
+    generateUniqueStringKeys(store, count) {
+      if (store == null) dart.nullFailed(I[0], 354, 56, "store");
+      if (count == null) dart.nullFailed(I[0], 354, 67, "count");
+      return async.async(T.ListOfString(), function* generateUniqueStringKeys() {
+        return T.ListOfString().generate(count, dart.fn(index => {
+          if (index == null) dart.nullFailed(I[0], 355, 34, "index");
+          return key_utils.generateStringKey();
+        }, T.intToString()))[$toList]();
+      });
+    }
+    entriesAfterRevision(revision) {
+      if (revision == null) dart.nullFailed(I[0], 359, 49, "revision");
+      let ctlr = null;
+      let ctlr$35isSet = false;
+      function ctlr$35get() {
+        return ctlr$35isSet ? ctlr : dart.throw(new _internal.LateError.localNI("ctlr"));
+      }
+      dart.fn(ctlr$35get, T.VoidToStreamControllerOfJdbEntry());
+      function ctlr$35set(t17) {
+        if (t17 == null) dart.nullFailed(I[0], 360, 41, "null");
+        ctlr$35isSet = true;
+        return ctlr = t17;
+      }
+      dart.fn(ctlr$35set, T.StreamControllerOfJdbEntryTodynamic());
+      ctlr$35set(T.StreamControllerOfJdbEntry().new({onListen: dart.fn(() => async.async(dart.void, (function*() {
+          let keyRange = idb.KeyRange.lowerBound(revision, true);
+          yield this[_idbDatabase$].transaction("entry", "readonly").objectStore("entry").openCursor({range: keyRange, autoAdvance: true}).listen(dart.fn(cwv => {
+            if (cwv == null) dart.nullFailed(I[0], 367, 20, "cwv");
+            let entry = this[_entryFromCursor](cwv);
+            if (dart.test(jdb_factory_idb._debug)) {
+              core.print(dart.str(this[_debugPrefix]) + " reading entry after revision " + dart.str(entry));
+            }
+            ctlr$35get().add(entry);
+          }, T.CursorWithValueTovoid())).asFuture(dart.dynamic);
+          yield ctlr$35get().close();
+        }).bind(this)), T.VoidToFutureOfvoid())}));
+      return ctlr$35get().stream;
+    }
+    getRevision() {
+      return async.async(core.int, (function* getRevision() {
+        let t19;
+        t19 = T.intN().as((yield this.getInfoEntry("revision")).value);
+        return t19 == null ? 0 : t19;
+      }).bind(this));
+    }
+    get revisionUpdate() {
+      return this[_revisionUpdateController].stream;
+    }
+    addRevision(revision) {
+      if (revision == null) dart.nullFailed(I[0], 389, 24, "revision");
+      this[_revisionUpdateController].add(revision);
+    }
+    writeIfRevision(query) {
+      if (query == null) dart.nullFailed(I[0], 395, 28, "query");
+      return async.async(sembast_jdb.StorageJdbWriteResult, (function* writeIfRevision() {
+        let t19, t19$;
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["info", "entry"]), "readwrite");
+        let expectedRevision = (t19 = query.revision, t19 == null ? 0 : t19);
+        let readRevision = (t19$ = (yield this[_txnGetRevision](txn)), t19$ == null ? 0 : t19$);
+        let success = expectedRevision == readRevision;
+        let shouldNotifyRevision = null;
+        if (success) {
+          if (dart.test(query.entries[$isNotEmpty])) {
+            readRevision = (yield this[_txnAddEntries](txn, query.entries));
+            if (readRevision != null) {
+              yield this[_txnPutRevision](txn, readRevision);
+              shouldNotifyRevision = readRevision;
+            }
+          }
+          if (dart.test(query.infoEntries[$isNotEmpty])) {
+            for (let infoEntry of query.infoEntries) {
+              yield this[_txnSetInfoEntry](txn, infoEntry);
+            }
+          }
+        }
+        yield txn.completed;
+        if (shouldNotifyRevision != null) {
+          this.notifyRevision(shouldNotifyRevision);
+        }
+        return new sembast_jdb.StorageJdbWriteResult.new({revision: readRevision, query: query, success: success});
+      }).bind(this));
+    }
+    exportToMap() {
+      return async.async(T.MapOfString$ObjectN(), (function* exportToMap() {
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["info", "entry"]), "readonly");
+        let map = new (T.IdentityMapOfString$ObjectN()).new();
+        map[$_set]("infos", yield this[_txnStoreToDebugMap](txn, "info"));
+        map[$_set]("entries", yield this[_txnStoreToDebugMap](txn, "entry"));
+        return map;
+      }).bind(this));
+    }
+    [_txnStoreToDebugMap](txn, name) {
+      if (txn == null) dart.nullFailed(I[0], 441, 23, "txn");
+      if (name == null) dart.nullFailed(I[0], 441, 35, "name");
+      return async.async(T.ListOfMapOfString$ObjectN(), function* _txnStoreToDebugMap() {
+        let list = T.JSArrayOfMapOfString$ObjectN().of([]);
+        let store = txn.objectStore(name);
+        yield store.openCursor({autoAdvance: true}).listen(dart.fn(cwv => {
+          let t19;
+          if (cwv == null) dart.nullFailed(I[0], 444, 55, "cwv");
+          let value = cwv.value;
+          if (core.Map.is(value)) {
+            let newMap = null;
+            if (dart.equals(value[$_get]("store"), "_main")) {
+              newMap == null ? newMap = collection.LinkedHashMap.from(value) : null;
+              newMap[$remove]("store");
+            }
+            if (dart.equals(value[$_get]("deleted"), 1)) {
+              newMap == null ? newMap = collection.LinkedHashMap.from(value) : null;
+              newMap[$remove]("value");
+              newMap[$_set]("deleted", true);
+            }
+            value = (t19 = newMap, t19 == null ? value : t19);
+          }
+          list[$add](new (T.IdentityMapOfString$ObjectN()).from(["id", cwv.key, "value", value]));
+        }, T.CursorWithValueTovoid())).asFuture(dart.dynamic);
+        return list;
+      });
+    }
+    compact() {
+      return async.async(dart.dynamic, (function* compact() {
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["info", "entry"]), "readwrite");
+        let deltaMinRevision = (yield this[_txnGetDeltaMinRevision](txn));
+        let currentRevision = (yield this[_txnGetRevision](txn));
+        let newDeltaMinRevision = deltaMinRevision;
+        let deleteIndex = txn.objectStore("entry").index("deleted");
+        yield deleteIndex.openCursor({autoAdvance: true}).listen(dart.fn(cwv => {
+          if (cwv == null) dart.nullFailed(I[0], 476, 61, "cwv");
+          if (!core.int.is(cwv.key)) dart.assertFailed(null, I[0], 477, 14, "cwv.key is int");
+          let revision = core.int.as(cwv.primaryKey);
+          if (dart.notNull(revision) > dart.notNull(newDeltaMinRevision) && dart.notNull(revision) <= dart.nullCheck(currentRevision)) {
+            newDeltaMinRevision = revision;
+            cwv.delete();
+          }
+        }, T.CursorWithValueTovoid())).asFuture(dart.dynamic);
+        if (dart.notNull(newDeltaMinRevision) > dart.notNull(deltaMinRevision)) {
+          yield this[_txnPutDeltaMinRevision](txn, newDeltaMinRevision);
+        }
+        yield txn.completed;
+      }).bind(this));
+    }
+    getDeltaMinRevision() {
+      return async.async(core.int, (function* getDeltaMinRevision() {
+        let t19;
+        t19 = T.intN().as((yield this.getInfoEntry("deltaMinRevision")).value);
+        return t19 == null ? 0 : t19;
+      }).bind(this));
+    }
+    [_txnGetDeltaMinRevision](txn) {
+      if (txn == null) dart.nullFailed(I[0], 496, 55, "txn");
+      return async.async(core.int, function* _txnGetDeltaMinRevision() {
+        let t19;
+        t19 = T.intN().as(yield txn.objectStore("info").getObject("deltaMinRevision"));
+        return t19 == null ? 0 : t19;
+      });
+    }
+    clearAll() {
+      return async.async(dart.dynamic, (function* clearAll() {
+        let txn = this[_idbDatabase$].transaction(T.JSArrayOfString().of(["info", "entry"]), "readwrite");
+        yield txn.objectStore("info").clear();
+        yield txn.objectStore("entry").clear();
+        yield txn.completed;
+      }).bind(this));
+    }
+    sdbExportDatabase() {
+      return async.async(core.Map, (function* sdbExportDatabase() {
+        return idb_import_export.sdbExportDatabase(this[_idbDatabase$]);
+      }).bind(this));
+    }
+  };
+  (jdb_factory_idb.JdbDatabaseIdb.new = function(_factory, _idbDatabase, _id, _path, _options) {
+    if (_factory == null) dart.nullFailed(I[0], 202, 12, "_factory");
+    if (_idbDatabase == null) dart.nullFailed(I[0], 202, 27, "_idbDatabase");
+    if (_id == null) dart.nullFailed(I[0], 202, 46, "_id");
+    if (_path == null) dart.nullFailed(I[0], 202, 56, "_path");
+    this[_revisionUpdateController] = T.StreamControllerOfint().new();
+    this[_closed] = false;
+    this[_factory$] = _factory;
+    this[_idbDatabase$] = _idbDatabase;
+    this[_id$] = _id;
+    this[_path$] = _path;
+    this[_options$] = _options;
+    ;
+  }).prototype = jdb_factory_idb.JdbDatabaseIdb.prototype;
+  dart.addTypeTests(jdb_factory_idb.JdbDatabaseIdb);
+  dart.addTypeCaches(jdb_factory_idb.JdbDatabaseIdb);
+  jdb_factory_idb.JdbDatabaseIdb[dart.implements] = () => [jdb.JdbDatabase];
+  dart.setMethodSignature(jdb_factory_idb.JdbDatabaseIdb, () => ({
+    __proto__: dart.getMethods(jdb_factory_idb.JdbDatabaseIdb.__proto__),
+    [_entryFromCursor]: dart.fnType(jdb.JdbReadEntry, [idb.CursorWithValue]),
+    close: dart.fnType(dart.void, []),
+    getInfoEntry: dart.fnType(async.Future$(jdb.JdbInfoEntry), [core.String]),
+    [_txnGetInfoEntry]: dart.fnType(async.Future$(jdb.JdbInfoEntry), [idb.Transaction, core.String]),
+    setInfoEntry: dart.fnType(async.Future, [jdb.JdbInfoEntry]),
+    [_txnSetInfoEntry]: dart.fnType(async.Future, [idb.Transaction, jdb.JdbInfoEntry]),
+    addEntries: dart.fnType(async.Future, [core.List$(jdb.JdbWriteEntry)]),
+    [_txnPutRevision]: dart.fnType(async.Future, [idb.Transaction, core.int]),
+    [_txnPutDeltaMinRevision]: dart.fnType(async.Future, [idb.Transaction, core.int]),
+    [_txnGetRevision]: dart.fnType(async.Future$(dart.nullable(core.int)), [idb.Transaction]),
+    [_txnAddEntries]: dart.fnType(async.Future$(dart.nullable(core.int)), [idb.Transaction, core.List$(jdb.JdbWriteEntry)]),
+    notifyRevision: dart.fnType(dart.void, [core.int]),
+    [_storeLastIdKey]: dart.fnType(core.String, [core.String]),
+    generateUniqueIntKeys: dart.fnType(async.Future$(core.List$(core.int)), [core.String, core.int]),
+    generateUniqueStringKeys: dart.fnType(async.Future$(core.List$(core.String)), [core.String, core.int]),
+    entriesAfterRevision: dart.fnType(async.Stream$(jdb.JdbEntry), [core.int]),
+    getRevision: dart.fnType(async.Future$(core.int), []),
+    addRevision: dart.fnType(dart.void, [core.int]),
+    writeIfRevision: dart.fnType(async.Future$(sembast_jdb.StorageJdbWriteResult), [sembast_jdb.StorageJdbWriteQuery]),
+    exportToMap: dart.fnType(async.Future$(core.Map$(core.String, dart.nullable(core.Object))), []),
+    [_txnStoreToDebugMap]: dart.fnType(async.Future$(core.List$(core.Map$(core.String, dart.nullable(core.Object)))), [idb.Transaction, core.String]),
+    compact: dart.fnType(async.Future, []),
+    getDeltaMinRevision: dart.fnType(async.Future$(core.int), []),
+    [_txnGetDeltaMinRevision]: dart.fnType(async.Future$(core.int), [idb.Transaction]),
+    clearAll: dart.fnType(async.Future, []),
+    sdbExportDatabase: dart.fnType(async.Future$(core.Map), [])
+  }));
+  dart.setGetterSignature(jdb_factory_idb.JdbDatabaseIdb, () => ({
+    __proto__: dart.getGetters(jdb_factory_idb.JdbDatabaseIdb.__proto__),
+    [_debugPrefix]: core.String,
+    entries: async.Stream$(jdb.JdbReadEntry),
+    revisionUpdate: async.Stream$(core.int)
+  }));
+  dart.setLibraryUri(jdb_factory_idb.JdbDatabaseIdb, I[1]);
+  dart.setFieldSignature(jdb_factory_idb.JdbDatabaseIdb, () => ({
+    __proto__: dart.getFields(jdb_factory_idb.JdbDatabaseIdb.__proto__),
+    [_idbDatabase$]: dart.finalFieldType(idb.Database),
+    [_id$]: dart.finalFieldType(core.int),
+    [_path$]: dart.finalFieldType(core.String),
+    [_revisionUpdateController]: dart.finalFieldType(async.StreamController$(core.int)),
+    [_options$]: dart.finalFieldType(dart.nullable(database_factory_mixin.DatabaseOpenOptions)),
+    [_factory$]: dart.finalFieldType(jdb_factory_idb.JdbFactoryIdb),
+    [_closed]: dart.fieldType(core.bool)
+  }));
+  dart.defineExtensionMethods(jdb_factory_idb.JdbDatabaseIdb, ['toString']);
+  dart.copyProperties(jdb_factory_idb, {
+    get jdbFactoryIdbMemory() {
+      return jdb_factory_idb._jdbFactoryIdbMemory;
+    }
+  });
+  dart.defineLazy(jdb_factory_idb, {
+    /*jdb_factory_idb._debug*/get _debug() {
+      return false;
+    },
+    set _debug(_) {},
+    /*jdb_factory_idb._infoStore*/get _infoStore() {
+      return "info";
+    },
+    /*jdb_factory_idb._entryStore*/get _entryStore() {
+      return "entry";
+    },
+    /*jdb_factory_idb._storePath*/get _storePath() {
+      return "store";
+    },
+    /*jdb_factory_idb._keyPath*/get _keyPath() {
+      return "key";
+    },
+    /*jdb_factory_idb._recordIndex*/get _recordIndex() {
+      return "record";
+    },
+    /*jdb_factory_idb._deletedIndex*/get _deletedIndex() {
+      return "deleted";
+    },
+    /*jdb_factory_idb._valuePath*/get _valuePath() {
+      return "value";
+    },
+    /*jdb_factory_idb._deletedPath*/get _deletedPath() {
+      return "deleted";
+    },
+    /*jdb_factory_idb._sembastMainStoreName*/get _sembastMainStoreName() {
+      return "_main";
+    },
+    /*jdb_factory_idb._revisionKey*/get _revisionKey() {
+      return "revision";
+    },
+    /*jdb_factory_idb._jdbFactoryIdbMemory*/get _jdbFactoryIdbMemory() {
+      return new jdb_factory_idb.JdbFactoryIdb.new(idb_client_memory.idbFactoryMemory);
+    },
+    set _jdbFactoryIdbMemory(_) {}
+  }, false);
+  dart.trackLibraries("packages/sembast_web/src/jdb_factory_idb.dart", {
+    "package:sembast_web/src/jdb_factory_idb.dart": jdb_factory_idb
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["jdb_factory_idb.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../packages/sembast_web/src/jdb_factory_idb.dart.lib.js"}');
+  // Exports:
+  return {
+    src__jdb_factory_idb: jdb_factory_idb
+  };
+}));
+
+//# sourceMappingURL=jdb_factory_idb.dart.lib.js.map

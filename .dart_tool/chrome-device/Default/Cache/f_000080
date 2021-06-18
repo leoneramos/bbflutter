@@ -1,0 +1,310 @@
+define(['dart_sdk', 'packages/sembast/src/timestamp_impl.dart', 'packages/sembast/src/blob_impl.dart'], (function load__packages__sembast__src__type_adapter_impl_dart(dart_sdk, packages__sembast__src__timestamp_impl$46dart, packages__sembast__src__blob_impl$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const convert = dart_sdk.convert;
+  const _internal = dart_sdk._internal;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const timestamp_impl = packages__sembast__src__timestamp_impl$46dart.src__timestamp_impl;
+  const blob_impl = packages__sembast__src__blob_impl$46dart.src__blob_impl;
+  var type_adapter_impl = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    _ConverterOfDateTime$String: () => (T._ConverterOfDateTime$String = dart.constFn(type_adapter_impl._Converter$(core.DateTime, core.String)))(),
+    DateTimeToString: () => (T.DateTimeToString = dart.constFn(dart.fnType(core.String, [core.DateTime])))(),
+    _ConverterOfString$DateTime: () => (T._ConverterOfString$DateTime = dart.constFn(type_adapter_impl._Converter$(core.String, core.DateTime)))(),
+    StringToDateTime: () => (T.StringToDateTime = dart.constFn(dart.fnType(core.DateTime, [core.String])))(),
+    _ConverterOfTimestamp$String: () => (T._ConverterOfTimestamp$String = dart.constFn(type_adapter_impl._Converter$(timestamp_impl.Timestamp, core.String)))(),
+    TimestampToString: () => (T.TimestampToString = dart.constFn(dart.fnType(core.String, [timestamp_impl.Timestamp])))(),
+    _ConverterOfString$Timestamp: () => (T._ConverterOfString$Timestamp = dart.constFn(type_adapter_impl._Converter$(core.String, timestamp_impl.Timestamp)))(),
+    StringToTimestamp: () => (T.StringToTimestamp = dart.constFn(dart.fnType(timestamp_impl.Timestamp, [core.String])))(),
+    _ConverterOfBlob$String: () => (T._ConverterOfBlob$String = dart.constFn(type_adapter_impl._Converter$(blob_impl.Blob, core.String)))(),
+    BlobToString: () => (T.BlobToString = dart.constFn(dart.fnType(core.String, [blob_impl.Blob])))(),
+    _ConverterOfString$Blob: () => (T._ConverterOfString$Blob = dart.constFn(type_adapter_impl._Converter$(core.String, blob_impl.Blob)))(),
+    StringToBlob: () => (T.StringToBlob = dart.constFn(dart.fnType(blob_impl.Blob, [core.String])))(),
+    SembastTypeAdapterOfObject$String: () => (T.SembastTypeAdapterOfObject$String = dart.constFn(type_adapter_impl.SembastTypeAdapter$(core.Object, core.String)))(),
+    JSArrayOfSembastTypeAdapterOfObject$String: () => (T.JSArrayOfSembastTypeAdapterOfObject$String = dart.constFn(_interceptors.JSArray$(T.SembastTypeAdapterOfObject$String())))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var C = [];
+  var I = [
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/sembast-3.0.2/lib/src/type_adapter_impl.dart",
+    "package:sembast/src/type_adapter_impl.dart"
+  ];
+  var _convert$ = dart.privateName(type_adapter_impl, "_convert");
+  const _is__Converter_default = Symbol('_is__Converter_default');
+  type_adapter_impl._Converter$ = dart.generic((S, T) => {
+    class _Converter extends convert.Converter$(S, T) {
+      convert(input) {
+        let t0;
+        S.as(input);
+        t0 = input;
+        return this[_convert$](t0);
+      }
+    }
+    (_Converter.new = function(_convert) {
+      if (_convert == null) dart.nullFailed(I[0], 9, 19, "_convert");
+      this[_convert$] = _convert;
+      _Converter.__proto__.new.call(this);
+      ;
+    }).prototype = _Converter.prototype;
+    dart.addTypeTests(_Converter);
+    _Converter.prototype[_is__Converter_default] = true;
+    dart.addTypeCaches(_Converter);
+    dart.setMethodSignature(_Converter, () => ({
+      __proto__: dart.getMethods(_Converter.__proto__),
+      convert: dart.fnType(T, [dart.nullable(core.Object)])
+    }));
+    dart.setLibraryUri(_Converter, I[1]);
+    dart.setFieldSignature(_Converter, () => ({
+      __proto__: dart.getFields(_Converter.__proto__),
+      [_convert$]: dart.finalFieldType(dart.fnType(T, [S]))
+    }));
+    return _Converter;
+  });
+  type_adapter_impl._Converter = type_adapter_impl._Converter$();
+  dart.addTypeTests(type_adapter_impl._Converter, _is__Converter_default);
+  const _is_SembastTypeAdapter_default = Symbol('_is_SembastTypeAdapter_default');
+  type_adapter_impl.SembastTypeAdapter$ = dart.generic((S, T) => {
+    class SembastTypeAdapter extends convert.Codec$(S, T) {}
+    (SembastTypeAdapter.new = function() {
+      SembastTypeAdapter.__proto__.new.call(this);
+      ;
+    }).prototype = SembastTypeAdapter.prototype;
+    dart.addTypeTests(SembastTypeAdapter);
+    SembastTypeAdapter.prototype[_is_SembastTypeAdapter_default] = true;
+    dart.addTypeCaches(SembastTypeAdapter);
+    dart.setLibraryUri(SembastTypeAdapter, I[1]);
+    return SembastTypeAdapter;
+  });
+  type_adapter_impl.SembastTypeAdapter = type_adapter_impl.SembastTypeAdapter$();
+  dart.addTypeTests(type_adapter_impl.SembastTypeAdapter, _is_SembastTypeAdapter_default);
+  var _$35_TypeAdapterCodecMixin$35encoder = dart.privateName(type_adapter_impl, "_TypeAdapterCodecMixin._#_TypeAdapterCodecMixin#encoder");
+  var _$35_TypeAdapterCodecMixin$35encoder$35isSet = dart.privateName(type_adapter_impl, "_TypeAdapterCodecMixin._#_TypeAdapterCodecMixin#encoder#isSet");
+  var _$35_TypeAdapterCodecMixin$35decoder = dart.privateName(type_adapter_impl, "_TypeAdapterCodecMixin._#_TypeAdapterCodecMixin#decoder");
+  var _$35_TypeAdapterCodecMixin$35decoder$35isSet = dart.privateName(type_adapter_impl, "_TypeAdapterCodecMixin._#_TypeAdapterCodecMixin#decoder#isSet");
+  var ___TypeAdapterCodecMixin_encoder = dart.privateName(type_adapter_impl, "_#_TypeAdapterCodecMixin#encoder");
+  var ___TypeAdapterCodecMixin_encoder_isSet = dart.privateName(type_adapter_impl, "_#_TypeAdapterCodecMixin#encoder#isSet");
+  var ___TypeAdapterCodecMixin_decoder = dart.privateName(type_adapter_impl, "_#_TypeAdapterCodecMixin#decoder");
+  var ___TypeAdapterCodecMixin_decoder_isSet = dart.privateName(type_adapter_impl, "_#_TypeAdapterCodecMixin#decoder#isSet");
+  const _is__TypeAdapterCodecMixin_default = Symbol('_is__TypeAdapterCodecMixin_default');
+  type_adapter_impl._TypeAdapterCodecMixin$ = dart.generic((S, T) => {
+    var ConverterOfS$T = () => (ConverterOfS$T = dart.constFn(convert.Converter$(S, T)))();
+    var ConverterOfT$S = () => (ConverterOfT$S = dart.constFn(convert.Converter$(T, S)))();
+    class _TypeAdapterCodecMixin extends core.Object {}
+    _TypeAdapterCodecMixin[dart.mixinOn] = Object => {
+      class _TypeAdapterCodecMixin extends Object {
+        get [___TypeAdapterCodecMixin_encoder]() {
+          return this[_$35_TypeAdapterCodecMixin$35encoder];
+        }
+        set [___TypeAdapterCodecMixin_encoder](value) {
+          this[_$35_TypeAdapterCodecMixin$35encoder] = value;
+        }
+        get [___TypeAdapterCodecMixin_encoder_isSet]() {
+          return this[_$35_TypeAdapterCodecMixin$35encoder$35isSet];
+        }
+        set [___TypeAdapterCodecMixin_encoder_isSet](value) {
+          this[_$35_TypeAdapterCodecMixin$35encoder$35isSet] = value;
+        }
+        get [___TypeAdapterCodecMixin_decoder]() {
+          return this[_$35_TypeAdapterCodecMixin$35decoder];
+        }
+        set [___TypeAdapterCodecMixin_decoder](value) {
+          this[_$35_TypeAdapterCodecMixin$35decoder] = value;
+        }
+        get [___TypeAdapterCodecMixin_decoder_isSet]() {
+          return this[_$35_TypeAdapterCodecMixin$35decoder$35isSet];
+        }
+        set [___TypeAdapterCodecMixin_decoder_isSet](value) {
+          this[_$35_TypeAdapterCodecMixin$35decoder$35isSet] = value;
+        }
+        isType(value) {
+          return S.is(value);
+        }
+        get encoder() {
+          let t0;
+          return dart.test(this[___TypeAdapterCodecMixin_encoder_isSet]) ? (t0 = this[___TypeAdapterCodecMixin_encoder], t0) : dart.throw(new _internal.LateError.fieldNI("encoder"));
+        }
+        set encoder(t0) {
+          ConverterOfS$T().as(t0);
+          if (t0 == null) dart.nullFailed(I[0], 93, 24, "null");
+          this[___TypeAdapterCodecMixin_encoder_isSet] = true;
+          this[___TypeAdapterCodecMixin_encoder] = t0;
+        }
+        get decoder() {
+          let t1;
+          return dart.test(this[___TypeAdapterCodecMixin_decoder_isSet]) ? (t1 = this[___TypeAdapterCodecMixin_decoder], t1) : dart.throw(new _internal.LateError.fieldNI("decoder"));
+        }
+        set decoder(t1) {
+          ConverterOfT$S().as(t1);
+          if (t1 == null) dart.nullFailed(I[0], 95, 24, "null");
+          this[___TypeAdapterCodecMixin_decoder_isSet] = true;
+          this[___TypeAdapterCodecMixin_decoder] = t1;
+        }
+        toString() {
+          return "TypeAdapter(" + dart.str(this.name) + ")";
+        }
+      }
+      dart.defineExtensionMethods(_TypeAdapterCodecMixin, ['toString']);
+      return _TypeAdapterCodecMixin;
+    };
+    (_TypeAdapterCodecMixin[dart.mixinNew] = function() {
+      this[_$35_TypeAdapterCodecMixin$35encoder] = null;
+      this[_$35_TypeAdapterCodecMixin$35encoder$35isSet] = false;
+      this[_$35_TypeAdapterCodecMixin$35decoder] = null;
+      this[_$35_TypeAdapterCodecMixin$35decoder$35isSet] = false;
+    }).prototype = _TypeAdapterCodecMixin.prototype;
+    dart.addTypeTests(_TypeAdapterCodecMixin);
+    _TypeAdapterCodecMixin.prototype[_is__TypeAdapterCodecMixin_default] = true;
+    dart.addTypeCaches(_TypeAdapterCodecMixin);
+    _TypeAdapterCodecMixin[dart.implements] = () => [type_adapter_impl.SembastTypeAdapter$(S, T), core.Object];
+    dart.setMethodSignature(_TypeAdapterCodecMixin, () => ({
+      __proto__: dart.getMethods(_TypeAdapterCodecMixin.__proto__),
+      isType: dart.fnType(core.bool, [dart.dynamic])
+    }));
+    dart.setGetterSignature(_TypeAdapterCodecMixin, () => ({
+      __proto__: dart.getGetters(_TypeAdapterCodecMixin.__proto__),
+      encoder: convert.Converter$(S, T),
+      decoder: convert.Converter$(T, S)
+    }));
+    dart.setSetterSignature(_TypeAdapterCodecMixin, () => ({
+      __proto__: dart.getSetters(_TypeAdapterCodecMixin.__proto__),
+      encoder: dart.nullable(core.Object),
+      decoder: dart.nullable(core.Object)
+    }));
+    dart.setLibraryUri(_TypeAdapterCodecMixin, I[1]);
+    dart.setFieldSignature(_TypeAdapterCodecMixin, () => ({
+      __proto__: dart.getFields(_TypeAdapterCodecMixin.__proto__),
+      [___TypeAdapterCodecMixin_encoder]: dart.fieldType(dart.nullable(convert.Converter$(S, T))),
+      [___TypeAdapterCodecMixin_encoder_isSet]: dart.fieldType(core.bool),
+      [___TypeAdapterCodecMixin_decoder]: dart.fieldType(dart.nullable(convert.Converter$(T, S))),
+      [___TypeAdapterCodecMixin_decoder_isSet]: dart.fieldType(core.bool)
+    }));
+    return _TypeAdapterCodecMixin;
+  });
+  type_adapter_impl._TypeAdapterCodecMixin = type_adapter_impl._TypeAdapterCodecMixin$();
+  dart.addTypeTests(type_adapter_impl._TypeAdapterCodecMixin, _is__TypeAdapterCodecMixin_default);
+  const SembastTypeAdapter__TypeAdapterCodecMixin$36 = class SembastTypeAdapter__TypeAdapterCodecMixin extends type_adapter_impl.SembastTypeAdapter$(core.DateTime, core.String) {};
+  (SembastTypeAdapter__TypeAdapterCodecMixin$36.new = function() {
+    type_adapter_impl._TypeAdapterCodecMixin$(core.DateTime, core.String)[dart.mixinNew].call(this);
+    SembastTypeAdapter__TypeAdapterCodecMixin$36.__proto__.new.call(this);
+  }).prototype = SembastTypeAdapter__TypeAdapterCodecMixin$36.prototype;
+  dart.applyMixin(SembastTypeAdapter__TypeAdapterCodecMixin$36, type_adapter_impl._TypeAdapterCodecMixin$(core.DateTime, core.String));
+  type_adapter_impl._DateTimeAdapter = class _DateTimeAdapter extends SembastTypeAdapter__TypeAdapterCodecMixin$36 {
+    get name() {
+      return "DateTime";
+    }
+  };
+  (type_adapter_impl._DateTimeAdapter.new = function() {
+    type_adapter_impl._DateTimeAdapter.__proto__.new.call(this);
+    this.encoder = new (T._ConverterOfDateTime$String()).new(dart.fn(dateTime => {
+      if (dateTime == null) dart.nullFailed(I[0], 24, 39, "dateTime");
+      return dateTime.toIso8601String();
+    }, T.DateTimeToString()));
+    this.decoder = new (T._ConverterOfString$DateTime()).new(dart.fn(text => {
+      if (text == null) dart.nullFailed(I[0], 26, 45, "text");
+      return core.DateTime.parse(text);
+    }, T.StringToDateTime()));
+  }).prototype = type_adapter_impl._DateTimeAdapter.prototype;
+  dart.addTypeTests(type_adapter_impl._DateTimeAdapter);
+  dart.addTypeCaches(type_adapter_impl._DateTimeAdapter);
+  dart.setGetterSignature(type_adapter_impl._DateTimeAdapter, () => ({
+    __proto__: dart.getGetters(type_adapter_impl._DateTimeAdapter.__proto__),
+    name: core.String
+  }));
+  dart.setLibraryUri(type_adapter_impl._DateTimeAdapter, I[1]);
+  const SembastTypeAdapter__TypeAdapterCodecMixin$36$ = class SembastTypeAdapter__TypeAdapterCodecMixin extends type_adapter_impl.SembastTypeAdapter$(timestamp_impl.Timestamp, core.String) {};
+  (SembastTypeAdapter__TypeAdapterCodecMixin$36$.new = function() {
+    type_adapter_impl._TypeAdapterCodecMixin$(timestamp_impl.Timestamp, core.String)[dart.mixinNew].call(this);
+    SembastTypeAdapter__TypeAdapterCodecMixin$36$.__proto__.new.call(this);
+  }).prototype = SembastTypeAdapter__TypeAdapterCodecMixin$36$.prototype;
+  dart.applyMixin(SembastTypeAdapter__TypeAdapterCodecMixin$36$, type_adapter_impl._TypeAdapterCodecMixin$(timestamp_impl.Timestamp, core.String));
+  type_adapter_impl._TimestampAdapter = class _TimestampAdapter extends SembastTypeAdapter__TypeAdapterCodecMixin$36$ {
+    get name() {
+      return "Timestamp";
+    }
+  };
+  (type_adapter_impl._TimestampAdapter.new = function() {
+    type_adapter_impl._TimestampAdapter.__proto__.new.call(this);
+    this.encoder = new (T._ConverterOfTimestamp$String()).new(dart.fn(timestamp => {
+      if (timestamp == null) dart.nullFailed(I[0], 42, 10, "timestamp");
+      return timestamp.toIso8601String();
+    }, T.TimestampToString()));
+    this.decoder = new (T._ConverterOfString$Timestamp()).new(dart.fn(text => {
+      if (text == null) dart.nullFailed(I[0], 44, 46, "text");
+      return timestamp_impl.Timestamp.parse(text);
+    }, T.StringToTimestamp()));
+  }).prototype = type_adapter_impl._TimestampAdapter.prototype;
+  dart.addTypeTests(type_adapter_impl._TimestampAdapter);
+  dart.addTypeCaches(type_adapter_impl._TimestampAdapter);
+  dart.setGetterSignature(type_adapter_impl._TimestampAdapter, () => ({
+    __proto__: dart.getGetters(type_adapter_impl._TimestampAdapter.__proto__),
+    name: core.String
+  }));
+  dart.setLibraryUri(type_adapter_impl._TimestampAdapter, I[1]);
+  const SembastTypeAdapter__TypeAdapterCodecMixin$36$0 = class SembastTypeAdapter__TypeAdapterCodecMixin extends type_adapter_impl.SembastTypeAdapter$(blob_impl.Blob, core.String) {};
+  (SembastTypeAdapter__TypeAdapterCodecMixin$36$0.new = function() {
+    type_adapter_impl._TypeAdapterCodecMixin$(blob_impl.Blob, core.String)[dart.mixinNew].call(this);
+    SembastTypeAdapter__TypeAdapterCodecMixin$36$0.__proto__.new.call(this);
+  }).prototype = SembastTypeAdapter__TypeAdapterCodecMixin$36$0.prototype;
+  dart.applyMixin(SembastTypeAdapter__TypeAdapterCodecMixin$36$0, type_adapter_impl._TypeAdapterCodecMixin$(blob_impl.Blob, core.String));
+  type_adapter_impl._BlobAdapter = class _BlobAdapter extends SembastTypeAdapter__TypeAdapterCodecMixin$36$0 {
+    get name() {
+      return "Blob";
+    }
+  };
+  (type_adapter_impl._BlobAdapter.new = function() {
+    type_adapter_impl._BlobAdapter.__proto__.new.call(this);
+    this.encoder = new (T._ConverterOfBlob$String()).new(dart.fn(blob => {
+      if (blob == null) dart.nullFailed(I[0], 56, 41, "blob");
+      return blob.toBase64();
+    }, T.BlobToString()));
+    this.decoder = new (T._ConverterOfString$Blob()).new(dart.fn(text => {
+      if (text == null) dart.nullFailed(I[0], 58, 41, "text");
+      return blob_impl.Blob.fromBase64(text);
+    }, T.StringToBlob()));
+  }).prototype = type_adapter_impl._BlobAdapter.prototype;
+  dart.addTypeTests(type_adapter_impl._BlobAdapter);
+  dart.addTypeCaches(type_adapter_impl._BlobAdapter);
+  dart.setGetterSignature(type_adapter_impl._BlobAdapter, () => ({
+    __proto__: dart.getGetters(type_adapter_impl._BlobAdapter.__proto__),
+    name: core.String
+  }));
+  dart.setLibraryUri(type_adapter_impl._BlobAdapter, I[1]);
+  dart.defineLazy(type_adapter_impl, {
+    /*type_adapter_impl.sembastTimestampAdapter*/get sembastTimestampAdapter() {
+      return new type_adapter_impl._TimestampAdapter.new();
+    },
+    /*type_adapter_impl.sembastDateTimeAdapter*/get sembastDateTimeAdapter() {
+      return new type_adapter_impl._DateTimeAdapter.new();
+    },
+    /*type_adapter_impl.sembastBlobAdapter*/get sembastBlobAdapter() {
+      return new type_adapter_impl._BlobAdapter.new();
+    },
+    /*type_adapter_impl.sembastDefaultTypeAdapters*/get sembastDefaultTypeAdapters() {
+      return T.JSArrayOfSembastTypeAdapterOfObject$String().of([type_adapter_impl.sembastTimestampAdapter, type_adapter_impl.sembastBlobAdapter]);
+    }
+  }, false);
+  dart.trackLibraries("packages/sembast/src/type_adapter_impl.dart", {
+    "package:sembast/src/type_adapter_impl.dart": type_adapter_impl
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["type_adapter_impl.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;cAWc;;;AAAU,aAAS,KAAK;cAAd,AAAQ;MAAO;;;UAHrB;;AAAhB;;IAAyB;;;;;;;;;;;;;;;;;;;;;;;IA0E3B;;;;;;;;;;;;;;;;;;;;;;;;QAUuB;;;;;;;;;;;;QAEA;;;;;;;;;;;;eALD;AAAU,gBAAM,MAAN,KAAK;QAAK;;;AAGnB;QAAO;;;;AAAP;;QAAO;;;AAEP;QAAO;;;;AAAP;;QAAO;;AAGP,gBAAA,AAAoB,2BAAN,aAAI;QAAE;;;;;;mDALpB;;mDAEA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAjEF;IAAU;;;AAT7B;AAG4E,IAD1E,eACI,0CAA6B;UAAC;AAAa,YAAA,AAAS,SAAD;;AAEe,IAAtE,eAAU,0CAA6B;UAAC;AAAS,YAAS,qBAAM,IAAI;;EACtE;;;;;;;;;;;;;;;;AAqBmB;IAAW;;;AAT9B;AAGiD,IAD/C,eAAU,2CACN;UAAC;AAAc,YAAA,AAAU,UAAD;;AAE4C,IAAxE,eAAU,2CAA8B;UAAC;AAAS,YAAU,gCAAM,IAAI;;EACxE;;;;;;;;;;;;;;;;AAiBmB;IAAM;;;AARzB;AAE+D,IAA7D,eAAU,sCAAyB;UAAC;AAAS,YAAA,AAAK,KAAD;;AAEkB,IAAnE,eAAU,sCAAyB;UAAC;AAAS,YAAK,2BAAW,IAAI;;EACnE;;;;;;;;;MAO0C,yCAAuB;YAC/D;;MAGuC,wCAAsB;YAC7D;;MAGmC,oCAAkB;YAAG;;MA4BtD,4CAA0B;YAAG,oDACjC,2CACA","file":"../../../../../../../../../../../packages/sembast/src/type_adapter_impl.dart.lib.js"}');
+  // Exports:
+  return {
+    src__type_adapter_impl: type_adapter_impl
+  };
+}));
+
+//# sourceMappingURL=type_adapter_impl.dart.lib.js.map

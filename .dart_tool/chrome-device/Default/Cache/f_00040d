@@ -1,0 +1,721 @@
+define(['dart_sdk'], (function load__packages__idb_shim__src__common__common_key_range_dart(dart_sdk) {
+  'use strict';
+  const core = dart_sdk.core;
+  const convert = dart_sdk.convert;
+  const _js_helper = dart_sdk._js_helper;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  var common_key_range = Object.create(dart.library);
+  var error = Object.create(dart.library);
+  var common_value = Object.create(dart.library);
+  var common_factory = Object.create(dart.library);
+  var idb = Object.create(dart.library);
+  var $compareTo = dartx.compareTo;
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $runtimeType = dartx.runtimeType;
+  var $stackTrace = dartx.stackTrace;
+  var $add = dartx.add;
+  var $forEach = dartx.forEach;
+  var $_set = dartx._set;
+  var $toList = dartx.toList;
+  var $split = dartx.split;
+  var $last = dartx.last;
+  dart._checkModuleNullSafetyMode(false);
+  var T$ = {
+    dynamicTovoid: () => (T$.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    dynamicAnddynamicTovoid: () => (T$.dynamicAnddynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic, dart.dynamic])))(),
+    ObjectN: () => (T$.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    ListN: () => (T$.ListN = dart.constFn(dart.nullable(core.List)))(),
+    ListNAndintToObjectN: () => (T$.ListNAndintToObjectN = dart.constFn(dart.fnType(T$.ObjectN(), [T$.ListN(), core.int])))(),
+    intTodynamic: () => (T$.intTodynamic = dart.constFn(dart.fnType(dart.dynamic, [core.int])))(),
+    LinkedHashSetOfObjectN: () => (T$.LinkedHashSetOfObjectN = dart.constFn(collection.LinkedHashSet$(T$.ObjectN())))(),
+    IdentityMapOfString$ObjectN: () => (T$.IdentityMapOfString$ObjectN = dart.constFn(_js_helper.IdentityMap$(core.String, T$.ObjectN())))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T$);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var C = [];
+  var I = [
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-2.0.0+2/lib/src/common/common_key_range.dart",
+    "package:idb_shim/src/common/common_key_range.dart",
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-2.0.0+2/lib/idb.dart",
+    "package:idb_shim/idb.dart",
+    "package:idb_shim/src/client/error.dart",
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-2.0.0+2/lib/src/client/error.dart",
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-2.0.0+2/lib/src/common/common_value.dart",
+    "file:///C:/Users/Leone/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/idb_shim-2.0.0+2/lib/src/common/common_factory.dart",
+    "package:idb_shim/src/common/common_factory.dart"
+  ];
+  var _lowerBoundOpen = dart.privateName(common_key_range, "_lowerBoundOpen");
+  var _upperBoundOpen = dart.privateName(common_key_range, "_upperBoundOpen");
+  var _upperBound$ = dart.privateName(common_key_range, "_upperBound");
+  var _lowerBound$ = dart.privateName(common_key_range, "_lowerBound");
+  var _compareValue = dart.privateName(common_key_range, "_compareValue");
+  var _checkLowerBound = dart.privateName(common_key_range, "_checkLowerBound");
+  var _checkUpperBound = dart.privateName(common_key_range, "_checkUpperBound");
+  common_key_range.IdbKeyRange = class IdbKeyRange extends core.Object {
+    get lower() {
+      return this[_lowerBound$];
+    }
+    get lowerOpen() {
+      return this[_lowerBoundOpen];
+    }
+    get upper() {
+      return this[_upperBound$];
+    }
+    get upperOpen() {
+      return this[_upperBoundOpen];
+    }
+    [_compareValue](value1, value2) {
+      if (typeof value1 == 'number') {
+        return dart.notNull(value1) - dart.notNull(core.num.as(value2));
+      } else if (typeof value1 == 'string') {
+        return value1[$compareTo](core.String.as(value2));
+      } else if (core.List.is(value1)) {
+        let list = value1;
+        for (let i = 0; i < dart.notNull(list[$length]); i = i + 1) {
+          let diff = this[_compareValue](list[$_get](i), core.List.as(value2)[$_get](i));
+          if (diff !== 0) {
+            return diff;
+          }
+        }
+        return 0;
+      } else {
+        dart.throw(new core.UnsupportedError.new("key '" + dart.str(value1) + "' of type " + dart.str(dart.runtimeType(value1)) + " not supported"));
+      }
+    }
+    [_checkLowerBound](key) {
+      if (this[_lowerBound$] != null) {
+        let exclude = this[_lowerBoundOpen];
+        let cmp = this[_compareValue](key, this[_lowerBound$]);
+        if (cmp === 0 && dart.test(exclude)) {
+          return false;
+        } else {
+          return dart.notNull(cmp) >= 0;
+        }
+      }
+      return true;
+    }
+    [_checkUpperBound](key) {
+      if (this[_upperBound$] != null) {
+        let exclude = this[_upperBoundOpen];
+        let cmp = this[_compareValue](key, this[_upperBound$]);
+        if (cmp === 0 && dart.test(exclude)) {
+          return false;
+        } else {
+          return dart.notNull(cmp) <= 0;
+        }
+      }
+      return true;
+    }
+    contains(key) {
+      if (!dart.test(this[_checkLowerBound](key))) {
+        return false;
+      } else {
+        return this[_checkUpperBound](key);
+      }
+    }
+    toString() {
+      let sb = new core.StringBuffer.new("kr");
+      if (this.lower == null) {
+        sb.write("...");
+      } else {
+        if (dart.test(this.lowerOpen)) {
+          sb.write("]");
+        } else {
+          sb.write("[");
+        }
+        sb.write(this.lower);
+      }
+      sb.write("-");
+      if (this.upper == null) {
+        sb.write("...");
+      } else {
+        sb.write(this.upper);
+        if (dart.test(this.upperOpen)) {
+          sb.write("[");
+        } else {
+          sb.write("]");
+        }
+      }
+      return sb.toString();
+    }
+  };
+  (common_key_range.IdbKeyRange.new = function() {
+    this[_lowerBoundOpen] = true;
+    this[_upperBoundOpen] = true;
+    this[_upperBound$] = null;
+    this[_lowerBound$] = null;
+    ;
+  }).prototype = common_key_range.IdbKeyRange.prototype;
+  (common_key_range.IdbKeyRange.only = function(value) {
+    common_key_range.IdbKeyRange.bound.call(this, value, value);
+  }).prototype = common_key_range.IdbKeyRange.prototype;
+  (common_key_range.IdbKeyRange.lowerBound = function(_lowerBound, open = false) {
+    if (open == null) dart.nullFailed(I[0], 13, 50, "open");
+    this[_lowerBoundOpen] = true;
+    this[_upperBoundOpen] = true;
+    this[_upperBound$] = null;
+    this[_lowerBound$] = _lowerBound;
+    this[_lowerBoundOpen] = open;
+  }).prototype = common_key_range.IdbKeyRange.prototype;
+  (common_key_range.IdbKeyRange.upperBound = function(_upperBound, open = false) {
+    if (open == null) dart.nullFailed(I[0], 18, 50, "open");
+    this[_lowerBoundOpen] = true;
+    this[_upperBoundOpen] = true;
+    this[_lowerBound$] = null;
+    this[_upperBound$] = _upperBound;
+    this[_upperBoundOpen] = open;
+  }).prototype = common_key_range.IdbKeyRange.prototype;
+  (common_key_range.IdbKeyRange.bound = function(_lowerBound, _upperBound, lowerOpen = false, upperOpen = false) {
+    if (lowerOpen == null) dart.nullFailed(I[0], 24, 13, "lowerOpen");
+    if (upperOpen == null) dart.nullFailed(I[0], 24, 37, "upperOpen");
+    this[_lowerBoundOpen] = true;
+    this[_upperBoundOpen] = true;
+    this[_lowerBound$] = _lowerBound;
+    this[_upperBound$] = _upperBound;
+    this[_lowerBoundOpen] = lowerOpen;
+    this[_upperBoundOpen] = upperOpen;
+  }).prototype = common_key_range.IdbKeyRange.prototype;
+  dart.addTypeTests(common_key_range.IdbKeyRange);
+  dart.addTypeCaches(common_key_range.IdbKeyRange);
+  common_key_range.IdbKeyRange[dart.implements] = () => [idb.KeyRange];
+  dart.setMethodSignature(common_key_range.IdbKeyRange, () => ({
+    __proto__: dart.getMethods(common_key_range.IdbKeyRange.__proto__),
+    [_compareValue]: dart.fnType(core.num, [dart.dynamic, dart.dynamic]),
+    [_checkLowerBound]: dart.fnType(core.bool, [dart.dynamic]),
+    [_checkUpperBound]: dart.fnType(core.bool, [dart.dynamic]),
+    contains: dart.fnType(core.bool, [dart.dynamic])
+  }));
+  dart.setGetterSignature(common_key_range.IdbKeyRange, () => ({
+    __proto__: dart.getGetters(common_key_range.IdbKeyRange.__proto__),
+    lower: dart.nullable(core.Object),
+    lowerOpen: core.bool,
+    upper: dart.nullable(core.Object),
+    upperOpen: core.bool
+  }));
+  dart.setLibraryUri(common_key_range.IdbKeyRange, I[1]);
+  dart.setFieldSignature(common_key_range.IdbKeyRange, () => ({
+    __proto__: dart.getFields(common_key_range.IdbKeyRange.__proto__),
+    [_lowerBound$]: dart.fieldType(dart.dynamic),
+    [_lowerBoundOpen]: dart.fieldType(core.bool),
+    [_upperBound$]: dart.fieldType(dart.dynamic),
+    [_upperBoundOpen]: dart.fieldType(core.bool)
+  }));
+  dart.defineExtensionMethods(common_key_range.IdbKeyRange, ['toString']);
+  var _stackTrace = dart.privateName(idb, "_stackTrace");
+  var _message$ = dart.privateName(idb, "_message");
+  idb.DatabaseError = class DatabaseError extends core.Error {
+    get message() {
+      return this[_message$];
+    }
+    get stackTrace() {
+      let t0;
+      t0 = this[_stackTrace];
+      return t0 == null ? super[$stackTrace] : t0;
+    }
+    set stackTrace(stackTrace) {
+      this[_stackTrace] = stackTrace;
+    }
+    toString() {
+      return this.message;
+    }
+  };
+  (idb.DatabaseError.new = function(_message) {
+    if (_message == null) dart.nullFailed(I[2], 672, 22, "_message");
+    this[_stackTrace] = null;
+    this[_message$] = _message;
+    idb.DatabaseError.__proto__.new.call(this);
+    ;
+  }).prototype = idb.DatabaseError.prototype;
+  dart.addTypeTests(idb.DatabaseError);
+  dart.addTypeCaches(idb.DatabaseError);
+  dart.setGetterSignature(idb.DatabaseError, () => ({
+    __proto__: dart.getGetters(idb.DatabaseError.__proto__),
+    message: core.String
+  }));
+  dart.setSetterSignature(idb.DatabaseError, () => ({
+    __proto__: dart.getSetters(idb.DatabaseError.__proto__),
+    stackTrace: dart.nullable(core.StackTrace),
+    [$stackTrace]: dart.nullable(core.StackTrace)
+  }));
+  dart.setLibraryUri(idb.DatabaseError, I[3]);
+  dart.setFieldSignature(idb.DatabaseError, () => ({
+    __proto__: dart.getFields(idb.DatabaseError.__proto__),
+    [_message$]: dart.finalFieldType(core.String),
+    [_stackTrace]: dart.fieldType(dart.nullable(core.StackTrace))
+  }));
+  dart.defineExtensionMethods(idb.DatabaseError, ['toString']);
+  dart.defineExtensionAccessors(idb.DatabaseError, ['stackTrace']);
+  error.DatabaseReadOnlyError = class DatabaseReadOnlyError extends idb.DatabaseError {};
+  (error.DatabaseReadOnlyError.new = function() {
+    error.DatabaseReadOnlyError.__proto__.new.call(this, error.DatabaseReadOnlyError._errorMessage);
+    ;
+  }).prototype = error.DatabaseReadOnlyError.prototype;
+  dart.addTypeTests(error.DatabaseReadOnlyError);
+  dart.addTypeCaches(error.DatabaseReadOnlyError);
+  dart.setLibraryUri(error.DatabaseReadOnlyError, I[4]);
+  dart.defineLazy(error.DatabaseReadOnlyError, {
+    /*error.DatabaseReadOnlyError._errorMessage*/get _errorMessage() {
+      return "ReadOnlyError: The transaction is read-only.";
+    }
+  }, false);
+  error.DatabaseStoreNotFoundError = class DatabaseStoreNotFoundError extends idb.DatabaseError {
+    static storeMessage(storeOrStores) {
+      return "NotFoundError: One of the specified object stores '" + dart.str(storeOrStores) + "' was not found.";
+    }
+  };
+  (error.DatabaseStoreNotFoundError.new = function(message = "NotFoundError: One of the specified object stores was not found.") {
+    if (message == null) dart.nullFailed(I[5], 26, 38, "message");
+    error.DatabaseStoreNotFoundError.__proto__.new.call(this, message);
+    ;
+  }).prototype = error.DatabaseStoreNotFoundError.prototype;
+  dart.addTypeTests(error.DatabaseStoreNotFoundError);
+  dart.addTypeCaches(error.DatabaseStoreNotFoundError);
+  dart.setLibraryUri(error.DatabaseStoreNotFoundError, I[4]);
+  dart.defineLazy(error.DatabaseStoreNotFoundError, {
+    /*error.DatabaseStoreNotFoundError._errorMessage*/get _errorMessage() {
+      return "NotFoundError: One of the specified object stores was not found.";
+    }
+  }, false);
+  error.DatabaseIndexNotFoundError = class DatabaseIndexNotFoundError extends idb.DatabaseError {
+    static indexMessage(indexName) {
+      return "NotFoundError: The specified index '" + dart.str(indexName) + "' was not found.";
+    }
+  };
+  (error.DatabaseIndexNotFoundError.new = function(indexName) {
+    if (indexName == null) dart.nullFailed(I[5], 33, 37, "indexName");
+    error.DatabaseIndexNotFoundError.__proto__.new.call(this, error.DatabaseIndexNotFoundError.indexMessage(indexName));
+    ;
+  }).prototype = error.DatabaseIndexNotFoundError.prototype;
+  dart.addTypeTests(error.DatabaseIndexNotFoundError);
+  dart.addTypeCaches(error.DatabaseIndexNotFoundError);
+  dart.setLibraryUri(error.DatabaseIndexNotFoundError, I[4]);
+  error.DatabaseTransactionStoreNotFoundError = class DatabaseTransactionStoreNotFoundError extends idb.DatabaseError {};
+  (error.DatabaseTransactionStoreNotFoundError.new = function(store) {
+    if (store == null) dart.nullFailed(I[5], 37, 48, "store");
+    error.DatabaseTransactionStoreNotFoundError.__proto__.new.call(this, "NotFoundError: store '" + dart.str(store) + "' not found in transaction.");
+    ;
+  }).prototype = error.DatabaseTransactionStoreNotFoundError.prototype;
+  dart.addTypeTests(error.DatabaseTransactionStoreNotFoundError);
+  dart.addTypeCaches(error.DatabaseTransactionStoreNotFoundError);
+  dart.setLibraryUri(error.DatabaseTransactionStoreNotFoundError, I[4]);
+  error.DatabaseNoKeyError = class DatabaseNoKeyError extends idb.DatabaseError {};
+  (error.DatabaseNoKeyError.new = function() {
+    error.DatabaseNoKeyError.__proto__.new.call(this, error.DatabaseNoKeyError._errorMessage);
+    ;
+  }).prototype = error.DatabaseNoKeyError.prototype;
+  dart.addTypeTests(error.DatabaseNoKeyError);
+  dart.addTypeCaches(error.DatabaseNoKeyError);
+  dart.setLibraryUri(error.DatabaseNoKeyError, I[4]);
+  dart.defineLazy(error.DatabaseNoKeyError, {
+    /*error.DatabaseNoKeyError._errorMessage*/get _errorMessage() {
+      return "DataError: The data provided does not meet requirements. No key or key range specified.";
+    }
+  }, false);
+  error.DatabaseInvalidKeyError = class DatabaseInvalidKeyError extends idb.DatabaseError {};
+  (error.DatabaseInvalidKeyError.new = function(key) {
+    error.DatabaseInvalidKeyError.__proto__.new.call(this, "DataError: The data provided does not meet requirements. The parameter '" + dart.str(key) + "' is not a valid key.");
+    ;
+  }).prototype = error.DatabaseInvalidKeyError.prototype;
+  dart.addTypeTests(error.DatabaseInvalidKeyError);
+  dart.addTypeCaches(error.DatabaseInvalidKeyError);
+  dart.setLibraryUri(error.DatabaseInvalidKeyError, I[4]);
+  common_value.encodeValue = function encodeValue(value) {
+    if (value == null) {
+      return null;
+    }
+    return convert.json.encode(value);
+  };
+  common_value.decodeValue = function decodeValue(value) {
+    if (value == null) {
+      return null;
+    }
+    return convert.json.decode(core.String.as(value));
+  };
+  common_value.encodeKey = function encodeKey(key) {
+    if (key == null) dart.nullFailed(I[6], 31, 25, "key");
+    return key;
+  };
+  common_value.decodeKey = function decodeKey(key) {
+    if (key == null) dart.nullFailed(I[6], 35, 25, "key");
+    return key;
+  };
+  common_value._cloneList = function _cloneList(original) {
+    if (original == null) dart.nullFailed(I[6], 39, 22, "original");
+    let list = [];
+    original[$forEach](dart.fn(value => {
+      list[$add](common_value._cloneValue(value));
+    }, T$.dynamicTovoid()));
+    return list;
+  };
+  common_value._cloneMap = function _cloneMap(original) {
+    if (original == null) dart.nullFailed(I[6], 47, 19, "original");
+    let map = new _js_helper.LinkedMap.new();
+    original[$forEach](dart.fn((key, value) => {
+      map[$_set](key, common_value._cloneValue(value));
+    }, T$.dynamicAnddynamicTovoid()));
+    return map;
+  };
+  common_value._cloneValue = function _cloneValue(original) {
+    if (core.Map.is(original)) {
+      return common_value._cloneMap(original);
+    } else if (core.List.is(original)) {
+      return common_value._cloneList(original);
+    }
+    return original;
+  };
+  common_value.cloneValue = function cloneValue(value, keyPath = null, key = null) {
+    if (value == null) dart.nullFailed(I[6], 66, 26, "value");
+    let clone = dart.nullCheck(common_value._cloneValue(value));
+    if (keyPath != null) {
+      common_value.setMapFieldValue(dart.dynamic, core.Map.as(clone), keyPath, key);
+    }
+    return clone;
+  };
+  common_value.fixCompareValue = function fixCompareValue(value, opts) {
+    if (value == null) dart.nullFailed(I[6], 75, 25, "value");
+    let asc = opts && 'asc' in opts ? opts.asc : true;
+    if (asc == null) dart.nullFailed(I[6], 75, 38, "asc");
+    if (dart.test(asc)) {
+      return value;
+    } else {
+      return -dart.notNull(value);
+    }
+  };
+  common_value.compareKeys = function compareKeys(first, second) {
+    if (typeof first == 'number' && typeof second == 'number') {
+      return dart.notNull(first) < dart.notNull(second) ? -1 : first == second ? 0 : 1;
+    } else if (typeof first == 'string' && typeof second == 'string') {
+      let compare = first[$compareTo](second);
+      return compare < 0 ? -1 : compare === 0 ? 0 : 1;
+    } else if (core.List.is(first) && core.List.is(second)) {
+      for (let i = 0; i < dart.notNull(first[$length]); i = i + 1) {
+        let compare = common_value.compareKeys(first[$_get](i), second[$_get](i));
+        if (compare !== 0) {
+          return compare;
+        }
+      }
+      return 0;
+    }
+    dart.throw(new error.DatabaseInvalidKeyError.new(first));
+  };
+  common_value.keyArrayRangeAt = function keyArrayRangeAt(keyRange, index) {
+    if (keyRange == null) dart.nullFailed(I[6], 105, 35, "keyRange");
+    if (index == null) dart.nullFailed(I[6], 105, 49, "index");
+    function _valueAt(value, index) {
+      if (index == null) dart.nullFailed(I[6], 106, 37, "index");
+      return value == null ? null : value[$_get](index);
+    }
+    dart.fn(_valueAt, T$.ListNAndintToObjectN());
+    return idb.KeyRange.bound(_valueAt(T$.ListN().as(keyRange.lower), index), _valueAt(T$.ListN().as(keyRange.upper), index), keyRange.lowerOpen, keyRange.upperOpen);
+  };
+  common_value.mapValueAtKeyPath = function mapValueAtKeyPath(map, keyPath) {
+    if (typeof keyPath == 'string') {
+      return common_value.getMapFieldValue(core.Object, map, keyPath);
+    } else if (core.List.is(keyPath)) {
+      let keyList = keyPath;
+      return core.List.generate(keyList[$length], dart.fn(i => {
+        if (i == null) dart.nullFailed(I[6], 124, 26, "i");
+        return common_value.getMapFieldValue(dart.dynamic, map, core.String.as(keyPath[$_get](i)));
+      }, T$.intTodynamic()));
+    }
+    dart.throw("keyPath " + dart.str(keyPath) + " not supported");
+  };
+  common_value.valueAsSet = function valueAsSet(value) {
+    if (value == null) {
+      return null;
+    }
+    if (core.Iterable.is(value)) {
+      return T$.LinkedHashSetOfObjectN().from(value);
+    }
+    return T$.LinkedHashSetOfObjectN().from([value]);
+  };
+  common_value.valueAsKeySet = function valueAsKeySet(value) {
+    return common_value.valueAsSet(value);
+  };
+  common_value.valueAsList = function valueAsList(value) {
+    if (value == null) {
+      return null;
+    }
+    if (core.List.is(value)) {
+      return value;
+    }
+    if (core.Iterable.is(value)) {
+      return value[$toList]();
+    }
+    return [value];
+  };
+  common_value.getFieldParts = function getFieldParts(field) {
+    if (field == null) dart.nullFailed(I[6], 157, 35, "field");
+    return field[$split](".");
+  };
+  common_value.getMapFieldValue = function getMapFieldValue(T, map, field) {
+    if (field == null) dart.nullFailed(I[6], 159, 41, "field");
+    return common_value.getPartsMapValue(T, map, common_value.getFieldParts(field));
+  };
+  common_value.getPartsMapValue = function getPartsMapValue(T, map, parts) {
+    if (parts == null) dart.nullFailed(I[6], 163, 51, "parts");
+    let value = map;
+    for (let part of parts) {
+      if (core.Map.is(value)) {
+        value = value[$_get](part);
+      } else {
+        return null;
+      }
+    }
+    return dart.nullable(T).as(value);
+  };
+  common_value.setMapFieldValue = function setMapFieldValue(T, map, field, value) {
+    if (map == null) dart.nullFailed(I[6], 175, 30, "map");
+    if (field == null) dart.nullFailed(I[6], 175, 42, "field");
+    common_value.setPartsMapValue(dart.dynamic, map, common_value.getFieldParts(field), value);
+  };
+  common_value.setPartsMapValue = function setPartsMapValue(T, map, parts, value) {
+    if (map == null) dart.nullFailed(I[6], 179, 30, "map");
+    if (parts == null) dart.nullFailed(I[6], 179, 48, "parts");
+    for (let i = 0; i < dart.notNull(parts[$length]) - 1; i = i + 1) {
+      let part = parts[$_get](i);
+      let sub = map[$_get](part);
+      if (!core.Map.is(sub)) {
+        sub = new (T$.IdentityMapOfString$ObjectN()).new();
+        map[$_set](part, sub);
+      }
+      map = sub;
+    }
+    map[$_set](parts[$last], value);
+  };
+  common_factory.IdbFactoryBase = class IdbFactoryBase extends core.Object {
+    cmp(first, second) {
+      if (first == null) dart.nullFailed(I[7], 16, 18, "first");
+      if (second == null) dart.nullFailed(I[7], 16, 32, "second");
+      return common_value.compareKeys(first, second);
+    }
+    checkOpenArguments(opts) {
+      let version = opts && 'version' in opts ? opts.version : null;
+      let onUpgradeNeeded = opts && 'onUpgradeNeeded' in opts ? opts.onUpgradeNeeded : null;
+      if ((version != null || onUpgradeNeeded != null) && (version == null || onUpgradeNeeded == null)) {
+        dart.throw(new core.ArgumentError.new("version and onUpgradeNeeded must be specified together"));
+      }
+      if (version === 0) {
+        dart.throw(new core.ArgumentError.new("version cannot be 0"));
+      }
+    }
+  };
+  (common_factory.IdbFactoryBase.new = function() {
+    common_factory.IdbFactoryBase.supported = true;
+  }).prototype = common_factory.IdbFactoryBase.prototype;
+  dart.addTypeTests(common_factory.IdbFactoryBase);
+  dart.addTypeCaches(common_factory.IdbFactoryBase);
+  common_factory.IdbFactoryBase[dart.implements] = () => [idb.IdbFactory];
+  dart.setMethodSignature(common_factory.IdbFactoryBase, () => ({
+    __proto__: dart.getMethods(common_factory.IdbFactoryBase.__proto__),
+    cmp: dart.fnType(core.int, [core.Object, core.Object]),
+    checkOpenArguments: dart.fnType(dart.void, [], {onUpgradeNeeded: dart.nullable(dart.fnType(dart.void, [idb.VersionChangeEvent])), version: dart.nullable(core.int)}, {})
+  }));
+  dart.setLibraryUri(common_factory.IdbFactoryBase, I[8]);
+  dart.defineLazy(common_factory.IdbFactoryBase, {
+    /*common_factory.IdbFactoryBase.supported*/get supported() {
+      return false;
+    },
+    set supported(_) {}
+  }, false);
+  idb.Cursor = class Cursor extends core.Object {};
+  (idb.Cursor.new = function() {
+    ;
+  }).prototype = idb.Cursor.prototype;
+  dart.addTypeTests(idb.Cursor);
+  dart.addTypeCaches(idb.Cursor);
+  dart.setLibraryUri(idb.Cursor, I[3]);
+  idb.CursorWithValue = class CursorWithValue extends idb.Cursor {};
+  (idb.CursorWithValue.new = function() {
+    ;
+  }).prototype = idb.CursorWithValue.prototype;
+  dart.addTypeTests(idb.CursorWithValue);
+  dart.addTypeCaches(idb.CursorWithValue);
+  dart.setLibraryUri(idb.CursorWithValue, I[3]);
+  idb.Transaction = class Transaction extends core.Object {};
+  (idb.Transaction.new = function() {
+    ;
+  }).prototype = idb.Transaction.prototype;
+  dart.addTypeTests(idb.Transaction);
+  dart.addTypeCaches(idb.Transaction);
+  dart.setLibraryUri(idb.Transaction, I[3]);
+  idb.ObjectStore = class ObjectStore extends core.Object {
+    toString() {
+      return dart.str(this.name) + " (key " + dart.str(this.keyPath) + " auto " + dart.str(this.autoIncrement) + ")";
+    }
+  };
+  (idb.ObjectStore.new = function() {
+    ;
+  }).prototype = idb.ObjectStore.prototype;
+  dart.addTypeTests(idb.ObjectStore);
+  dart.addTypeCaches(idb.ObjectStore);
+  dart.setLibraryUri(idb.ObjectStore, I[3]);
+  dart.defineExtensionMethods(idb.ObjectStore, ['toString']);
+  var _factory$ = dart.privateName(idb, "_factory");
+  idb.Database = class Database extends core.Object {
+    get factory() {
+      return this[_factory$];
+    }
+  };
+  (idb.Database.new = function(_factory) {
+    if (_factory == null) dart.nullFailed(I[2], 298, 17, "_factory");
+    this[_factory$] = _factory;
+    ;
+  }).prototype = idb.Database.prototype;
+  dart.addTypeTests(idb.Database);
+  dart.addTypeCaches(idb.Database);
+  dart.setGetterSignature(idb.Database, () => ({
+    __proto__: dart.getGetters(idb.Database.__proto__),
+    factory: idb.IdbFactory
+  }));
+  dart.setLibraryUri(idb.Database, I[3]);
+  dart.setFieldSignature(idb.Database, () => ({
+    __proto__: dart.getFields(idb.Database.__proto__),
+    [_factory$]: dart.finalFieldType(idb.IdbFactory)
+  }));
+  idb.Index = class Index extends core.Object {
+    toString() {
+      return "name:" + dart.str(this.name) + " keyPath:" + dart.str(this.keyPath) + " unique:" + dart.str(this.unique) + " multiEntry:" + dart.str(this.multiEntry);
+    }
+  };
+  (idb.Index.new = function() {
+    ;
+  }).prototype = idb.Index.prototype;
+  dart.addTypeTests(idb.Index);
+  dart.addTypeCaches(idb.Index);
+  dart.setLibraryUri(idb.Index, I[3]);
+  dart.defineExtensionMethods(idb.Index, ['toString']);
+  var result$ = dart.privateName(idb, "Request.result");
+  var transaction$ = dart.privateName(idb, "Request.transaction");
+  idb.Request = class Request extends core.Object {
+    get result() {
+      return this[result$];
+    }
+    set result(value) {
+      this[result$] = value;
+    }
+    get transaction() {
+      return this[transaction$];
+    }
+    set transaction(value) {
+      this[transaction$] = value;
+    }
+  };
+  (idb.Request.new = function(result, transaction) {
+    if (result == null) dart.nullFailed(I[2], 493, 16, "result");
+    if (transaction == null) dart.nullFailed(I[2], 493, 29, "transaction");
+    this[result$] = result;
+    this[transaction$] = transaction;
+    ;
+  }).prototype = idb.Request.prototype;
+  dart.addTypeTests(idb.Request);
+  dart.addTypeCaches(idb.Request);
+  dart.setLibraryUri(idb.Request, I[3]);
+  dart.setFieldSignature(idb.Request, () => ({
+    __proto__: dart.getFields(idb.Request.__proto__),
+    result: dart.fieldType(idb.Database),
+    transaction: dart.fieldType(idb.Transaction)
+  }));
+  idb.OpenDBRequest = class OpenDBRequest extends idb.Request {};
+  (idb.OpenDBRequest.new = function(database, transaction) {
+    if (database == null) dart.nullFailed(I[2], 501, 26, "database");
+    if (transaction == null) dart.nullFailed(I[2], 501, 48, "transaction");
+    idb.OpenDBRequest.__proto__.new.call(this, database, transaction);
+    ;
+  }).prototype = idb.OpenDBRequest.prototype;
+  dart.addTypeTests(idb.OpenDBRequest);
+  dart.addTypeCaches(idb.OpenDBRequest);
+  dart.setLibraryUri(idb.OpenDBRequest, I[3]);
+  idb.VersionChangeEvent = class VersionChangeEvent extends core.Object {};
+  (idb.VersionChangeEvent.new = function() {
+    ;
+  }).prototype = idb.VersionChangeEvent.prototype;
+  dart.addTypeTests(idb.VersionChangeEvent);
+  dart.addTypeCaches(idb.VersionChangeEvent);
+  dart.setLibraryUri(idb.VersionChangeEvent, I[3]);
+  idb.Event = class Event extends core.Object {};
+  (idb.Event.new = function() {
+    ;
+  }).prototype = idb.Event.prototype;
+  dart.addTypeTests(idb.Event);
+  dart.addTypeCaches(idb.Event);
+  dart.setLibraryUri(idb.Event, I[3]);
+  idb.KeyRange = class KeyRange extends core.Object {
+    static new() {
+      return new common_key_range.IdbKeyRange.new();
+    }
+    static only(value) {
+      if (value == null) dart.nullFailed(I[2], 562, 40, "value");
+      return new common_key_range.IdbKeyRange.only(value);
+    }
+    static lowerBound(lowerBound, open = false) {
+      if (lowerBound == null) dart.nullFailed(I[2], 565, 38, "lowerBound");
+      if (open == null) dart.nullFailed(I[2], 565, 56, "open");
+      return new common_key_range.IdbKeyRange.lowerBound(lowerBound, open);
+    }
+    static upperBound(upperBound, open = false) {
+      if (upperBound == null) dart.nullFailed(I[2], 569, 38, "upperBound");
+      if (open == null) dart.nullFailed(I[2], 569, 56, "open");
+      return new common_key_range.IdbKeyRange.upperBound(upperBound, open);
+    }
+    static bound(lowerBound, upperBound, lowerOpen = false, upperOpen = false) {
+      if (lowerOpen == null) dart.nullFailed(I[2], 574, 17, "lowerOpen");
+      if (upperOpen == null) dart.nullFailed(I[2], 574, 41, "upperOpen");
+      return new common_key_range.IdbKeyRange.bound(lowerBound, upperBound, lowerOpen, upperOpen);
+    }
+    get lower() {
+      return null;
+    }
+  };
+  (idb.KeyRange[dart.mixinNew] = function() {
+  }).prototype = idb.KeyRange.prototype;
+  dart.addTypeTests(idb.KeyRange);
+  dart.addTypeCaches(idb.KeyRange);
+  dart.setGetterSignature(idb.KeyRange, () => ({
+    __proto__: dart.getGetters(idb.KeyRange.__proto__),
+    lower: dart.nullable(core.Object)
+  }));
+  dart.setLibraryUri(idb.KeyRange, I[3]);
+  idb.IdbFactory = class IdbFactory extends core.Object {
+    static get supported() {
+      return common_factory.IdbFactoryBase.supported;
+    }
+  };
+  (idb.IdbFactory.new = function() {
+    ;
+  }).prototype = idb.IdbFactory.prototype;
+  dart.addTypeTests(idb.IdbFactory);
+  dart.addTypeCaches(idb.IdbFactory);
+  dart.setLibraryUri(idb.IdbFactory, I[3]);
+  dart.trackLibraries("packages/idb_shim/src/common/common_key_range.dart", {
+    "package:idb_shim/src/common/common_key_range.dart": common_key_range,
+    "package:idb_shim/src/client/error.dart": error,
+    "package:idb_shim/src/common/common_value.dart": common_value,
+    "package:idb_shim/src/common/common_factory.dart": common_factory,
+    "package:idb_shim/idb.dart": idb
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["common_key_range.dart","../../idb.dart","../client/error.dart","common_value.dart","common_factory.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAmCuB;IAAW;;AAIV;IAAe;;AAIhB;IAAW;;AAIV;IAAe;oBAEnB,QAAQ;AACxB,UAAW,OAAP,MAAM;AACR,cAAc,cAAP,MAAM,iBAAW,YAAP,MAAM;YAClB,KAAW,OAAP,MAAM;AACf,cAAO,AAAO,OAAD,aAAkB,eAAP,MAAM;YACzB,KAAW,aAAP,MAAM;AACT,mBAAO,MAAM;AACnB,iBAAS,IAAI,GAAG,AAAE,CAAD,gBAAG,AAAK,IAAD,YAAS,IAAA,AAAC,CAAA;AAC5B,qBAAO,oBAAc,AAAI,IAAA,QAAC,CAAC,GAAW,AAAQ,aAAf,MAAM,SAAU,CAAC;AACpD,cAAI,AAAK,IAAD,KAAI;AACV,kBAAO,KAAI;;;AAGf,cAAO;;AAGyD,QADhE,WAAM,8BACF,AAA2D,mBAApD,MAAM,4BAAmB,iBAAP,MAAM,KAAa;;IAEpD;uBAKsB;AACpB,UAAI,AAAY;AACR,sBAAU;AACV,kBAAM,oBAAc,GAAG,EAAE;AAC/B,YAAI,AAAI,GAAD,KAAI,eAAK,OAAO;AACrB,gBAAO;;AAEP,gBAAW,cAAJ,GAAG,KAAI;;;AAGlB,YAAO;IACT;uBAEsB;AACpB,UAAI,AAAY;AACR,sBAAU;AACV,kBAAM,oBAAc,GAAG,EAAE;AAC/B,YAAI,AAAI,GAAD,KAAI,eAAK,OAAO;AACrB,gBAAO;;AAEP,gBAAW,cAAJ,GAAG,KAAI;;;AAGlB,YAAO;IACT;aAIc;AACZ,qBAAK,uBAAiB,GAAG;AACvB,cAAO;;AAEP,cAAO,wBAAiB,GAAG;;IAE/B;;AAIQ,eAAK,0BAAa;AACxB,UAAI,AAAM;AACO,QAAf,AAAG,EAAD,OAAO;;AAET,sBAAI;AACW,UAAb,AAAG,EAAD,OAAO;;AAEI,UAAb,AAAG,EAAD,OAAO;;AAEI,QAAf,AAAG,EAAD,OAAO;;AAEE,MAAb,AAAG,EAAD,OAAO;AACT,UAAI,AAAM;AACO,QAAf,AAAG,EAAD,OAAO;;AAEM,QAAf,AAAG,EAAD,OAAO;AACT,sBAAI;AACW,UAAb,AAAG,EAAD,OAAO;;AAEI,UAAb,AAAG,EAAD,OAAO;;;AAGb,YAAO,AAAG,GAAD;IACX;;;IAxGK,wBAAkB;IAElB,wBAAkB;;;;EAzBV;gDAGY;kDAAoB,KAAK,EAAE,KAAK;EAAC;sDAG9B;QAAmB;IAiB1C,wBAAkB;IAElB,wBAAkB;;IAnBK;AACJ,IAAtB,wBAAkB,IAAI;EACxB;sDAG4B;QAAmB;IAY1C,wBAAkB;IAElB,wBAAkB;;IAdK;AACJ,IAAtB,wBAAkB,IAAI;EACxB;iDAGuB,aAAkB,aAC/B,mBAAwB;QAAxB;QAAwB;IAM7B,wBAAkB;IAElB,wBAAkB;IATA;IAAkB;AAEZ,IAA3B,wBAAkB,SAAS;AACA,IAA3B,wBAAkB,SAAS;EAC7B;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ACwnBsB;IAAQ;;;AAMA;0BAAqB;IAAU;mBAElC;AACD,MAAxB,oBAAc,UAAU;IAC1B;;AAMqB;IAAO;;;QAHT;IAVP;IAUO;AAAnB;;EAA4B;;;;;;;;;;;;;;;;;;;;;;ACnpBF,yDAAM;;EAAc;;;;;MAHjC,yCAAa;YAAG;;;;wBAYE;AAC3B,YAAA,AAAmF,kEAA9B,aAAa;IAAiB;;;QAGpD;AAA4B,8DAAM,OAAO;;EAAC;;;;;MARzD,8CAAa;;;;;wBAYF;AAC3B,YAAA,AAAgE,mDAA1B,SAAS;IAAiB;;;QAElC;AAAa,8DAAM,8CAAa,SAAS;;EAAE;;;;;;QAIhC;AACvC,yEAAM,AAAyD,oCAAjC,KAAK;;EAA6B;;;;;;AAO/C,sDAAM;;EAAc;;;;;MAHvB,sCAAa;YAC7B;;;;gDAMoB;AAClB,2DACI,AAAmG,sFAAzB,GAAG;;EAAuB;;;;kDCzCpF;AAC1B,QAAI,AAAM,KAAD;AACP,YAAO;;AAET,UAAO,AAAK,qBAAO,KAAK;EAQ1B;kDAE4B;AAC1B,QAAI,AAAM,KAAD;AACP,YAAO;;AAET,UAAO,AAAK,qBAAa,eAAN,KAAK;EAC1B;;QAEwB;AACtB,UAAO,IAAG;EACZ;;QAEwB;AACtB,UAAO,IAAG;EACZ;;QAEqB;AACb,eAAO;AAGX,IAFF,AAAS,QAAD,WAAS,QAAC;AACY,MAA5B,AAAK,IAAD,OAAK,yBAAY,KAAK;;AAE5B,UAAO,KAAI;EACb;;QAEkB;AACV,cAAM;AAGV,IAFF,AAAS,QAAD,WAAS,SAAC,KAAK;AACQ,MAA7B,AAAG,GAAA,QAAC,GAAG,EAAI,yBAAY,KAAK;;AAE9B,UAAO,IAAG;EACZ;kDAE4B;AAC1B,QAAa,YAAT,QAAQ;AACV,YAAO,wBAAU,QAAQ;UACpB,KAAa,aAAT,QAAQ;AACjB,YAAO,yBAAW,QAAQ;;AAG5B,UAAO,SAAQ;EACjB;gDAGyB,OAAgB,gBAAiB;QAAjC;AACnB,gBAA0B,eAAlB,yBAAY,KAAK;AAC7B,QAAI,AAAQ,OAAD;AAEmC,MAA5C,4CAAuB,YAAN,KAAK,GAAS,OAAO,EAAE,GAAG;;AAE7C,UAAO,MAAK;EACd;;QAEwB;QAAa;;AACnC,kBAAI,GAAG;AACL,YAAO,MAAK;;AAEZ,YAAO,eAAC,KAAK;;EAEjB;kDAGwB,OAAe;AACrC,QAAU,OAAN,KAAK,gBAAkB,OAAP,MAAM;AACxB,YAAa,cAAN,KAAK,iBAAG,MAAM,IAAG,CAAC,IAAK,AAAM,KAAD,IAAI,MAAM,GAAG,IAAI;UAC/C,KAAU,OAAN,KAAK,gBAAqB,OAAP,MAAM;AAC5B,oBAAU,AAAM,KAAD,aAAW,MAAM;AACtC,YAAO,AAAQ,QAAD,GAAG,IAAI,CAAC,IAAK,AAAQ,OAAD,KAAI,IAAI,IAAI;UACzC,KAAU,aAAN,KAAK,KAAmB,aAAP,MAAM;AAChC,eAAS,IAAI,GAAG,AAAE,CAAD,gBAAG,AAAM,KAAD,YAAS,IAAA,AAAC,CAAA;AAC3B,sBAAU,yBAAY,AAAK,KAAA,QAAC,CAAC,GAAG,AAAM,MAAA,QAAC,CAAC;AAC9C,YAAI,AAAQ,OAAD,KAAI;AACb,gBAAO,QAAO;;;AAGlB,YAAO;;AAG2B,IAApC,WAAM,sCAAwB,KAAK;EACrC;0DAIkC,UAAc;QAAd;QAAc;AAC9C,aAAQ,SAAe;UAAW;AAChC,YAAO,AAAM,MAAD,WAAW,OAAO,AAAK,KAAA,QAAC,KAAK;;;AAG3C,UAAgB,oBACZ,QAAQ,CAAgB,cAAf,AAAS,QAAD,SAAiB,KAAK,GACvC,QAAQ,CAAgB,cAAf,AAAS,QAAD,SAAiB,KAAK,GACvC,AAAS,QAAD,YACR,AAAS,QAAD;EACd;8DAG+B,KAAK;AAClC,QAAY,OAAR,OAAO;AACT,YAAO,4CAAiB,GAAG,EAAE,OAAO;UAC/B,KAAY,aAAR,OAAO;AACV,oBAAU,OAAO;AACvB,YAAY,oBACR,AAAQ,OAAD,WAAS;YAAC;AAAM,2DAAiB,GAAG,EAAa,eAAX,AAAO,OAAA,QAAC,CAAC;;;AAEtB,IAAtC,WAAM,AAAgC,sBAAtB,OAAO;EACzB;gDAGiC;AAC/B,QAAI,AAAM,KAAD;AACP,YAAO;;AAET,QAAU,iBAAN,KAAK;AACP,YAAW,kCAAK,KAAK;;AAEvB,UAAO,mCAAC,KAAK;EACf;sDAG2B;AAAU,mCAAW,KAAK;EAAC;kDAG5B;AACxB,QAAI,AAAM,KAAD;AACP,YAAO;;AAET,QAAU,aAAN,KAAK;AACP,YAAO,MAAK;;AAEd,QAAU,iBAAN,KAAK;AACP,YAAO,AAAM,MAAD;;AAEd,UAAO,EAAC,KAAK;EACf;;QAEkC;AAAU,UAAA,AAAM,MAAD,SAAO;EAAI;+DAEhC;QAAY;AACtC,UAAO,kCAAiB,GAAG,EAAE,2BAAc,KAAK;EAClD;+DAE4B;QAAsB;AACxC,gBAAQ,GAAG;AACnB,aAAW,OAAQ,MAAK;AACtB,UAAU,YAAN,KAAK;AACY,QAAnB,QAAQ,AAAK,KAAA,QAAC,IAAI;;AAElB,cAAO;;;AAGX,UAAa,qBAAN,KAAK;EACd;+DAE6B,KAAY,OAAS;QAArB;QAAY;AACW,IAAlD,4CAAiB,GAAG,EAAE,2BAAc,KAAK,GAAG,KAAK;EACnD;+DAE6B,KAAkB,OAAO;QAAzB;QAAkB;AAC7C,aAAS,IAAI,GAAG,AAAE,CAAD,GAAgB,aAAb,AAAM,KAAD,aAAU,GAAG,IAAA,AAAC,CAAA;AAC/B,iBAAO,AAAK,KAAA,QAAC,CAAC;AACZ,gBAAM,AAAG,GAAA,QAAC,IAAI;AACtB,WAAU,YAAJ,GAAG;AACkB,QAAzB,MAAuB;AACR,QAAf,AAAG,GAAA,QAAC,IAAI,EAAI,GAAG;;AAER,MAAT,MAAM,GAAG;;AAEY,IAAvB,AAAG,GAAA,QAAC,AAAM,KAAD,SAAS,KAAK;EACzB;;QC9KiB,OAAc;UAAd;UAAc;AAAW,sCAAY,KAAK,EAAE,MAAM;IAAC;;UAIxD;UAAkC;AAE1C,WAAM,AAAQ,OAAD,YAAc,AAAgB,eAAD,cACpC,AAAQ,OAAD,YAAc,AAAgB,eAAD;AAEqB,QAD7D,WAAM,2BACF;;AAEN,UAAI,AAAQ,OAAD,KAAI;AAC6B,QAA1C,WAAM,2BAAc;;IAExB;;;AArBiC,IAAhB,0CAAY;EAC7B;;;;;;;;;;;MAEY,uCAAS;YAAG;;;;;;;EH+E1B;;;;;;;EAoBA;;;;;;;EAkCA;;;;;;AA8IuB,YAA0C,UAAxC,aAAI,oBAAO,gBAAO,oBAAO,sBAAa;IAAE;;;;EACjE;;;;;;;;AA0F4B;IAAQ;;;QAhFpB;;;EAAS;;;;;;;;;;;;;;AAkLrB,YAAO,AAAmE,oBAA5D,aAAI,uBAAU,gBAAO,sBAAS,eAAM,0BAAa;IACjE;;;;EACF;;;;;;;;IASW;;;;;;IAGG;;;;;;;8BAGC,QAAa;QAAb;QAAa;IAAb;IAAa;;EAAY;;;;;;;;;;oCAQf,UAAsB;QAAtB;QAAsB;AACvC,+CAAM,QAAQ,EAAE,WAAW;;EAAC;;;;;;;EA4BpC;;;;;;;EAKsB;;;;;;AAwBE;IAAa;;UAGE;AAAU,YAAY,uCAAK,KAAK;IAAC;sBAGnC,YAAkB;UAAlB;UAAkB;AACjD,YAAY,6CAAW,UAAU,EAAE,IAAI;IAAC;sBAGT,YAAkB;UAAlB;UAAkB;AACjD,YAAY,6CAAW,UAAU,EAAE,IAAI;IAAC;iBAGb,YAAoB,YACrC,mBAAwB;UAAxB;UAAwB;AAClC,YAAY,wCAAM,UAAU,EAAE,UAAU,EAAE,SAAS,EAAE,SAAS;IAAC;;AAG9C;IAAI;;;;;;;;;;;;;AAiEI,YAAe;IAAS;;;;EASvD","file":"../../../../../../../../../../../../packages/idb_shim/src/common/common_key_range.dart.lib.js"}');
+  // Exports:
+  return {
+    src__common__common_key_range: common_key_range,
+    src__client__error: error,
+    src__common__common_value: common_value,
+    src__common__common_factory: common_factory,
+    idb: idb
+  };
+}));
+
+//# sourceMappingURL=common_key_range.dart.lib.js.map

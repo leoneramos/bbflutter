@@ -1,0 +1,454 @@
+define(['dart_sdk', 'packages/idb_shim/src/common/common_transaction.dart', 'packages/idb_shim/src/common/common_key_range.dart', 'packages/idb_shim/src/native/native_error.dart', 'packages/idb_shim/src/native/native_object_store.dart', 'packages/idb_shim/src/common/common_database.dart', 'packages/idb_shim/src/utils/browser_utils.dart'], (function load__packages__idb_shim__src__native__native_transaction_dart(dart_sdk, packages__idb_shim__src__common__common_transaction$46dart, packages__idb_shim__src__common__common_key_range$46dart, packages__idb_shim__src__native__native_error$46dart, packages__idb_shim__src__native__native_object_store$46dart, packages__idb_shim__src__common__common_database$46dart, packages__idb_shim__src__utils__browser_utils$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const indexed_db = dart_sdk.indexed_db;
+  const html_common = dart_sdk.html_common;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const common_transaction = packages__idb_shim__src__common__common_transaction$46dart.src__common__common_transaction;
+  const idb = packages__idb_shim__src__common__common_key_range$46dart.idb;
+  const native_error = packages__idb_shim__src__native__native_error$46dart.src__native__native_error;
+  const native_object_store = packages__idb_shim__src__native__native_object_store$46dart.src__native__native_object_store;
+  const common_database = packages__idb_shim__src__common__common_database$46dart.src__common__common_database;
+  const browser_utils = packages__idb_shim__src__utils__browser_utils$46dart.src__utils__browser_utils;
+  var native_transaction = Object.create(dart.library);
+  var native_database = Object.create(dart.library);
+  var $completed = dartx.completed;
+  var $currentTarget = dartx.currentTarget;
+  var $result = dartx.result;
+  var $createObjectStore = dartx.createObjectStore;
+  var $transaction = dartx.transaction;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $cast = dartx.cast;
+  var $contains = dartx.contains;
+  var $toLowerCase = dartx.toLowerCase;
+  var $onVersionChange = dartx.onVersionChange;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    DatabaseL: () => (T.DatabaseL = dart.constFn(dart.legacy(idb.Database)))(),
+    CompleterOfDatabaseL: () => (T.CompleterOfDatabaseL = dart.constFn(async.Completer$(T.DatabaseL())))(),
+    ObjectStoreL: () => (T.ObjectStoreL = dart.constFn(dart.legacy(idb.ObjectStore)))(),
+    ObjectStoreNativeL: () => (T.ObjectStoreNativeL = dart.constFn(dart.legacy(native_object_store.ObjectStoreNative)))(),
+    VoidToObjectStoreNativeL: () => (T.VoidToObjectStoreNativeL = dart.constFn(dart.fnType(T.ObjectStoreNativeL(), [])))(),
+    FutureOfNull: () => (T.FutureOfNull = dart.constFn(async.Future$(core.Null)))(),
+    FutureLOfNull: () => (T.FutureLOfNull = dart.constFn(dart.legacy(T.FutureOfNull())))(),
+    VoidToFutureLOfNull: () => (T.VoidToFutureLOfNull = dart.constFn(dart.fnType(T.FutureLOfNull(), [])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    DatabaseNativeL: () => (T.DatabaseNativeL = dart.constFn(dart.legacy(native_database.DatabaseNative)))(),
+    TransactionNativeL: () => (T.TransactionNativeL = dart.constFn(dart.legacy(native_transaction.TransactionNative)))(),
+    FutureOfDatabaseL: () => (T.FutureOfDatabaseL = dart.constFn(async.Future$(T.DatabaseL())))(),
+    DatabaseL$1: () => (T.DatabaseL$1 = dart.constFn(dart.legacy(indexed_db.Database)))(),
+    RequestL: () => (T.RequestL = dart.constFn(dart.legacy(indexed_db.Request)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    VoidTointL: () => (T.VoidTointL = dart.constFn(dart.fnType(T.intL(), [])))(),
+    TransactionNativeBaseL: () => (T.TransactionNativeBaseL = dart.constFn(dart.legacy(native_transaction.TransactionNativeBase)))(),
+    VoidToTransactionNativeL: () => (T.VoidToTransactionNativeL = dart.constFn(dart.fnType(T.TransactionNativeL(), [])))(),
+    ListL: () => (T.ListL = dart.constFn(dart.legacy(core.List)))(),
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    DatabaseErrorL: () => (T.DatabaseErrorL = dart.constFn(dart.legacy(idb.DatabaseError)))(),
+    IterableOfStringL: () => (T.IterableOfStringL = dart.constFn(core.Iterable$(T.StringL())))(),
+    IterableLOfStringL: () => (T.IterableLOfStringL = dart.constFn(dart.legacy(T.IterableOfStringL())))(),
+    ListOfStringL: () => (T.ListOfStringL = dart.constFn(core.List$(T.StringL())))(),
+    ListLOfStringL: () => (T.ListLOfStringL = dart.constFn(dart.legacy(T.ListOfStringL())))(),
+    VoidToListLOfStringL: () => (T.VoidToListLOfStringL = dart.constFn(dart.fnType(T.ListLOfStringL(), [])))(),
+    VoidToStringL: () => (T.VoidToStringL = dart.constFn(dart.fnType(T.StringL(), [])))(),
+    VersionChangeEventL: () => (T.VersionChangeEventL = dart.constFn(dart.legacy(idb.VersionChangeEvent)))(),
+    StreamControllerOfVersionChangeEventL: () => (T.StreamControllerOfVersionChangeEventL = dart.constFn(async.StreamController$(T.VersionChangeEventL())))(),
+    VersionChangeEventL$1: () => (T.VersionChangeEventL$1 = dart.constFn(dart.legacy(indexed_db.VersionChangeEvent)))(),
+    VersionChangeEventLToNull: () => (T.VersionChangeEventLToNull = dart.constFn(dart.fnType(core.Null, [T.VersionChangeEventL$1()])))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    IdbFactoryL: () => (T.IdbFactoryL = dart.constFn(dart.legacy(idb.IdbFactory)))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const(new _js_helper.PrivateSymbol.new('_factory', _factory));
+    }
+  }, false);
+  var C = [void 0];
+  var I = [
+    "package:idb_shim/src/native/native_transaction.dart",
+    "package:idb_shim/src/native/native_database.dart"
+  ];
+  native_transaction.TransactionNativeBase = class TransactionNativeBase extends common_transaction.IdbTransactionBase {};
+  (native_transaction.TransactionNativeBase.new = function(database) {
+    native_transaction.TransactionNativeBase.__proto__.new.call(this, database);
+    ;
+  }).prototype = native_transaction.TransactionNativeBase.prototype;
+  dart.addTypeTests(native_transaction.TransactionNativeBase);
+  dart.addTypeCaches(native_transaction.TransactionNativeBase);
+  dart.setLibraryUri(native_transaction.TransactionNativeBase, I[0]);
+  var idbTransaction$ = dart.privateName(native_transaction, "TransactionNative.idbTransaction");
+  var _completed = dart.privateName(native_transaction, "_completed");
+  var _complete = dart.privateName(native_transaction, "_complete");
+  var _completeError = dart.privateName(native_transaction, "_completeError");
+  native_transaction.TransactionNative = class TransactionNative extends native_transaction.TransactionNativeBase {
+    get idbTransaction() {
+      return this[idbTransaction$];
+    }
+    set idbTransaction(value) {
+      this[idbTransaction$] = value;
+    }
+    [_complete]() {
+      if (!dart.test(this[_completed].isCompleted)) {
+        this[_completed].complete(this.database);
+      }
+    }
+    [_completeError](e) {
+      if (!dart.test(this[_completed].isCompleted)) {
+        this[_completed].completeError(e);
+      }
+    }
+    objectStore(name) {
+      return native_error.catchNativeError(T.ObjectStoreL(), dart.fn(() => {
+        let idbObjectStore = this.idbTransaction.objectStore(name);
+        return new native_object_store.ObjectStoreNative.new(idbObjectStore);
+      }, T.VoidToObjectStoreNativeL()));
+    }
+    get completed() {
+      return async.async(T.DatabaseL(), (function* completed() {
+        dart.fn(() => async.async(core.Null, (function*() {
+          try {
+            yield this.idbTransaction[$completed];
+            this[_complete]();
+          } catch (e$) {
+            let e = dart.getThrown(e$);
+            this[_completeError](e);
+          }
+        }).bind(this)), T.VoidToFutureLOfNull())();
+        return this[_completed].future;
+      }).bind(this));
+    }
+    abort() {
+      return native_error.catchNativeError(dart.void, dart.fn(() => {
+        this.idbTransaction.abort();
+      }, T.VoidToNull()));
+    }
+  };
+  (native_transaction.TransactionNative.new = function(database, idbTransaction) {
+    this[_completed] = T.CompleterOfDatabaseL().sync();
+    this[idbTransaction$] = idbTransaction;
+    native_transaction.TransactionNative.__proto__.new.call(this, database);
+    ;
+  }).prototype = native_transaction.TransactionNative.prototype;
+  dart.addTypeTests(native_transaction.TransactionNative);
+  dart.addTypeCaches(native_transaction.TransactionNative);
+  dart.setMethodSignature(native_transaction.TransactionNative, () => ({
+    __proto__: dart.getMethods(native_transaction.TransactionNative.__proto__),
+    [_complete]: dart.fnType(dart.void, []),
+    [_completeError]: dart.fnType(dart.void, [dart.dynamic]),
+    objectStore: dart.fnType(dart.legacy(idb.ObjectStore), [dart.legacy(core.String)])
+  }));
+  dart.setGetterSignature(native_transaction.TransactionNative, () => ({
+    __proto__: dart.getGetters(native_transaction.TransactionNative.__proto__),
+    completed: dart.legacy(async.Future$(dart.legacy(idb.Database)))
+  }));
+  dart.setLibraryUri(native_transaction.TransactionNative, I[0]);
+  dart.setFieldSignature(native_transaction.TransactionNative, () => ({
+    __proto__: dart.getFields(native_transaction.TransactionNative.__proto__),
+    idbTransaction: dart.fieldType(dart.legacy(indexed_db.Transaction)),
+    [_completed]: dart.finalFieldType(dart.legacy(async.Completer$(dart.legacy(idb.Database))))
+  }));
+  var lastTransaction = dart.privateName(native_transaction, "FakeMultiStoreTransactionNative.lastTransaction");
+  var lastStore = dart.privateName(native_transaction, "FakeMultiStoreTransactionNative.lastStore");
+  var mode$ = dart.privateName(native_transaction, "FakeMultiStoreTransactionNative.mode");
+  var _nativeDatabase = dart.privateName(native_transaction, "_nativeDatabase");
+  native_transaction.FakeMultiStoreTransactionNative = class FakeMultiStoreTransactionNative extends native_transaction.TransactionNativeBase {
+    get lastTransaction() {
+      return this[lastTransaction];
+    }
+    set lastTransaction(value) {
+      this[lastTransaction] = value;
+    }
+    get lastStore() {
+      return this[lastStore];
+    }
+    set lastStore(value) {
+      this[lastStore] = value;
+    }
+    get mode() {
+      return this[mode$];
+    }
+    set mode(value) {
+      this[mode$] = value;
+    }
+    get [_nativeDatabase]() {
+      return T.DatabaseNativeL().as(this.database);
+    }
+    get idbDatabase() {
+      return this[_nativeDatabase].idbDatabase;
+    }
+    objectStore(name) {
+      if (this.lastTransaction != null) {
+        if (this.lastStore.name == name) {
+          return this.lastStore;
+        }
+        this.lastTransaction.completed;
+      }
+      this.lastTransaction = T.TransactionNativeL().as(this[_nativeDatabase].transaction(name, this.mode));
+      this.lastStore = this.lastTransaction.objectStore(name);
+      return this.lastStore;
+    }
+    get completed() {
+      if (this.lastTransaction == null) {
+        return T.FutureOfDatabaseL().value(this.database);
+      } else {
+        return this.lastTransaction.completed;
+      }
+    }
+    abort() {
+      core.print("abort not supported in fake multistore transaction");
+    }
+  };
+  (native_transaction.FakeMultiStoreTransactionNative.new = function(database, mode) {
+    this[lastTransaction] = null;
+    this[lastStore] = null;
+    this[mode$] = mode;
+    native_transaction.FakeMultiStoreTransactionNative.__proto__.new.call(this, database);
+    ;
+  }).prototype = native_transaction.FakeMultiStoreTransactionNative.prototype;
+  dart.addTypeTests(native_transaction.FakeMultiStoreTransactionNative);
+  dart.addTypeCaches(native_transaction.FakeMultiStoreTransactionNative);
+  dart.setMethodSignature(native_transaction.FakeMultiStoreTransactionNative, () => ({
+    __proto__: dart.getMethods(native_transaction.FakeMultiStoreTransactionNative.__proto__),
+    objectStore: dart.fnType(dart.legacy(idb.ObjectStore), [dart.legacy(core.String)])
+  }));
+  dart.setGetterSignature(native_transaction.FakeMultiStoreTransactionNative, () => ({
+    __proto__: dart.getGetters(native_transaction.FakeMultiStoreTransactionNative.__proto__),
+    [_nativeDatabase]: dart.legacy(native_database.DatabaseNative),
+    idbDatabase: dart.legacy(indexed_db.Database),
+    completed: dart.legacy(async.Future$(dart.legacy(idb.Database)))
+  }));
+  dart.setLibraryUri(native_transaction.FakeMultiStoreTransactionNative, I[0]);
+  dart.setFieldSignature(native_transaction.FakeMultiStoreTransactionNative, () => ({
+    __proto__: dart.getFields(native_transaction.FakeMultiStoreTransactionNative.__proto__),
+    lastTransaction: dart.fieldType(dart.legacy(native_transaction.TransactionNative)),
+    lastStore: dart.fieldType(dart.legacy(idb.ObjectStore)),
+    mode: dart.fieldType(dart.legacy(core.String))
+  }));
+  var factory$ = dart.privateName(native_database, "VersionChangeEventNative.factory");
+  var idbVersionChangeEvent$ = dart.privateName(native_database, "VersionChangeEventNative.idbVersionChangeEvent");
+  var request = dart.privateName(native_database, "VersionChangeEventNative.request");
+  var database = dart.privateName(native_database, "VersionChangeEventNative.database");
+  native_database.VersionChangeEventNative = class VersionChangeEventNative extends common_database.IdbVersionChangeEventBase {
+    get factory() {
+      return this[factory$];
+    }
+    set factory(value) {
+      super.factory = value;
+    }
+    get idbVersionChangeEvent() {
+      return this[idbVersionChangeEvent$];
+    }
+    set idbVersionChangeEvent(value) {
+      this[idbVersionChangeEvent$] = value;
+    }
+    get request() {
+      return this[request];
+    }
+    set request(value) {
+      this[request] = value;
+    }
+    get database() {
+      return this[database];
+    }
+    set database(value) {
+      this[database] = value;
+    }
+    get oldVersion() {
+      return this.idbVersionChangeEvent.oldVersion;
+    }
+    get newVersion() {
+      return this.idbVersionChangeEvent.newVersion;
+    }
+    get target() {
+      return this.request;
+    }
+    get transaction() {
+      return this.request.transaction;
+    }
+  };
+  (native_database.VersionChangeEventNative.new = function(factory, idbVersionChangeEvent) {
+    this[request] = null;
+    this[database] = null;
+    this[factory$] = factory;
+    this[idbVersionChangeEvent$] = idbVersionChangeEvent;
+    let currentTarget = this.idbVersionChangeEvent[$currentTarget];
+    if (T.DatabaseL$1().is(currentTarget)) {
+      this.database = new native_database.DatabaseNative.new(this.factory, currentTarget);
+    } else if (T.RequestL().is(currentTarget)) {
+      this.database = new native_database.DatabaseNative.new(this.factory, T.DatabaseL$1().as(currentTarget[$result]));
+      let transaction = new native_transaction.TransactionNative.new(this.database, currentTarget.transaction);
+      this.request = new idb.OpenDBRequest.new(this.database, transaction);
+    }
+  }).prototype = native_database.VersionChangeEventNative.prototype;
+  dart.addTypeTests(native_database.VersionChangeEventNative);
+  dart.addTypeCaches(native_database.VersionChangeEventNative);
+  dart.setGetterSignature(native_database.VersionChangeEventNative, () => ({
+    __proto__: dart.getGetters(native_database.VersionChangeEventNative.__proto__),
+    oldVersion: dart.legacy(core.int),
+    newVersion: dart.legacy(core.int),
+    target: dart.legacy(core.Object),
+    transaction: dart.legacy(idb.Transaction)
+  }));
+  dart.setLibraryUri(native_database.VersionChangeEventNative, I[1]);
+  dart.setFieldSignature(native_database.VersionChangeEventNative, () => ({
+    __proto__: dart.getFields(native_database.VersionChangeEventNative.__proto__),
+    factory: dart.finalFieldType(dart.legacy(idb.IdbFactory)),
+    idbVersionChangeEvent: dart.fieldType(dart.legacy(indexed_db.VersionChangeEvent)),
+    request: dart.fieldType(dart.legacy(idb.Request)),
+    database: dart.fieldType(dart.legacy(idb.Database))
+  }));
+  var idbDatabase$ = dart.privateName(native_database, "DatabaseNative.idbDatabase");
+  var _isNotFoundError = dart.privateName(native_database, "_isNotFoundError");
+  var _factory = dart.privateName(native_database, "_factory");
+  var _factory$ = dart.privateName(idb, "_factory");
+  native_database.DatabaseNative = class DatabaseNative extends common_database.IdbDatabaseBase {
+    get idbDatabase() {
+      return this[idbDatabase$];
+    }
+    set idbDatabase(value) {
+      this[idbDatabase$] = value;
+    }
+    get version() {
+      return native_error.catchNativeError(T.intL(), dart.fn(() => this.idbDatabase.version, T.VoidTointL()));
+    }
+    createObjectStore(name, opts) {
+      let keyPath = opts && 'keyPath' in opts ? opts.keyPath : null;
+      let autoIncrement = opts && 'autoIncrement' in opts ? opts.autoIncrement : null;
+      return native_error.catchNativeError(T.ObjectStoreL(), dart.fn(() => new native_object_store.ObjectStoreNative.new(this.idbDatabase[$createObjectStore](name, {keyPath: keyPath, autoIncrement: autoIncrement})), T.VoidToObjectStoreNativeL()));
+    }
+    transaction(storeNameOrStoreNames, mode) {
+      let t2;
+      try {
+        return native_error.catchNativeError(T.TransactionNativeBaseL(), dart.fn(() => {
+          let idbTransaction = this.idbDatabase[$transaction](storeNameOrStoreNames, mode);
+          return new native_transaction.TransactionNative.new(this, idbTransaction);
+        }, T.VoidToTransactionNativeL()));
+      } catch (e$) {
+        let e = dart.getThrown(e$);
+        if (T.ListL().is(storeNameOrStoreNames) && dart.test(storeNameOrStoreNames[$isNotEmpty]) && dart.test(this[_isNotFoundError](e))) {
+          let stores = (t2 = storeNameOrStoreNames, t2 == null ? null : t2[$cast](T.StringL()));
+          let allFound = true;
+          for (let store of stores) {
+            if (!dart.test(this.objectStoreNames[$contains](store))) {
+              allFound = false;
+              break;
+            }
+          }
+          if (allFound) {
+            if (!dart.test(browser_utils.isDartVm)) {
+              return new native_transaction.FakeMultiStoreTransactionNative.new(this, mode);
+            } else {
+              try {
+                return native_error.catchNativeError(T.TransactionNativeBaseL(), dart.fn(() => {
+                  let idbTransaction = this.idbDatabase[$transaction](html_common.convertDartToNative_SerializedScriptValue(storeNameOrStoreNames), mode);
+                  return new native_transaction.TransactionNative.new(this, idbTransaction);
+                }, T.VoidToTransactionNativeL()));
+              } catch (e$0) {
+                let _ = dart.getThrown(e$0);
+              }
+            }
+          }
+        }
+        dart.rethrow(e$);
+      }
+    }
+    [_isNotFoundError](e) {
+      if (T.DatabaseErrorL().is(e)) {
+        let message = dart.toString(e)[$toLowerCase]();
+        if (message[$contains]("notfounderror")) {
+          return true;
+        }
+      }
+      return false;
+    }
+    transactionList(storeNames, mode) {
+      return this.transaction(storeNames, mode);
+    }
+    close() {
+      return native_error.catchNativeError(dart.void, dart.fn(() => {
+        this.idbDatabase.close();
+      }, T.VoidToNull()));
+    }
+    deleteObjectStore(name) {
+      return native_error.catchNativeError(dart.void, dart.fn(() => {
+        this.idbDatabase.deleteObjectStore(name);
+      }, T.VoidToNull()));
+    }
+    get objectStoreNames() {
+      return native_error.catchNativeError(T.IterableLOfStringL(), dart.fn(() => this.idbDatabase.objectStoreNames, T.VoidToListLOfStringL()));
+    }
+    get name() {
+      return native_error.catchNativeError(T.StringL(), dart.fn(() => this.idbDatabase.name, T.VoidToStringL()));
+    }
+    get onVersionChange() {
+      let ctlr = T.StreamControllerOfVersionChangeEventL().new();
+      this.idbDatabase[$onVersionChange].listen(dart.fn(idbVersionChangeEvent => {
+        ctlr.add(new native_database.VersionChangeEventNative.new(this.factory, idbVersionChangeEvent));
+      }, T.VersionChangeEventLToNull()), {onDone: dart.fn(() => {
+          ctlr.close();
+        }, T.VoidToNull()), onError: dart.fn(error => {
+          ctlr.addError(error);
+        }, T.dynamicToNull())});
+      return ctlr.stream;
+    }
+    get [_factory$]() {
+      return T.IdbFactoryL().as(this.noSuchMethod(new core._Invocation.getter(C[0] || CT.C0)));
+    }
+  };
+  (native_database.DatabaseNative.new = function(factory, idbDatabase) {
+    this[idbDatabase$] = idbDatabase;
+    native_database.DatabaseNative.__proto__.new.call(this, factory);
+    ;
+  }).prototype = native_database.DatabaseNative.prototype;
+  dart.addTypeTests(native_database.DatabaseNative);
+  dart.addTypeCaches(native_database.DatabaseNative);
+  dart.setMethodSignature(native_database.DatabaseNative, () => ({
+    __proto__: dart.getMethods(native_database.DatabaseNative.__proto__),
+    createObjectStore: dart.fnType(dart.legacy(idb.ObjectStore), [dart.legacy(core.String)], {autoIncrement: dart.legacy(core.bool), keyPath: dart.legacy(core.String)}, {}),
+    transaction: dart.fnType(dart.legacy(native_transaction.TransactionNativeBase), [dart.dynamic, dart.legacy(core.String)]),
+    [_isNotFoundError]: dart.fnType(dart.legacy(core.bool), [dart.dynamic]),
+    transactionList: dart.fnType(dart.legacy(idb.Transaction), [dart.legacy(core.List$(dart.legacy(core.String))), dart.legacy(core.String)]),
+    close: dart.fnType(dart.void, []),
+    deleteObjectStore: dart.fnType(dart.void, [dart.legacy(core.String)])
+  }));
+  dart.setGetterSignature(native_database.DatabaseNative, () => ({
+    __proto__: dart.getGetters(native_database.DatabaseNative.__proto__),
+    version: dart.legacy(core.int),
+    objectStoreNames: dart.legacy(core.Iterable$(dart.legacy(core.String))),
+    name: dart.legacy(core.String),
+    onVersionChange: dart.legacy(async.Stream$(dart.legacy(idb.VersionChangeEvent))),
+    [_factory$]: dart.legacy(idb.IdbFactory)
+  }));
+  dart.setLibraryUri(native_database.DatabaseNative, I[1]);
+  dart.setFieldSignature(native_database.DatabaseNative, () => ({
+    __proto__: dart.getFields(native_database.DatabaseNative.__proto__),
+    idbDatabase: dart.fieldType(dart.legacy(indexed_db.Database))
+  }));
+  dart.trackLibraries("packages/idb_shim/src/native/native_transaction.dart", {
+    "package:idb_shim/src/native/native_transaction.dart": native_transaction,
+    "package:idb_shim/src/native/native_database.dart": native_database
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["native_transaction.dart","native_database.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../packages/idb_shim/src/native/native_transaction.dart.lib.js"}');
+  // Exports:
+  return {
+    src__native__native_transaction: native_transaction,
+    src__native__native_database: native_database
+  };
+}));
+
+//# sourceMappingURL=native_transaction.dart.lib.js.map
